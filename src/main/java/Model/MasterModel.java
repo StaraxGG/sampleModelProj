@@ -1,5 +1,7 @@
 package Model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -40,6 +42,12 @@ public abstract class MasterModel<T extends Serializable, C> {
 
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    public static boolean internetConnectionEstablished(){
+        throw new NotImplementedException();
+    }
+
+    /* ---------------------------------------- CRUD - Methods ------------------------------------------------------ */
 
     /**
      * persists the given entity in the database
@@ -91,6 +99,11 @@ public abstract class MasterModel<T extends Serializable, C> {
     }
 
 
+    /**
+     * runs a given operation (implementation of {@link MasterTransaction} as Functional Interface) in a new transaction
+     * with rollback-Managament and stuff
+     * @param masterTransaction {@link MasterTransaction} implementation
+     */
     protected void doInTransaction(MasterTransaction masterTransaction) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();

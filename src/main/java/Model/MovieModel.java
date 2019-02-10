@@ -30,12 +30,13 @@ public class MovieModel extends MasterModel<Long, Movie> {
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    public List<Movie> getMovies(){
+    /**
+     * returns movies that are similar to this one
+     * @param movie
+     * @return List
+     */
+    List<Movie> getSimilarMovies(Movie movie) {
         return null;
-    }
-
-    public void persistMovies(){
-
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
