@@ -1,5 +1,7 @@
 package Model;
 
+import info.movito.themoviedbapi.model.MovieList;
+
 /**
  * An implementation of MovieListModel
  * in samplemodelproject
