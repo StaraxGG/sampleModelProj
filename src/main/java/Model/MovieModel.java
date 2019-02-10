@@ -1,5 +1,6 @@
 package Model;
 
+import info.movito.themoviedbapi.TmdbMovies;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -18,16 +19,22 @@ public class MovieModel extends MasterModel<Long, Movie> {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
+    protected TmdbMovies movies;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
+    public MovieModel(){
+        super();
+        movies = this.getTmdbApi().getMovies();
+    }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
      * add a movie to our local database of movies
      * @param movie
-     * @return
+     * @return boolean success
      */
     boolean addMovie(Movie movie){
         throw new NotImplementedException();
@@ -77,7 +84,7 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * @return List
      */
     List<Movie> getSimilarMovies(Movie movie) {
-        return null;
+        throw new NotImplementedException();
     }
 
 }

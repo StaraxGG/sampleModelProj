@@ -41,5 +41,10 @@ public class ConfigTools {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
+    public static String getVal(String key) {
+        return p.getProperty(key, key + " NOT FOUND." + "Called By: "
+                + Thread.currentThread().getStackTrace()[2]);
+    }
+
 }
 

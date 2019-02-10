@@ -1,5 +1,8 @@
 package Model;
 
+import Tools.ConfigTools;
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
@@ -18,33 +21,53 @@ public abstract class MasterModel<T extends Serializable, C> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
-
-
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
     @PersistenceContext
-    EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-            .createEntityManagerFactory("sample-persistence-unit");
+    EntityManagerFactory ENTITY_MANAGER_FACTORY =
+            Persistence.createEntityManagerFactory("sample-persistence-unit");
 
-        protected Class<C> entityClass;
+    /**
+     * holds the class that will be persisted
+     */
+    protected Class<C> entityClass;
+
+    private TmdbApi tmdbApi = null;
+
+    /**
+     * the language parameter that can be passed along every query
+     */
+    protected String tmdbLang = "en";
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
-
-
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MasterModel() {
+
+        // load the class name for this entity
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         //noinspection unchecked
         this.entityClass = (Class<C>) genericSuperclass.getActualTypeArguments()[1];
+
+        // load the language
+        this.tmdbLang = ConfigTools.getVal("tmdb.language");
     }
 
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    public static boolean internetConnectionEstablished(){
-        throw new NotImplementedException();
+    /**
+     * returns an instance of the tmdb api
+     * @return {@link TmdbApi}
+     */
+    protected TmdbApi getTmdbApi(){
+
+        if (this.tmdbApi == null){
+            this.tmdbApi = new TmdbApi(ConfigTools.getVal("tmdb.api_key"));
+        }
+
+        return this.tmdbApi;
     }
 
     /* ---------------------------------------- CRUD - Methods ------------------------------------------------------ */
