@@ -2,7 +2,8 @@
 .iml
 *.UML
 .UML
-.idea/
+.idea/*
+.idea
 .idea
 target/
-
+.idea/workspace.xml
