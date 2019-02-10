@@ -13,12 +13,6 @@ import java.util.List;
  */
 public interface Movie {
 
-    /*
-    Movie movie = new Movie("en", "");
-    MovieModel movieModel = ... ;
-    movieModel.getMovies("de")
-     */
-
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */

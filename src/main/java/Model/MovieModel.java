@@ -1,5 +1,7 @@
 package Model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.List;
 
 /**
@@ -29,6 +31,33 @@ public class MovieModel extends MasterModel<Long, Movie> {
 
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    /**
+     * returns a movie with the specific id from our database
+     * @param id
+     * @return Movie
+     */
+    Movie getMovie(Long id){
+        throw new NotImplementedException();
+    }
+
+    /**
+     * returns a movie from the tmdb database
+     * @param id
+     * @return Movie
+     */
+    Movie getTmdbMovie(Integer id){
+        throw new NotImplementedException();
+    }
+
+    /**
+     * returns movies that match the  query
+     * @param query
+     * @return List
+     */
+    List<Movie> getMovies(String query){
+        throw new NotImplementedException();
+    }
 
     /**
      * returns movies that are similar to this one
