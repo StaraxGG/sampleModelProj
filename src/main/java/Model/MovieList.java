@@ -20,6 +20,7 @@ public interface MovieList {
 
     /**
      * adds the movie to this list
+     *
      * @param movie
      * @return boolean success
      */
@@ -27,6 +28,7 @@ public interface MovieList {
 
     /**
      * deletes the movie from the list
+     *
      * @param movie
      * @return boolean success
      */
@@ -36,18 +38,21 @@ public interface MovieList {
 
     /**
      * returns the id of this movielist
+     *
      * @return Long
      */
     Long getId();
 
     /**
      * get the name for this movielist
+     *
      * @return String
      */
     String getName();
 
     /**
      * returns the movies of this movielist
+     *
      * @return List
      */
     List<Movie> getMovies();

@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class MovieModel extends MasterModel<Long, Movie> {
 
+    //TODO: Joshua Henschel
+    /*
+    Alles implementieren und die Methode
+        public MovieImpl parseTmdbMovie(MovieDb movie);
+    erstellen und implementiren
+     */
+
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
@@ -24,7 +31,7 @@ public class MovieModel extends MasterModel<Long, Movie> {
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-    public MovieModel(){
+    public MovieModel() {
         super();
         movies = this.getTmdbApi().getMovies();
     }
@@ -33,19 +40,21 @@ public class MovieModel extends MasterModel<Long, Movie> {
 
     /**
      * add a movie to our local database of movies
+     *
      * @param movie
      * @return boolean success
      */
-    boolean addMovie(Movie movie){
+    boolean addMovie(Movie movie) {
         throw new NotImplementedException();
     }
 
     /**
      * delete the given movie from our local database
+     *
      * @param id Long
      * @return boolean success
      */
-    boolean deleteMovie(Long id){
+    boolean deleteMovie(Long id) {
         throw new NotImplementedException();
     }
 
@@ -53,33 +62,37 @@ public class MovieModel extends MasterModel<Long, Movie> {
 
     /**
      * returns a movie with the specific id from our database
+     *
      * @param id
      * @return Movie
      */
-    Movie getMovie(Long id){
+    Movie getMovie(Long id) {
         throw new NotImplementedException();
     }
 
     /**
      * returns a movie from the tmdb database
+     *
      * @param id
      * @return Movie
      */
-    Movie getTmdbMovie(Integer id){
+    Movie getTmdbMovie(Integer id) {
         throw new NotImplementedException();
     }
 
     /**
      * returns movies that match the  query
+     *
      * @param query
      * @return List
      */
-    List<Movie> getMovies(String query){
+    List<Movie> getMovies(String query) {
         throw new NotImplementedException();
     }
 
     /**
      * returns movies that are similar to this one
+     *
      * @param movie
      * @return List
      */

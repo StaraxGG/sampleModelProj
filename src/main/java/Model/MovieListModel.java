@@ -1,8 +1,5 @@
 package Model;
 
-import info.movito.themoviedbapi.model.MovieList;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * An implementation of MovieListModel
  * in samplemodelproject
@@ -11,7 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @version 1.0
  * @since 2019-Feb-10
  */
-public class MovieListModel extends MasterModel<Long, MovieList> {
+public class MovieListModel extends MasterModel<Long, Model.MovieList> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -21,7 +18,7 @@ public class MovieListModel extends MasterModel<Long, MovieList> {
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public MovieListModel(){
+    public MovieListModel() {
         super();
     }
 
@@ -29,28 +26,40 @@ public class MovieListModel extends MasterModel<Long, MovieList> {
 
     /**
      * add a new movielist to the database
+     *
      * @param movieList MovieList
      */
-    public void addMovieList(Model.MovieList movieList){
-        throw new NotImplementedException();
+    public void addMovieList(Model.MovieList movieList) {
+        doInTransaction((em) -> {
+            em.persist(movieList);
+        });
     }
 
     /**
      * delete a specific movielist from the database
+     *
      * @param id Long
      */
-    public void deleteMovieList(Long id){
-        throw new NotImplementedException();
+    public void deleteMovieList(Long id) {
+        doInTransaction((em -> {
+            MovieList movieList = em.find(MovieList.class, id);
+            em.remove(movieList);
+        }));
     }
 
     /**
      * updates the given entity in the database
+     *
      * @param movieList MovieList
      */
-    public void updateMovieList(Model.MovieList movieList){
+    public void updateMovieList(MovieList movieList) {
         doInTransaction((em) -> {
             em.merge(movieList);
         });
+    }
+
+    public MovieList getMovieList(Long id) {
+        return this.findById(id);
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
