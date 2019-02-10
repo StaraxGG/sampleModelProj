@@ -1,14 +1,6 @@
 package Model;
 
-/**
- * An implementation of Movie
- * in samplemodelproject
- *
- * @author ytatar
- * @version 1.0
- * @since 2019-Feb-10
- */
-public interface Movie {
+public interface MovieList {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
@@ -16,13 +8,7 @@ public interface Movie {
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    Long getMovieId();
-
-    String getMovieName();
-
-
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
 }
-
