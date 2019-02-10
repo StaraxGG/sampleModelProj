@@ -25,6 +25,26 @@ public class MovieModel extends MasterModel<Long, Movie> {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
+     * add a movie to our local database of movies
+     * @param movie
+     * @return
+     */
+    boolean addMovie(Movie movie){
+        throw new NotImplementedException();
+    }
+
+    /**
+     * delete the given movie from our local database
+     * @param id Long
+     * @return boolean success
+     */
+    boolean deleteMovie(Long id){
+        throw new NotImplementedException();
+    }
+
+    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
+
+    /**
      * returns a movie with the specific id from our database
      * @param id
      * @return Movie
@@ -59,8 +79,6 @@ public class MovieModel extends MasterModel<Long, Movie> {
     List<Movie> getSimilarMovies(Movie movie) {
         return null;
     }
-
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
 }
 
