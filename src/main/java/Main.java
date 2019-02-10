@@ -1,3 +1,8 @@
+import Model.Movie;
+import Model.MovieModel;
+
+import java.util.ArrayList;
+
 /**
  * An implementation of Main
  * in samplemodelproject
@@ -12,7 +17,17 @@ public class Main {
 
     public static void main(String[] args) {
 
+        MovieModel movieModel = new MovieModel();
+        ArrayList<Movie> movies = (ArrayList<Movie>) movieModel.getMovies();
 
+        for (Movie movie : movies){
+            movie.getMovieId();
+        }
+
+        UserModel userModel = new UserModel();
+        User user = userModel.getCurrentUser();
+
+        String name = user.getName();
 
 
     }

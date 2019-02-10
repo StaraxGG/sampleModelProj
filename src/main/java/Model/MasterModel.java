@@ -50,7 +50,12 @@ public abstract class MasterModel<T extends Serializable, C> implements Model<T,
         doInTransaction(() -> entityManager.remove(entity));
     }
 
-    public abstract C findById(T id);
+    public C findById(T id) {
+
+        entityManager.find(this.entityClass, id);
+
+        return null;
+    }
 
 
     protected void doInTransaction(MasterTransaction masterTransaction) {
