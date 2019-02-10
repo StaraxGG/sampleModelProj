@@ -1,7 +1,6 @@
 package Model;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
@@ -13,7 +12,7 @@ import java.lang.reflect.ParameterizedType;
  * @version 1.0
  * @since 2019-Feb-10
  */
-public abstract class MasterModel<T extends Serializable, C> implements Model<T, C> {
+public abstract class MasterModel<T extends Serializable, C> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -21,11 +20,11 @@ public abstract class MasterModel<T extends Serializable, C> implements Model<T,
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
-    protected EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+    @PersistenceContext
+    EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
+            .createEntityManagerFactory("sample-persistence-unit");
 
-    protected EntityTransaction transaction = null;
-
-    protected Class<C> entityClass;
+        protected Class<C> entityClass;
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -42,31 +41,80 @@ public abstract class MasterModel<T extends Serializable, C> implements Model<T,
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
+    /**
+     * persists the given entity in the database
+     * @param entity
+     */
     public void persist(C entity) {
-        doInTransaction(() -> entityManager.persist(entity));
+        doInTransaction((em) -> em.persist(entity));
     }
 
+    /**
+     * removes the given entity from the database
+     * @param entity
+     */
     public void remove(C entity) {
-        doInTransaction(() -> entityManager.remove(entity));
+        doInTransaction((em) -> em.remove(entity));
     }
 
+    /**
+     * finds the given entity in the database with a given id
+     * @param id T
+     * @return C
+     */
     public C findById(T id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        entityManager.find(this.entityClass, id);
+        EntityTransaction transaction = em.getTransaction();
 
-        return null;
+        C result = null;
+
+        try {
+
+            // start the transaction
+            transaction.begin();
+
+            result = em.find(this.entityClass, id);
+
+            // commit the thing
+            transaction.commit();
+
+        } catch (PersistenceException pe) {
+            System.err.println(pe.getMessage());
+            transaction.rollback();
+
+        } finally {
+            em.flush();
+        }
+
+        return result;
     }
 
 
     protected void doInTransaction(MasterTransaction masterTransaction) {
 
-        transaction = entityManager.getTransaction();
-        transaction.begin();
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        masterTransaction.doInTransaction();
+        EntityTransaction transaction = em.getTransaction();
 
-        transaction.commit();
-        entityManager.close();
+        try {
+
+            // start the transaction
+            transaction.begin();
+
+            // do the thing
+            masterTransaction.doInTransaction(em);
+
+            // commit the thing
+            transaction.commit();
+
+        } catch (PersistenceException pe) {
+            System.err.println(pe.getMessage());
+            transaction.rollback();
+
+        } finally {
+            em.flush();
+        }
 
     }
 
@@ -78,7 +126,8 @@ public abstract class MasterModel<T extends Serializable, C> implements Model<T,
 @FunctionalInterface
 interface MasterTransaction {
 
-    void doInTransaction();
+    void doInTransaction(EntityManager em);
 
 }
+
 
