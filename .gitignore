@@ -7,5 +7,5 @@
 .idea
 target/
 .idea/workspace.xml
-src/main/java/LocalDirectory/*
+src/main/java/LocalDirectory/*.java
 !src/main/java/LocalDirectory/README.md
