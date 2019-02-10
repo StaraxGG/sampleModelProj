@@ -11,15 +11,15 @@
 
 
             <!-- DATABASE CONNECTION -->
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://db675767798.db.1and1.com/db675767798"/>
 
 
             <!-- DATABASE SETTINGS -->
             <property name="hibernate.connection.autocommit" value="false"/>
 
-            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.username" value="dbo675767798"/>
 
-            <property name="hibernate.connection.password" value="root"/>
+            <property name="hibernate.connection.password" value="Yasin123!"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 
