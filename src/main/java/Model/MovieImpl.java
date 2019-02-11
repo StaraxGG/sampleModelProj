@@ -25,6 +25,21 @@ public class MovieImpl implements Movie {
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
+    private Long movieID;
+    private Integer tmdbID;
+    private String title;
+    private Double popularity;
+    private String posterURL;
+    private String releaseDate;
+    private boolean isAdult;
+    private List<String> genres;
+    private String overview;
+    private String OriginalLanguage;
+    private List<String> ProductionCompanies;
+    private List<String> ProductionCountries;
+    private Integer Runtime;
+    private Double VoteAverage;
+    private String Status;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
