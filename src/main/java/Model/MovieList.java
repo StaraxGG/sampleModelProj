@@ -72,4 +72,10 @@ public interface MovieList {
      */
     List<Long> getUsers();
 
+    /**
+     * Sets the name of this list
+     * @param List
+     */
+    void setName(String name);
+
 }

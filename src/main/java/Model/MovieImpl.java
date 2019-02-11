@@ -8,7 +8,7 @@ import java.util.List;
  * An implementation of MovieImpl
  * in samplemodelproject
  *
- * @author ytatar
+ * @author CHW
  * @version 1.0
  * @since 2019-Feb-10
  */
@@ -64,7 +64,12 @@ public class MovieImpl implements Movie {
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-
+    /**
+     * Parses the received MovieDb object to an MovieImpl object by copying all
+     * necessary attribut values to the new instance
+     *
+     * @return movie object
+     */
     //TODO: CHW @ Joshua: hab einfach mal angefangen
     public MovieImpl parseTmdbMovie(MovieDb curMovieDb){
         MovieImpl movie = new MovieImpl();
