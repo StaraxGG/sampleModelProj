@@ -25,14 +25,23 @@ public class UserModel extends MasterModel<Long, User> {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
-     * checks if this users credentials are correct for them to login
-     * then returns a valid user object or null
-     * if the user vas valid he will be logged in as the current user automatically
-     * @param username
-     * @param password
+     * checks this users credentials and logs him into the database if valid
+     * then this user will be set as currentUser automatically
+     *
+     * @param user User
      * @return User
      */
-    public User checkUserCredentials(String username, String password){
+    public User login(User user){
+        throw new NotImplementedException();
+    }
+
+    /**
+     * checks if this username is already used at the database and return false if so.
+     * otherwise registers this user in the database and logs him in automatically
+     * @param user
+     * @return
+     */
+    public boolean register(User user){
         throw new NotImplementedException();
     }
 

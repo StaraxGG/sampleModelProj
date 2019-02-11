@@ -52,7 +52,13 @@ public interface User {
      * it should be ensured that this value is unique (e.g. email-adress) so we can use it as authentication method
      * @return String
      */
-    String getUsername();
+    String getUserName();
+
+    /**
+     * set the username for this user
+     * @param username
+     */
+    void setUserName(String username);
 
     /**
      * returns the ids of all movieLists where this user is listed, either as creator or contributor
@@ -65,6 +71,12 @@ public interface User {
      * @return Integer hash
      */
     Integer getPasswordHash();
+
+    /**
+     * sets the password hash for this user
+     * @param passwordHash
+     */
+    void setPasswordHash(String passwordHash);
 
 }
 
