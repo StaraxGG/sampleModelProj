@@ -13,6 +13,12 @@ import java.util.List;
 public interface User {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
+    /*
+        Long userId;
+        String username;
+        Integer passwordhash;
+        List<MovieList> movieLists
+     */
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -54,6 +60,11 @@ public interface User {
      */
     List<Long> getMovieLists();
 
+    /**
+     * returns the hash for this username that was stored in the database
+     * @return Integer hash
+     */
+    Integer getPasswordHash();
 
 }
 
