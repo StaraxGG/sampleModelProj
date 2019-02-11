@@ -19,7 +19,6 @@ public interface Movie {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
 
-=======
     /**
      * returns the id for this movie for our database
      *
@@ -127,7 +126,6 @@ public interface Movie {
      * @return String
      */
     String getStatus();
->>>>>>> 9de783a7eada996aaa08d4d3a51d6da25600159a
 
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

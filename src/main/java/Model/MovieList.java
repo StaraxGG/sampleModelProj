@@ -1,7 +1,6 @@
 package Model;
 
 
-=======
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @since 2019-Feb-10
  */
->>>>>>> 9de783a7eada996aaa08d4d3a51d6da25600159a
+
 public interface MovieList {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
@@ -21,12 +20,7 @@ public interface MovieList {
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-<<<<<<< HEAD
 
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
-
-}
-=======
     /**
      * adds the movie to this list
      *
@@ -67,6 +61,3 @@ public interface MovieList {
     List<Movie> getMovies();
 
 }
-
-
->>>>>>> 9de783a7eada996aaa08d4d3a51d6da25600159a
