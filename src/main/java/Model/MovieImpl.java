@@ -1,5 +1,7 @@
 package Model;
 
+import info.movito.themoviedbapi.model.MovieDb;
+
 import java.util.List;
 
 /**
@@ -12,15 +14,6 @@ import java.util.List;
  */
 public class MovieImpl implements Movie {
 
-    //TODO: Christian Warken
-    /*
-    Implement methods
-
-    Du musst eigentlich nur so Setter Methoden und einen Konstruktor hinzufügen, der Joshua macht dann eine Methode
-    mit
-        public MovieImpl parseTmdbMovie(MovieDb movie);
-    die dann diese Klasse hier quasi füllt
-     */
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -28,7 +21,7 @@ public class MovieImpl implements Movie {
     private Long movieID;
     private Integer tmdbID;
     private String title;
-    private Double popularity;
+    private Float popularity;
     private String posterURL;
     private String releaseDate;
     private boolean isAdult;
@@ -38,14 +31,14 @@ public class MovieImpl implements Movie {
     private List<String> productionCompanies;
     private List<String> productionCountries;
     private Integer runtime;
-    private Double voteAverage;
+    private Float voteAverage;
     private String status;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public MovieImpl(Long movieID, Integer tmdbID, String title, Double popularity, String posterURL, String releaseDate, boolean isAdult, List<String> genres, String overview, String originalLanguage, List<String> productionCompanies, List<String> productionCountries, Integer runtime, Double voteAverage, String status) {
+    public MovieImpl(Integer tmdbID, String title, Float popularity, String posterURL, String releaseDate, boolean isAdult, List<String> genres, String overview, String originalLanguage, List<String> productionCompanies, List<String> productionCountries, Integer runtime, Float voteAverage, String status) {
         //TODO CHW: woher kommt die UUID und wird die hier gesetzt?
         //this.movieID = movieID;
         this.tmdbID = tmdbID;
@@ -70,6 +63,32 @@ public class MovieImpl implements Movie {
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+
+    //TODO: CHW @ Joshua: hab einfach mal angefangen
+    public MovieImpl parseTmdbMovie(MovieDb curMovieDb){
+        MovieImpl movie = new MovieImpl();
+
+        //set attributes
+        movie.setTmdbId(curMovieDb.getId());
+        movie.setTitle(curMovieDb.getTitle());
+        movie.setPopularity(curMovieDb.getPopularity());
+        movie.setPosterUrl(curMovieDb.getPosterPath());
+        movie.setReleaseDate(curMovieDb.getReleaseDate());
+        movie.setIsAdult(curMovieDb.isAdult());
+        //movie.setGenres(curMovieDb.getGenres()); //TODO: other type
+        movie.setOverview(curMovieDb.getOverview());
+        movie.setOriginalLanguage(curMovieDb.getOriginalLanguage());
+        //movie.setProductionCompanies(curMovieDb.getProductionCompanies()); //TODO: other type
+        //movie.setProductionCountries(curMovieDb.getProductionCountries());
+        movie.setRuntime(curMovieDb.getRuntime());
+        movie.setVoteAverage(curMovieDb.getVoteAverage());
+        movie.setStatus(curMovieDb.getStatus());
+
+        return movie;
+    };
+
+
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
@@ -112,7 +131,7 @@ public class MovieImpl implements Movie {
      * @return popularity value
      */
     @Override
-    public Double getPopularity() {
+    public Float getPopularity() {
 
         return this.popularity;
     }
@@ -222,7 +241,7 @@ public class MovieImpl implements Movie {
      * @return average vote
      */
     @Override
-    public Double getVoteAverage() {
+    public Float getVoteAverage() {
 
         return this.voteAverage;
     }
@@ -237,5 +256,159 @@ public class MovieImpl implements Movie {
 
         return this.status;
     }
+
+    /**
+     * Sets the unique movie ID of the current movie object
+     *
+     * @param id UUID
+     */
+    private void setId(Long id) {
+        if(this.movieID == null) {
+            this.movieID = id;
+        }
+    }
+
+    /**
+     * Sets the unique TmdB ID of the current movie object
+     *
+     * @param tmdbID Tmdb-ID
+     */
+    private void setTmdbId(Integer tmdbID) {
+
+        this.tmdbID = tmdbID;
+    }
+
+    /**
+     * Sets the title of the current movie object
+     *
+     * @param title movie title
+     */
+    private void setTitle(String title) {
+
+        this.title = title;
+    }
+
+    /**
+     * Sets the popularity value of the current movie object
+     *
+     * @param popularity popularity value
+     */
+    private void setPopularity(Float popularity) {
+
+        this.popularity = popularity;
+    }
+
+    /**
+     * Sets the URL of the poster of the current movie object
+     *
+     * @param posterURL URL
+     */
+    private void setPosterUrl(String posterURL) {
+
+        this.posterURL = posterURL;
+    }
+
+    /**
+     * Sets the release date of the current movie object
+     *
+     * @param releaseDate date as string
+     */
+    private void setReleaseDate(String releaseDate) {
+
+        this.releaseDate = releaseDate;
+    }
+
+    /**
+     * Sets adult status of the current movie object
+     *
+     * @param bool true/false adult status
+     */
+    private void setIsAdult(boolean bool) {
+
+        this.isAdult = bool;
+    }
+
+    /**
+     * Sets a list of genres the current movie object belongs to
+     *
+     * @param list of genre types
+     */
+    private void setGenres(List<String> list) {
+
+        this.genres = list;
+    }
+
+    /**
+     * Sets a short overview text of the current movie objekt
+     *
+     * @param overview overview text
+     */
+    private void setOverview(String overview) {
+
+        this.overview = overview;
+    }
+
+    /**
+     * Sets the original language of the current movie object
+     *
+     * @param originalLang original language
+     */
+    private void setOriginalLanguage(String originalLang) {
+
+        this.originalLanguage = originalLang;
+    }
+
+    /**
+     * Sets a list of production companies of the current movie object
+     *
+     * @param list list of production companies
+     */
+    private List<String> setProductionCompanies(List<String> list) {
+
+        return this.productionCompanies;
+    }
+
+    /**
+     * Sets a list of production countries of the current movie object
+     *
+     * @param list list of production countries
+     */
+    private void setProductionCountries(List<String> list) {
+
+        this.productionCountries = list;
+    }
+
+    /**
+     * Sets the runtime of the current movie object
+     *
+     * @param runtime runtime of the movie
+     */
+    private void setRuntime(Integer runtime) {
+
+        this.runtime = runtime;
+    }
+
+    /**
+     * Sets the average vote of the current movie object
+     *
+     * @param averageVote average vote
+     */
+    private void setVoteAverage(Float averageVote) {
+
+        this.voteAverage = averageVote;
+    }
+
+    /**
+     * Sets the status of the current movie object
+     *
+     * @param status status of the movie
+     */
+    private void setStatus(String status) {
+
+        this.status = status;
+    }
+
+
+
 }
 

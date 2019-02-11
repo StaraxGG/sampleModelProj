@@ -52,6 +52,16 @@ public class MovieListImpl implements MovieList {
         return null;
     }
 
+    @Override
+    public Long getCreatorUserId() {
+        return null;
+    }
+
+    @Override
+    public List<Long> getUsers() {
+        return null;
+    }
+
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
 }

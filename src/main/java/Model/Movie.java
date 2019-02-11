@@ -45,7 +45,7 @@ public interface Movie {
      *
      * @return Double
      */
-    Double getPopularity();
+    Float getPopularity();
 
     /**
      * returns the url for the poster of this movie
@@ -117,7 +117,7 @@ public interface Movie {
      *
      * @return Double
      */
-    Double getVoteAverage();
+    Float getVoteAverage();
 
     /**
      * returns the status
