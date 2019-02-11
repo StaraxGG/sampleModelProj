@@ -1,8 +1,18 @@
 package Model;
 
+import Tools.ConfigTools;
+import info.movito.themoviedbapi.TmdbApi;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+
+@FunctionalInterface
+interface MasterTransaction {
+
+    void doInTransaction(EntityManager em);
+
+}
 
 /**
  * An implementation of MasterModel
@@ -16,33 +26,58 @@ public abstract class MasterModel<T extends Serializable, C> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
-
-
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
+    /**
+     * holds the class that will be persisted
+     */
+    protected Class<C> entityClass;
+    /**
+     * the language parameter that can be passed along every query
+     */
+    protected String tmdbLang = "en";
     @PersistenceContext
-    EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-            .createEntityManagerFactory("sample-persistence-unit");
-
-        protected Class<C> entityClass;
+    EntityManagerFactory ENTITY_MANAGER_FACTORY =
+            Persistence.createEntityManagerFactory("sample-persistence-unit");
+    private TmdbApi tmdbApi = null;
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
-
-
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MasterModel() {
+
+        // load the class name for this entity
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         //noinspection unchecked
         this.entityClass = (Class<C>) genericSuperclass.getActualTypeArguments()[1];
+
+        // load the language
+        this.tmdbLang = ConfigTools.getVal("tmdb.language");
     }
 
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
+     * returns an instance of the tmdb api
+     *
+     * @return {@link TmdbApi}
+     */
+    protected TmdbApi getTmdbApi() {
+
+        if (this.tmdbApi == null) {
+            this.tmdbApi = new TmdbApi(ConfigTools.getVal("tmdb.api_key"));
+        }
+
+        return this.tmdbApi;
+    }
+
+    /* ---------------------------------------- CRUD - Methods ------------------------------------------------------ */
+
+    /**
      * persists the given entity in the database
+     *
      * @param entity
      */
     public void persist(C entity) {
@@ -51,6 +86,7 @@ public abstract class MasterModel<T extends Serializable, C> {
 
     /**
      * removes the given entity from the database
+     *
      * @param entity
      */
     public void remove(C entity) {
@@ -59,6 +95,7 @@ public abstract class MasterModel<T extends Serializable, C> {
 
     /**
      * finds the given entity in the database with a given id
+     *
      * @param id T
      * @return C
      */
@@ -91,6 +128,12 @@ public abstract class MasterModel<T extends Serializable, C> {
     }
 
 
+    /**
+     * runs a given operation (implementation of {@link MasterTransaction} as Functional Interface) in a new transaction
+     * with rollback-Managament and stuff
+     *
+     * @param masterTransaction {@link MasterTransaction} implementation
+     */
     protected void doInTransaction(MasterTransaction masterTransaction) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -120,13 +163,6 @@ public abstract class MasterModel<T extends Serializable, C> {
 
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
-
-}
-
-@FunctionalInterface
-interface MasterTransaction {
-
-    void doInTransaction(EntityManager em);
 
 }
 

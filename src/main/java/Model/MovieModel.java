@@ -1,5 +1,8 @@
 package Model;
 
+import info.movito.themoviedbapi.TmdbMovies;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.List;
 
 /**
@@ -12,33 +15,90 @@ import java.util.List;
  */
 public class MovieModel extends MasterModel<Long, Movie> {
 
+    //TODO: Joshua Henschel
+    /*
+    Alles implementieren und die Methode
+        public MovieImpl parseTmdbMovie(MovieDb movie);
+    erstellen und implementiren
+     */
+
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
-
-
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
-
+    protected TmdbMovies movies;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
-
-
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-
-
+    public MovieModel() {
+        super();
+        movies = this.getTmdbApi().getMovies();
+    }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    public List<Movie> getMovies(){
-        return null;
+    /**
+     * add a movie to our local database of movies
+     *
+     * @param movie
+     * @return boolean success
+     */
+    boolean addMovie(Movie movie) {
+        throw new NotImplementedException();
     }
 
-    public void persistMovies(){
-
+    /**
+     * delete the given movie from our local database
+     *
+     * @param id Long
+     * @return boolean success
+     */
+    boolean deleteMovie(Long id) {
+        throw new NotImplementedException();
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
+
+    /**
+     * returns a movie with the specific id from our database
+     *
+     * @param id
+     * @return Movie
+     */
+    Movie getMovie(Long id) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * returns a movie from the tmdb database
+     *
+     * @param id
+     * @return Movie
+     */
+    Movie getTmdbMovie(Integer id) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * returns movies that match the  query
+     *
+     * @param query
+     * @return List
+     */
+    List<Movie> getMovies(String query) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * returns movies that are similar to this one
+     *
+     * @param movie
+     * @return List
+     */
+    List<Movie> getSimilarMovies(Movie movie) {
+        throw new NotImplementedException();
+    }
 
 }
 
