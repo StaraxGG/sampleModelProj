@@ -34,12 +34,12 @@ public class MovieImpl implements Movie {
     private boolean isAdult;
     private List<String> genres;
     private String overview;
-    private String OriginalLanguage;
-    private List<String> ProductionCompanies;
-    private List<String> ProductionCountries;
-    private Integer Runtime;
-    private Double VoteAverage;
-    private String Status;
+    private String originalLanguage;
+    private List<String> productionCompanies;
+    private List<String> productionCountries;
+    private Integer runtime;
+    private Double voteAverage;
+    private String status;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -51,77 +51,92 @@ public class MovieImpl implements Movie {
 
     @Override
     public Long getId() {
-        return null;
+
+        return this.movieID;
     }
 
     @Override
     public Integer getTmdbId() {
-        return null;
+
+        return this.tmdbID;
     }
 
     @Override
     public String getTitle() {
-        return null;
+
+        return this.title;
     }
 
     @Override
     public Double getPopularity() {
-        return null;
+
+        return this.popularity;
     }
 
     @Override
     public String getPosterUrl() {
-        return null;
+
+        return this.posterURL;
     }
 
     @Override
     public String getReleaseDate() {
-        return null;
+
+        return this.releaseDate;
     }
 
     @Override
     public Boolean getIsAdult() {
-        return null;
+
+        return this.isAdult;
     }
 
     @Override
     public List<String> getGenres() {
-        return null;
+
+        return this.genres;
     }
 
     @Override
     public String getOverview() {
-        return null;
+
+        return this.overview;
     }
 
     @Override
     public String getOriginalLanguage() {
-        return null;
+
+        return this.originalLanguage;
     }
 
     @Override
     public List<String> getProductionCompanies() {
-        return null;
+
+        return this.productionCompanies;
     }
 
     @Override
     public List<String> getProductionCountries() {
-        return null;
+
+        return this.productionCountries;
     }
 
     @Override
     public Integer getRuntime() {
-        return null;
+
+        return this.runtime;
     }
 
     @Override
     public Double getVoteAverage() {
-        return null;
+
+        return this.voteAverage;
     }
 
     @Override
     public String getStatus() {
-        return null;
+
+        return this.status;
     }
 }
 
