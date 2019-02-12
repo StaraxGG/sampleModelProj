@@ -39,8 +39,6 @@ public class MovieImpl implements Movie {
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
     public MovieImpl(Integer tmdbID, String title, Float popularity, String posterURL, String releaseDate, boolean isAdult, List<String> genres, String overview, String originalLanguage, List<String> productionCompanies, List<String> productionCountries, Integer runtime, Float voteAverage, String status) {
-        //TODO CHW: woher kommt die UUID und wird die hier gesetzt?
-        //this.movieID = movieID;
         this.tmdbID = tmdbID;
         this.title = title;
         this.popularity = popularity;
@@ -58,40 +56,10 @@ public class MovieImpl implements Movie {
     }
 
     public MovieImpl() {
-        //TODO CHW: woher kommt die UUID und wird die hier gesetzt?
-        //this.movieID =
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    /**
-     * Parses the received MovieDb object to an MovieImpl object by copying all
-     * necessary attribut values to the new instance
-     *
-     * @return movie object
-     */
-    //TODO: CHW @ Joshua: hab einfach mal angefangen
-    public MovieImpl parseTmdbMovie(MovieDb curMovieDb){
-        MovieImpl movie = new MovieImpl();
-
-        //set attributes
-        movie.setTmdbId(curMovieDb.getId());
-        movie.setTitle(curMovieDb.getTitle());
-        movie.setPopularity(curMovieDb.getPopularity());
-        movie.setPosterUrl(curMovieDb.getPosterPath());
-        movie.setReleaseDate(curMovieDb.getReleaseDate());
-        movie.setIsAdult(curMovieDb.isAdult());
-        //movie.setGenres(curMovieDb.getGenres()); //TODO: other type
-        movie.setOverview(curMovieDb.getOverview());
-        movie.setOriginalLanguage(curMovieDb.getOriginalLanguage());
-        //movie.setProductionCompanies(curMovieDb.getProductionCompanies()); //TODO: other type
-        //movie.setProductionCountries(curMovieDb.getProductionCountries());
-        movie.setRuntime(curMovieDb.getRuntime());
-        movie.setVoteAverage(curMovieDb.getVoteAverage());
-        movie.setStatus(curMovieDb.getStatus());
-
-        return movie;
-    };
 
 
 
