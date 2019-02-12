@@ -28,29 +28,29 @@ public class MovieListImpl implements MovieList {
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieListImpl() {
-        users = new LinkedList<Long>();
-        movieList = new LinkedList<>();
+        this.users = new LinkedList<Long>();
+        this.movieList = new LinkedList<>();
     }
 
     public MovieListImpl(String movieListName, Long creatorUserID) {
         this.movieListName = movieListName;
         this.creatorUserID = creatorUserID;
 
-        users = new LinkedList<Long>();
-        users.add(creatorUserID);
+        this.users = new LinkedList<Long>();
+        this.users.add(creatorUserID);
 
-        movieList = new LinkedList<>();
+        this.movieList = new LinkedList<>();
     }
 
     public MovieListImpl(String movieListName, Long creatorUserID, MovieImpl movie) {
         this.movieListName = movieListName;
         this.creatorUserID = creatorUserID;
 
-        users = new LinkedList<Long>();
-        users.add(creatorUserID);
+        this.users = new LinkedList<Long>();
+        this.users.add(creatorUserID);
 
-        movieList = new LinkedList<>();
-        movieList.add(movie);
+        this.movieList = new LinkedList<>();
+        this.movieList.add(movie);
     }
 
 
@@ -65,8 +65,8 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(MovieImpl movie) {
-        if (movieList.contains(movie) == false) {
-            movieList.add(movie);
+        if (this.movieList.contains(movie) == false) {
+            this.movieList.add(movie);
             return true;
         }
         return false;
@@ -80,8 +80,8 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean deleteMovie(MovieImpl movie) {
-        if (movieList.contains(movie)) {
-            movieList.remove(movie);
+        if (this.movieList.contains(movie)) {
+            this.movieList.remove(movie);
             return true;
         }
         return false;
@@ -100,7 +100,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public Long getId() {
-        return movieListID;
+        return this.movieListID;
     }
 
     /**
@@ -110,7 +110,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public String getName() {
-        return movieListName;
+        return this.movieListName;
     }
 
     /**
@@ -120,7 +120,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public List<MovieImpl> getMovies() {
-        return movieList;
+        return this.movieList;
     }
 
     /**
@@ -130,7 +130,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public Long getCreatorUserId() {
-        return creatorUserID;
+        return this.creatorUserID;
     }
 
     /**
@@ -140,7 +140,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public List<Long> getUsers() {
-        return users;
+        return this.users;
     }
 
     /**
@@ -160,11 +160,22 @@ public class MovieListImpl implements MovieList {
      * @return boolean success
      */
     protected boolean setNewUser(Long userID) {
-        if (users.contains(userID) == false) {
-            users.add(userID);
+        if (this.users.contains(userID) == false) {
+            this.users.add(userID);
             return true;
         }
         return false;
+    }
+
+    /**
+     * Sets the movielist ID if not already set
+     *
+     * @param movieListID ID of this movielist
+     */
+    private void setMovieListID(Long movieListID){
+        if(this.movieListID == null){
+            this.movieListID = movieListID;
+        }
     }
 
 }

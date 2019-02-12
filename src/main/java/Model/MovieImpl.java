@@ -55,9 +55,9 @@ public class MovieImpl implements Movie {
     }
 
     public MovieImpl() {
-        genres = new LinkedList<>();
-        productionCountries = new LinkedList<>();
-        productionCompanies = new LinkedList<>();
+        this.genres = new LinkedList<>();
+        this.productionCountries = new LinkedList<>();
+        this.productionCompanies = new LinkedList<>();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
