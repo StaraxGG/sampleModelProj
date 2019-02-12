@@ -27,7 +27,7 @@ public interface MovieList {
      * @param movie
      * @return boolean success
      */
-    boolean addMovie(Movie movie);
+    boolean addMovie(MovieImpl movie);
 
     /**
      * deletes the movie from the list
@@ -35,7 +35,7 @@ public interface MovieList {
      * @param movie
      * @return boolean success
      */
-    boolean deleteMovie(Movie movie);
+    boolean deleteMovie(MovieImpl movie);
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
@@ -58,7 +58,7 @@ public interface MovieList {
      *
      * @return List
      */
-    List<Movie> getMovies();
+    List<MovieImpl> getMovies();
 
     /**
      * returns the user id that created this movielist
@@ -71,11 +71,4 @@ public interface MovieList {
      * @return List
      */
     List<Long> getUsers();
-
-    /**
-     * Sets the name of this list
-     * @param List
-     */
-    void setName(String name);
-
 }

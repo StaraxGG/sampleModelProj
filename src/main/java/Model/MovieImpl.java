@@ -1,7 +1,5 @@
 package Model;
 
-import info.movito.themoviedbapi.model.MovieDb;
-
 import java.util.List;
 
 /**
@@ -246,7 +244,7 @@ public class MovieImpl implements Movie {
      *
      * @param tmdbID Tmdb-ID
      */
-    private void setTmdbId(Integer tmdbID) {
+    protected void setTmdbId(Integer tmdbID) {
 
         this.tmdbID = tmdbID;
     }
@@ -256,7 +254,7 @@ public class MovieImpl implements Movie {
      *
      * @param title movie title
      */
-    private void setTitle(String title) {
+    protected void setTitle(String title) {
 
         this.title = title;
     }
@@ -266,7 +264,7 @@ public class MovieImpl implements Movie {
      *
      * @param popularity popularity value
      */
-    private void setPopularity(Float popularity) {
+    protected void setPopularity(Float popularity) {
 
         this.popularity = popularity;
     }
@@ -276,7 +274,7 @@ public class MovieImpl implements Movie {
      *
      * @param posterURL URL
      */
-    private void setPosterUrl(String posterURL) {
+    protected void setPosterUrl(String posterURL) {
 
         this.posterURL = posterURL;
     }
@@ -286,7 +284,7 @@ public class MovieImpl implements Movie {
      *
      * @param releaseDate date as string
      */
-    private void setReleaseDate(String releaseDate) {
+    protected void setReleaseDate(String releaseDate) {
 
         this.releaseDate = releaseDate;
     }
@@ -296,7 +294,7 @@ public class MovieImpl implements Movie {
      *
      * @param bool true/false adult status
      */
-    private void setIsAdult(boolean bool) {
+    protected void setIsAdult(boolean bool) {
 
         this.isAdult = bool;
     }
@@ -306,7 +304,7 @@ public class MovieImpl implements Movie {
      *
      * @param list of genre types
      */
-    private void setGenres(List<String> list) {
+    protected void setGenres(List<String> list) {
 
         this.genres = list;
     }
@@ -316,7 +314,7 @@ public class MovieImpl implements Movie {
      *
      * @param overview overview text
      */
-    private void setOverview(String overview) {
+    protected void setOverview(String overview) {
 
         this.overview = overview;
     }
@@ -326,7 +324,7 @@ public class MovieImpl implements Movie {
      *
      * @param originalLang original language
      */
-    private void setOriginalLanguage(String originalLang) {
+    protected void setOriginalLanguage(String originalLang) {
 
         this.originalLanguage = originalLang;
     }
@@ -336,7 +334,7 @@ public class MovieImpl implements Movie {
      *
      * @param list list of production companies
      */
-    private List<String> setProductionCompanies(List<String> list) {
+    protected List<String> setProductionCompanies(List<String> list) {
 
         return this.productionCompanies;
     }
@@ -346,7 +344,7 @@ public class MovieImpl implements Movie {
      *
      * @param list list of production countries
      */
-    private void setProductionCountries(List<String> list) {
+    protected void setProductionCountries(List<String> list) {
 
         this.productionCountries = list;
     }
@@ -356,7 +354,7 @@ public class MovieImpl implements Movie {
      *
      * @param runtime runtime of the movie
      */
-    private void setRuntime(Integer runtime) {
+    protected void setRuntime(Integer runtime) {
 
         this.runtime = runtime;
     }
@@ -366,7 +364,7 @@ public class MovieImpl implements Movie {
      *
      * @param averageVote average vote
      */
-    private void setVoteAverage(Float averageVote) {
+    protected void setVoteAverage(Float averageVote) {
 
         this.voteAverage = averageVote;
     }
@@ -376,7 +374,7 @@ public class MovieImpl implements Movie {
      *
      * @param status status of the movie
      */
-    private void setStatus(String status) {
+    protected void setStatus(String status) {
 
         this.status = status;
     }
