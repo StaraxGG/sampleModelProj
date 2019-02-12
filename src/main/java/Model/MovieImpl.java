@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,6 +55,9 @@ public class MovieImpl implements Movie {
     }
 
     public MovieImpl() {
+        genres = new LinkedList<>();
+        productionCountries = new LinkedList<>();
+        productionCompanies = new LinkedList<>();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */

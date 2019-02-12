@@ -28,6 +28,8 @@ public class MovieListImpl implements MovieList {
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieListImpl() {
+        users = new LinkedList<Long>();
+        movieList = new LinkedList<>();
     }
 
     public MovieListImpl(String movieListName, Long creatorUserID) {
@@ -36,7 +38,22 @@ public class MovieListImpl implements MovieList {
 
         users = new LinkedList<Long>();
         users.add(creatorUserID);
+
+        movieList = new LinkedList<>();
     }
+
+    public MovieListImpl(String movieListName, Long creatorUserID, MovieImpl movie) {
+        this.movieListName = movieListName;
+        this.creatorUserID = creatorUserID;
+
+        users = new LinkedList<Long>();
+        users.add(creatorUserID);
+
+        movieList = new LinkedList<>();
+        movieList.add(movie);
+    }
+
+
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
