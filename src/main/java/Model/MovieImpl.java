@@ -37,7 +37,10 @@ public class MovieImpl implements Movie {
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public MovieImpl(Integer tmdbID, String title, Float popularity, String posterURL, String releaseDate, boolean isAdult, List<String> genres, String overview, String originalLanguage, List<String> productionCompanies, List<String> productionCountries, Integer runtime, Float voteAverage, String status) {
+    public MovieImpl(Integer tmdbID, String title, Float popularity, String posterURL, String releaseDate,
+                     boolean isAdult, List<String> genres, String overview, String originalLanguage,
+                     List<String> productionCompanies, List<String> productionCountries, Integer runtime,
+                     Float voteAverage, String status) {
         this.tmdbID = tmdbID;
         this.title = title;
         this.popularity = popularity;
@@ -238,7 +241,7 @@ public class MovieImpl implements Movie {
      * @param id UUID
      */
     private void setId(Long id) {
-        if(this.movieID == null) {
+        if (this.movieID == null) {
             this.movieID = id;
         }
     }
@@ -382,7 +385,6 @@ public class MovieImpl implements Movie {
 
         this.status = status;
     }
-
 
 
 }
