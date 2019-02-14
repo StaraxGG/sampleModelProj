@@ -9,6 +9,15 @@ import java.util.LinkedList;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * An implementation of MovieImplTest
+ * in samplemodelproject
+ *
+ * @author CHW
+ * @version 1.0
+ * @since 2019-Feb-14
+ */
+
 public class MovieImplTest {
 
     private MovieImpl movie = new MovieImpl();
@@ -27,6 +36,9 @@ public class MovieImplTest {
         this.movie.setIsAdult(true);
         this.movie.setOverview("This is a overview");
         this.movie.setOriginalLanguage("de");
+        this.movie.setRuntime(120);
+        this.movie.setVoteAverage(3.5f);
+        this.movie.setStatus("released");
 
         LinkedList<String> genres = new LinkedList<>();
         genres.add(genreOne);
@@ -103,20 +115,18 @@ public class MovieImplTest {
     }
 
     @Test
-    public void getRuntime() {
-        assertTrue(false);
-
+    public void testGetRuntime() {
+        assertTrue(this.movie.getRuntime()==120);
     }
 
     @Test
-    public void getVoteAverage() {
-        assertTrue(false);
-
+    public void testGetVoteAverage() {
+        assertTrue(this.movie.getVoteAverage()==3.5f);
     }
 
     @Test
-    public void getStatus() {
-        assertTrue(false);
+    public void testGetStatus() {
+        assertTrue(this.movie.getStatus().equals("released"));
 
     }
 

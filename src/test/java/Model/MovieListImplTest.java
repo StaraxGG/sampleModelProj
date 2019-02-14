@@ -6,6 +6,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * An implementation of MovieListImplTest
+ * in samplemodelproject
+ *
+ * @author CHW
+ * @version 1.0
+ * @since 2019-Feb-14
+ */
+
 public class MovieListImplTest {
 
     @Before
