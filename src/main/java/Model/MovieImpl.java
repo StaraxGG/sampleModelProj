@@ -341,9 +341,9 @@ public class MovieImpl implements Movie {
      *
      * @param list list of production companies
      */
-    protected List<String> setProductionCompanies(List<String> list) {
+    protected void setProductionCompanies(List<String> list) {
 
-        return this.productionCompanies;
+        this.productionCompanies = list;
     }
 
     /**
