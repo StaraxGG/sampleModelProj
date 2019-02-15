@@ -127,31 +127,30 @@ public class MovieImplTest {
     @Test
     public void testGetStatus() {
         assertTrue(this.movie.getStatus().equals("released"));
-
     }
 
     @Test
-    public void setTmdbId() {
-        assertTrue(false);
-
+    public void testSetTmdbId() {
+        this.movie.setTmdbId(552233);
+        assertTrue(this.movie.getTmdbId() == 552233);
     }
 
     @Test
-    public void setTitle() {
-        assertTrue(false);
-
-    }
+    public void testSetTitle() {
+        this.movie.setTitle("Setter Test Title");
+        assertTrue(this.movie.getTitle().equals("Setter Test Title"));    }
 
     @Test
-    public void setPopularity() {
-        assertTrue(false);
+    public void testSetPopularity() {
+        this.movie.setPopularity(9.9f);
+        assertTrue(this.movie.getPopularity()==9.9f);
 
     }
 
     @Test
     public void setPosterUrl() {
-        assertTrue(false);
-
+        this.movie.setPosterUrl("http://setter_test.org");
+        assertTrue(this.movie.getPosterUrl().equals("http://setter_test.org"));
     }
 
     @Test
