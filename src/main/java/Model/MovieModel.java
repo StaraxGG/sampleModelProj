@@ -1,5 +1,7 @@
 package Model;
 
+import Tools.ConfigTools;
+import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -47,20 +49,23 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * add a movie to our local database of movies
      *
      * @param movie
-     * @return boolean success
      */
-    boolean addMovie(Movie movie) {
-        throw new NotImplementedException();
+    void addMovie(Movie movie) {
+        doInTransaction((em) -> {
+            em.persist(movie);
+        });
     }
 
     /**
      * delete the given movie from our local database
      *
      * @param id Long
-     * @return boolean success
      */
-    boolean deleteMovie(Long id) {
-        throw new NotImplementedException();
+    void deleteMovie(Long id) {
+        doInTransaction((em -> {
+            Movie movie = em.find(Movie.class, id);
+            em.remove(movie);
+        }));
     }
 
     /**
@@ -127,7 +132,7 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * @return Movie
      */
     Movie getMovie(Long id) {
-        throw new NotImplementedException();
+        return this.findById(id);
     }
 
     /**
@@ -137,7 +142,8 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * @return Movie
      */
     Movie getTmdbMovie(Integer id) {
-        throw new NotImplementedException();
+        MovieDb movie = movies.getMovie(id, tmdbLang);
+        return parseTmdbMovie(movie);
     }
 
     /**

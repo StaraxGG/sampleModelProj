@@ -2,6 +2,9 @@ package Tools;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.IOException;
+import java.net.*;
+
 /**
  * An implementation of CoreTools
  *
@@ -83,8 +86,15 @@ public class CoreTools {
      * @return true, if and only if an internet connection is available
      */
     public static boolean internetConnectionAvailable() {
-        //TODO: Joshua
-        throw new NotImplementedException();
+        try {
+            final URL url = new URL("https://api.themoviedb.org");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
