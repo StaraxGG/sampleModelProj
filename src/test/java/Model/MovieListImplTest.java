@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -17,28 +20,40 @@ import static org.junit.Assert.*;
 
 public class MovieListImplTest {
 
+    private MovieImpl testMovie = new MovieImpl();
+    private MovieImpl testMovieTwo = new MovieImpl();
+    private MovieListImpl movieListImpl = new MovieListImpl();
+    private LinkedList<MovieImpl> testMovieList = new LinkedList<>();
+    private Long testMovieListID;
+    private String testMovieListName;
+    private Long testCreatorUserID;
+    //list of userIDs
+    private List<Long> testUsers;
+
     @Before
     public void setUp() throws Exception {
-        assertTrue(false);
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        assertTrue(false);
-
+        this.testMovieList.add(testMovieTwo);
+        this.movieListImpl.setMovieListID(123456L);
+        this.movieListImpl.setName("Testname");
+        this.movieListImpl.setNewUser(456789L);
     }
 
     @Test
-    public void addMovie() {
-        assertTrue(false);
+    public void testAddMovie() {
+        this.testMovieList.add(testMovie);
+        assertTrue(this.testMovieList.contains(testMovie));
+    }
 
+    @Test
+    public void testAddMovieSize() {
+        this.testMovieList.add(testMovie);
+        assertTrue(this.testMovieList.size()==2);
     }
 
     @Test
     public void deleteMovie() {
-        assertTrue(false);
-
+        this.testMovieList.remove(testMovieTwo);
+        assertTrue(this.testMovieList.size()==0);
     }
 
     @Test
@@ -79,6 +94,18 @@ public class MovieListImplTest {
 
     @Test
     public void setNewUser() {
+        assertTrue(false);
+
+    }
+
+    @Test
+    public void testSetID() {
+        assertTrue(false);
+
+    }
+
+    @Test
+    public void testSetIDalreadyset() {
         assertTrue(false);
 
     }

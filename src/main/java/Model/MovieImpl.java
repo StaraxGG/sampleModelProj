@@ -240,7 +240,7 @@ public class MovieImpl implements Movie {
      *
      * @param id UUID
      */
-    private void setId(Long id) {
+    protected void setId(Long id) {
         if (this.movieID == null) {
             this.movieID = id;
         }

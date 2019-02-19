@@ -39,6 +39,7 @@ public class MovieImplTest {
         this.movie.setRuntime(120);
         this.movie.setVoteAverage(3.5f);
         this.movie.setStatus("released");
+        this.movie.setId(123456L);
 
         LinkedList<String> genres = new LinkedList<>();
         genres.add(genreOne);
@@ -130,6 +131,11 @@ public class MovieImplTest {
     }
 
     @Test
+    public void testGetID() {
+        assertTrue(this.movie.getId()==123456L);
+    }
+
+    @Test
     public void testSetTmdbId() {
         this.movie.setTmdbId(552233);
         assertTrue(this.movie.getTmdbId() == 552233);
@@ -148,68 +154,101 @@ public class MovieImplTest {
     }
 
     @Test
-    public void setPosterUrl() {
+    public void testSetPosterUrl() {
         this.movie.setPosterUrl("http://setter_test.org");
         assertTrue(this.movie.getPosterUrl().equals("http://setter_test.org"));
     }
 
     @Test
-    public void setReleaseDate() {
-        assertTrue(false);
+    public void testSetReleaseDate() {
+        this.movie.setReleaseDate("2018-10-01");
+        assertTrue(this.movie.getReleaseDate().equals("2018-10-01"));
+    }
+
+    @Test
+    public void testSetIsAdult() {
+        this.movie.setIsAdult(true);
+        assertTrue(this.movie.getIsAdult());
+    }
+
+    @Test
+    public void testSetGenresAdd() {
+        String genreThree = "Thriller";
+        this.movie.getGenres().add(genreThree);
+
+        assertTrue(this.movie.getGenres().contains(genreThree));
+    }
+
+    @Test
+    public void testSetGenresSize() {
+        String genreThree = "Thriller";
+        this.movie.getGenres().add(genreThree);
+        assertTrue(this.movie.getGenres().size()==3);
+    }
+
+    @Test
+    public void testSetOverview() {
+        this.movie.setOverview("This is a test overview");
+        assertTrue(this.movie.getOverview().equals("This is a test overview"));
+    }
+
+    @Test
+    public void testSetOriginalLanguage() {
+        this.movie.setOriginalLanguage("es");
+        assertTrue(this.movie.getOriginalLanguage().equals("es"));
+    }
+
+    @Test
+    public void testSetProductionCompaniesAdd() {
+        String curProdComp = "Test Productions";
+        this.movie.getProductionCompanies().add(curProdComp);
+        assertTrue(this.movie.getProductionCompanies().contains(curProdComp));
+    }
+
+    @Test
+    public void testSetProductionCompaniesSize() {
+        String curProdComp = "Test Productions";
+        this.movie.getProductionCompanies().add(curProdComp);
+        assertTrue(this.movie.getProductionCompanies().size()==2);
+    }
+
+    @Test
+    public void testSetProductionCountriesAdd() {
+        String curProdCoun = "Testland";
+        this.movie.getProductionCountries().add(curProdCoun);
+        assertTrue(this.movie.getProductionCountries().contains(curProdCoun));
+    }
+
+    @Test
+    public void testSetProductionCountriesSize() {
+        String curProdCoun = "Testland";
+        this.movie.getProductionCountries().add(curProdCoun);
+        assertTrue(this.movie.getProductionCountries().size()==2);
+    }
+
+    @Test
+    public void testSetRuntime() {
+        this.movie.setRuntime(150);
+        assertTrue(this.movie.getRuntime()==150);
 
     }
 
     @Test
-    public void setIsAdult() {
-        assertTrue(false);
+    public void testSetVoteAverage() {
+        this.movie.setVoteAverage(7.7f);
+        assertTrue(this.movie.getVoteAverage()==7.7f);
 
     }
 
     @Test
-    public void setGenres() {
-        assertTrue(false);
-
+    public void testSetStatus() {
+        this.movie.setStatus("teststatus");
+        assertTrue(this.movie.getStatus().equals("teststatus"));
     }
 
     @Test
-    public void setOverview() {
-        assertTrue(false);
-
-    }
-
-    @Test
-    public void setOriginalLanguage() {
-        assertTrue(false);
-
-    }
-
-    @Test
-    public void setProductionCompanies() {
-        assertTrue(false);
-
-    }
-
-    @Test
-    public void setProductionCountries() {
-        assertTrue(false);
-
-    }
-
-    @Test
-    public void setRuntime() {
-        assertTrue(false);
-
-    }
-
-    @Test
-    public void setVoteAverage() {
-        assertTrue(false);
-
-    }
-
-    @Test
-    public void setStatus() {
-        assertTrue(false);
-
+    public void testSetIDalreadySet() {
+        this.movie.setId(456789L);
+        assertTrue(this.movie.getId()==123456L);
     }
 }

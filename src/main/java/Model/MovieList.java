@@ -24,7 +24,7 @@ public interface MovieList {
     /**
      * adds the movie to this list
      *
-     * @param movie
+     * @param movie movie to add
      * @return boolean success
      */
     boolean addMovie(MovieImpl movie);
@@ -32,7 +32,7 @@ public interface MovieList {
     /**
      * deletes the movie from the list
      *
-     * @param movie
+     * @param movie movie to remove
      * @return boolean success
      */
     boolean deleteMovie(MovieImpl movie);
@@ -71,4 +71,12 @@ public interface MovieList {
      * @return List
      */
     List<Long> getUsers();
+
+    /**
+     * sets movielist to this movielist
+     *
+     * @param movielist the movielist to set
+     */
+    void setMovieList(List<MovieImpl> movielist);
+
 }
