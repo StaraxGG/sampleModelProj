@@ -143,12 +143,6 @@ public class MovieListImpl implements MovieList {
         return this.users;
     }
 
-    @Override
-    public void setMovieList(List<MovieImpl> movielist) {
-        this.movieList = movieList;
-    }
-
-
     /**
      * Sets/changes the name of this movielist
      *
@@ -178,8 +172,8 @@ public class MovieListImpl implements MovieList {
      *
      * @param movieListID ID of this movielist
      */
-    protected void setMovieListID(Long movieListID){
-        if(this.movieListID == null){
+    protected void setMovieListID(Long movieListID) {
+        if (this.movieListID == null) {
             this.movieListID = movieListID;
         }
     }

@@ -22,91 +22,88 @@ public class MovieListImplTest {
 
     private MovieImpl testMovie = new MovieImpl();
     private MovieImpl testMovieTwo = new MovieImpl();
-    private MovieListImpl movieListImpl = new MovieListImpl();
-    private LinkedList<MovieImpl> testMovieList = new LinkedList<>();
-    private Long testMovieListID;
-    private String testMovieListName;
-    private Long testCreatorUserID;
+    private MovieListImpl movieListImpl = new MovieListImpl("Testname", 333333L);
     //list of userIDs
     private List<Long> testUsers;
 
     @Before
     public void setUp() throws Exception {
-        this.testMovieList.add(testMovieTwo);
-        this.movieListImpl.setMovieListID(123456L);
-        this.movieListImpl.setName("Testname");
+
         this.movieListImpl.setNewUser(456789L);
     }
 
     @Test
     public void testAddMovie() {
-        this.testMovieList.add(testMovie);
-        assertTrue(this.testMovieList.contains(testMovie));
+        this.movieListImpl.addMovie(testMovie);
+        assertTrue(this.movieListImpl.getMovies().contains(testMovie));
     }
 
     @Test
     public void testAddMovieSize() {
-        this.testMovieList.add(testMovie);
-        assertTrue(this.testMovieList.size()==2);
+        this.movieListImpl.addMovie(testMovie);
+        assertTrue(this.movieListImpl.getMovies().size() == 1);
     }
 
     @Test
-    public void deleteMovie() {
-        this.testMovieList.remove(testMovieTwo);
-        assertTrue(this.testMovieList.size()==0);
+    public void testDeleteMovie() {
+        //this.movieListImpl.getMovies().remove(testMovieTwo);
+        assertTrue(this.movieListImpl.getMovies().size() == 0);
     }
 
     @Test
-    public void getId() {
-        assertTrue(false);
-
+    public void testGetId() {
+        this.movieListImpl.setMovieListID(123456L);
+        assertTrue(this.movieListImpl.getId() == 123456L);
     }
 
     @Test
-    public void getName() {
-        assertTrue(false);
-
+    public void testGetName() {
+        assertTrue(this.movieListImpl.getName().equals("Testname"));
     }
 
     @Test
-    public void getMovies() {
-        assertTrue(false);
-
+    public void testGetMovies() {
+        List list = this.movieListImpl.getMovies();
+        assertTrue(this.movieListImpl.getMovies().equals(list));
     }
 
     @Test
-    public void getCreatorUserId() {
-        assertTrue(false);
-
+    public void testGetCreatorUserId() {
+        assertTrue(this.movieListImpl.getCreatorUserId() == 333333L);
     }
 
     @Test
-    public void getUsers() {
-        assertTrue(false);
-
+    public void testGetUsers() {
+        List<Long> list = this.movieListImpl.getUsers();
+        assertTrue(this.movieListImpl.getUsers().equals(list));
     }
 
     @Test
-    public void setName() {
-        assertTrue(false);
-
+    public void testSetName() {
+        this.movieListImpl.setName("test setName");
+        assertTrue(this.movieListImpl.getName().equals("test setName"));
     }
 
     @Test
-    public void setNewUser() {
-        assertTrue(false);
-
+    public void testSetNewUser() {
+        Long userID = 111111L;
+        this.movieListImpl.getUsers().add(userID);
+        assertTrue(this.movieListImpl.getUsers().contains(userID));
     }
 
     @Test
     public void testSetID() {
-        assertTrue(false);
+        Long testID = 334455L;
+        this.movieListImpl.setMovieListID(testID);
+        assertTrue(this.movieListImpl.getId() == 334455L);
 
     }
 
     @Test
     public void testSetIDalreadyset() {
-        assertTrue(false);
-
+        this.movieListImpl.setMovieListID(123456L);
+        this.movieListImpl.setMovieListID(334455L);
+        assertTrue(this.movieListImpl.getId().equals(123456L));
     }
+
 }

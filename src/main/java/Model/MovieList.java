@@ -62,21 +62,16 @@ public interface MovieList {
 
     /**
      * returns the user id that created this movielist
+     *
      * @return Long id
      */
     Long getCreatorUserId();
 
     /**
      * returns the user ids that are contributors to this list
+     *
      * @return List
      */
     List<Long> getUsers();
-
-    /**
-     * sets movielist to this movielist
-     *
-     * @param movielist the movielist to set
-     */
-    void setMovieList(List<MovieImpl> movielist);
 
 }
