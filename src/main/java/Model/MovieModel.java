@@ -1,16 +1,19 @@
 package Model;
 
 import Tools.ConfigTools;
+import com.google.common.collect.Lists;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.ProductionCountry;
+import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of MovieModel
@@ -160,10 +163,28 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * returns movies that are similar to this one
      *
      * @param movie
+     * @param page the search result page that will be fetched
+     *             e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
      * @return List
      */
-    List<Movie> getSimilarMovies(Movie movie) {
-        throw new NotImplementedException();
+    List<Movie> getSimilarMovies(Movie movie, Integer page) {
+
+
+        List<MovieDb> results = movies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults()
+        return parseTmdbMovieList(results);
+    }
+
+    /**
+     * turns a list of MovieDb objects from the Tmdb Api to a List of our Movie objects
+     * @param tmdbMoviesList
+     * @return List
+     */
+    private static List<Movie> parseTmdbMovieList(List<MovieDb> tmdbMoviesList){
+
+        // this is hands down the best line of code in this project
+        // thanks to jetbrains for doing everything
+        return tmdbMoviesList.stream().map(MovieModel::parseTmdbMovie).collect(Collectors.toList());
+
     }
 
 }
