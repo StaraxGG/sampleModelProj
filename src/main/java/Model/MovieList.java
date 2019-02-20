@@ -54,7 +54,7 @@ public interface MovieList {
     String getName();
 
     /**
-     * returns the movies of this movielist
+     * returns the tmdbMovies of this movielist
      *
      * @return List
      */

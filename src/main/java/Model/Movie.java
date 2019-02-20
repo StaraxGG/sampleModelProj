@@ -41,7 +41,7 @@ public interface Movie {
     String getTitle();
 
     /**
-     * returns this movies
+     * returns this tmdbMovies
      *
      * @return Double
      */
@@ -70,29 +70,29 @@ public interface Movie {
 
     /**
      * returns a list of strings for this movie
-     * that contain the genres in this movies specified language
+     * that contain the genres in this tmdbMovies specified language
      *
      * @return {@link List}
      */
     List<String> getGenres();
 
     /**
-     * returns this movies overview (the short explanation of this movies content)
-     * in this movies language
+     * returns this tmdbMovies overview (the short explanation of this tmdbMovies content)
+     * in this tmdbMovies language
      *
      * @return String
      */
     String getOverview();
 
     /**
-     * returns this movies original language
+     * returns this tmdbMovies original language
      *
      * @return String
      */
     String getOriginalLanguage();
 
     /**
-     * returns a list of this movies production companies names
+     * returns a list of this tmdbMovies production companies names
      *
      * @return {@link List}
      */

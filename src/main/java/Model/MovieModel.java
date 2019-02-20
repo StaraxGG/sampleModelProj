@@ -1,15 +1,14 @@
 package Model;
 
 import Tools.ConfigTools;
-import com.google.common.collect.Lists;
-import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.ProductionCountry;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import sun.security.krb5.Config;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,20 +35,22 @@ public class MovieModel extends MasterModel<Long, Movie> {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
-    protected TmdbMovies movies;
+    protected TmdbMovies tmdbMovies;
+    protected TmdbSearch tmdbSearch;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieModel() {
         super();
-        movies = this.getTmdbApi().getMovies();
+        tmdbMovies = this.getTmdbApi().getMovies();
+        tmdbSearch = this.getTmdbApi().getSearch();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
-     * add a movie to our local database of movies
+     * add a movie to our local database of tmdbMovies
      *
      * @param movie
      */
@@ -145,22 +146,27 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * @return Movie
      */
     Movie getTmdbMovie(Integer id) {
-        MovieDb movie = movies.getMovie(id, tmdbLang);
+        MovieDb movie = tmdbMovies.getMovie(id, tmdbLang);
         return parseTmdbMovie(movie);
     }
 
     /**
-     * returns movies that match the  query
+     * returns tmdbMovies that match the  query
      *
      * @param query
+     * @param page
+     * @param adult boolean
      * @return List
      */
-    List<Movie> getMovies(String query) {
-        throw new NotImplementedException();
+    List<Movie> getTmdbMovies(String query, Boolean adult, Integer page) {
+       MovieResultsPage movieResultsPage =
+               tmdbSearch.searchMovie(query, null, ConfigTools.getVal("lang"),adult, page);
+
+       return parseTmdbMovieList(movieResultsPage.getResults());
     }
 
     /**
-     * returns movies that are similar to this one
+     * returns tmdbMovies that are similar to this one
      *
      * @param movie
      * @param page the search result page that will be fetched
@@ -169,7 +175,8 @@ public class MovieModel extends MasterModel<Long, Movie> {
      */
     List<Movie> getSimilarMovies(Movie movie, Integer page) {
 
-        List<MovieDb> results = movies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
+        List<MovieDb> results =
+                tmdbMovies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
     }
 

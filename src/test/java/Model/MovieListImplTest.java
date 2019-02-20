@@ -46,7 +46,7 @@ public class MovieListImplTest {
 
     @Test
     public void testDeleteMovie() {
-        //this.movieListImpl.getMovies().remove(testMovieTwo);
+        //this.movieListImpl.getTmdbMovies().remove(testMovieTwo);
         assertTrue(this.movieListImpl.getMovies().size() == 0);
     }
 
