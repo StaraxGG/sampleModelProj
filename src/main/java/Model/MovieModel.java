@@ -160,7 +160,7 @@ public class MovieModel extends MasterModel<Long, Movie> {
      */
     List<Movie> getTmdbMovies(String query, Boolean adult, Integer page) {
        MovieResultsPage movieResultsPage =
-               tmdbSearch.searchMovie(query, null, ConfigTools.getVal("lang"),adult, page);
+               tmdbSearch.searchMovie(query, null, tmdbLang,adult, page);
 
        return parseTmdbMovieList(movieResultsPage.getResults());
     }
