@@ -46,7 +46,7 @@ public class UserModel extends MasterModel<Long, User> {
      * @param user User
      * @return User
      */
-    public static User login(User user){
+    public User login(User user){
         throw new NotImplementedException();
     }
 
@@ -56,7 +56,7 @@ public class UserModel extends MasterModel<Long, User> {
      * @param user
      * @return
      */
-    public static boolean register(User user){
+    public boolean register(User user){
         throw new NotImplementedException();
     }
 
@@ -66,7 +66,7 @@ public class UserModel extends MasterModel<Long, User> {
      * returns the currentUser that is logged in or otherwise null
      * @return User
      */
-    public static User getCurrentUser(){
+    public User getCurrentUser(){
         return currentUser;
     }
 
@@ -90,6 +90,5 @@ public class UserModel extends MasterModel<Long, User> {
         // just pass that stuff along
         return userModel.findById(id);
     }
-
 }
 
