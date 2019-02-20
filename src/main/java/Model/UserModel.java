@@ -14,15 +14,30 @@ public class UserModel extends MasterModel<Long, User> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
+    public static void main(String[] args) {
+    }
+
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
     private static User currentUser;
+    private static UserModel userModel;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
+    private UserModel(){
+
+    }
+
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    public static UserModel getInstance(){
+        if (userModel == null)
+            userModel = new UserModel();
+
+        return userModel;
+    }
 
     /**
      * checks this users credentials and logs him into the database if valid
@@ -31,7 +46,7 @@ public class UserModel extends MasterModel<Long, User> {
      * @param user User
      * @return User
      */
-    public User login(User user){
+    public static User login(User user){
         throw new NotImplementedException();
     }
 
@@ -41,7 +56,7 @@ public class UserModel extends MasterModel<Long, User> {
      * @param user
      * @return
      */
-    public boolean register(User user){
+    public static boolean register(User user){
         throw new NotImplementedException();
     }
 
@@ -59,7 +74,7 @@ public class UserModel extends MasterModel<Long, User> {
      * sets the current user
      * @param user
      */
-    private void setCurrentUser(User user){
+    private static void setCurrentUser(User user){
         currentUser = user;
     }
 
@@ -73,7 +88,7 @@ public class UserModel extends MasterModel<Long, User> {
     public User findById(Long id){
 
         // just pass that stuff along
-        return super.findById(id);
+        return userModel.findById(id);
     }
 
 }
