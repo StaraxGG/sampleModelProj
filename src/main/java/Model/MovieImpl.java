@@ -261,7 +261,8 @@ public class MovieImpl implements Movie {
      *
      * @param title movie title
      */
-    protected void setTitle(String title) {
+    @Override
+    public void setTitle(String title) {
 
         this.title = title;
     }
@@ -271,7 +272,7 @@ public class MovieImpl implements Movie {
      *
      * @param popularity popularity value
      */
-    protected void setPopularity(Float popularity) {
+    public void setPopularity(Float popularity) {
 
         this.popularity = popularity;
     }
@@ -281,7 +282,8 @@ public class MovieImpl implements Movie {
      *
      * @param posterURL URL
      */
-    protected void setPosterUrl(String posterURL) {
+    @Override
+    public void setPosterUrl(String posterURL) {
 
         this.posterURL = posterURL;
     }
@@ -291,7 +293,8 @@ public class MovieImpl implements Movie {
      *
      * @param releaseDate date as string
      */
-    protected void setReleaseDate(String releaseDate) {
+    @Override
+    public void setReleaseDate(String releaseDate) {
 
         this.releaseDate = releaseDate;
     }
@@ -301,7 +304,8 @@ public class MovieImpl implements Movie {
      *
      * @param bool true/false adult status
      */
-    protected void setIsAdult(boolean bool) {
+    @Override
+    public void setIsAdult(boolean bool) {
 
         this.isAdult = bool;
     }
@@ -311,7 +315,8 @@ public class MovieImpl implements Movie {
      *
      * @param list of genre types
      */
-    protected void setGenres(List<String> list) {
+    @Override
+    public void setGenres(List<String> list) {
 
         this.genres = list;
     }
@@ -321,7 +326,8 @@ public class MovieImpl implements Movie {
      *
      * @param overview overview text
      */
-    protected void setOverview(String overview) {
+    @Override
+    public void setOverview(String overview) {
 
         this.overview = overview;
     }
@@ -331,7 +337,8 @@ public class MovieImpl implements Movie {
      *
      * @param originalLang original language
      */
-    protected void setOriginalLanguage(String originalLang) {
+    @Override
+    public void setOriginalLanguage(String originalLang) {
 
         this.originalLanguage = originalLang;
     }
@@ -341,7 +348,8 @@ public class MovieImpl implements Movie {
      *
      * @param list list of production companies
      */
-    protected void setProductionCompanies(List<String> list) {
+    @Override
+    public void setProductionCompanies(List<String> list) {
 
         this.productionCompanies = list;
     }
@@ -351,7 +359,8 @@ public class MovieImpl implements Movie {
      *
      * @param list list of production countries
      */
-    protected void setProductionCountries(List<String> list) {
+    @Override
+    public void setProductionCountries(List<String> list) {
 
         this.productionCountries = list;
     }
@@ -361,7 +370,8 @@ public class MovieImpl implements Movie {
      *
      * @param runtime runtime of the movie
      */
-    protected void setRuntime(Integer runtime) {
+    @Override
+    public void setRuntime(Integer runtime) {
 
         this.runtime = runtime;
     }
@@ -371,7 +381,8 @@ public class MovieImpl implements Movie {
      *
      * @param averageVote average vote
      */
-    protected void setVoteAverage(Float averageVote) {
+    @Override
+    public void setVoteAverage(Float averageVote) {
 
         this.voteAverage = averageVote;
     }
@@ -381,7 +392,8 @@ public class MovieImpl implements Movie {
      *
      * @param status status of the movie
      */
-    protected void setStatus(String status) {
+    @Override
+    public void setStatus(String status) {
 
         this.status = status;
     }

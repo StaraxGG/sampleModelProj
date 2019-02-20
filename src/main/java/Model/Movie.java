@@ -130,5 +130,90 @@ public interface Movie {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
+    /**
+     * Sets the title of the current movie object
+     *
+     * @param title movie title
+     */
+    void setTitle(String title);
+
+    void setPopularity(Float popularity);
+
+    /**
+     * Sets the URL of the poster of the current movie object
+     *
+     * @param posterURL URL
+     */
+    void setPosterUrl(String posterURL);
+
+    /**
+     * Sets the release date of the current movie object
+     *
+     * @param releaseDate date as string
+     */
+    void setReleaseDate(String releaseDate);
+
+    /**
+     * Sets adult status of the current movie object
+     *
+     * @param bool true/false adult status
+     */
+    void setIsAdult(boolean bool);
+
+    /**
+     * Sets a list of genres the current movie object belongs to
+     *
+     * @param list of genre types
+     */
+    void setGenres(List<String> list);
+
+    /**
+     * Sets a short overview text of the current movie objekt
+     *
+     * @param overview overview text
+     */
+    void setOverview(String overview);
+
+    /**
+     * Sets the original language of the current movie object
+     *
+     * @param originalLang original language
+     */
+    void setOriginalLanguage(String originalLang);
+
+    /**
+     * Sets a list of production companies of the current movie object
+     *
+     * @param list list of production companies
+     */
+    void setProductionCompanies(List<String> list);
+
+    /**
+     * Sets a list of production countries of the current movie object
+     *
+     * @param list list of production countries
+     */
+    void setProductionCountries(List<String> list);
+
+    /**
+     * Sets the runtime of the current movie object
+     *
+     * @param runtime runtime of the movie
+     */
+    void setRuntime(Integer runtime);
+
+    /**
+     * Sets the average vote of the current movie object
+     *
+     * @param averageVote average vote
+     */
+    void setVoteAverage(Float averageVote);
+
+    /**
+     * Sets the status of the current movie object
+     *
+     * @param status status of the movie
+     */
+    void setStatus(String status);
 }
 
