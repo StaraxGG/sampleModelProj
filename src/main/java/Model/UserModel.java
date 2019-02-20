@@ -16,7 +16,7 @@ public class UserModel extends MasterModel<Long, User> {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
-    private User currentUser;
+    private static User currentUser;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -51,8 +51,8 @@ public class UserModel extends MasterModel<Long, User> {
      * returns the currentUser that is logged in or otherwise null
      * @return User
      */
-    public User getCurrentUser(){
-        return this.currentUser;
+    public static User getCurrentUser(){
+        return currentUser;
     }
 
     /**
@@ -60,7 +60,7 @@ public class UserModel extends MasterModel<Long, User> {
      * @param user
      */
     private void setCurrentUser(User user){
-        this.currentUser = user;
+        currentUser = user;
     }
 
     /**
