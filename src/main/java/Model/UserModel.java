@@ -63,5 +63,18 @@ public class UserModel extends MasterModel<Long, User> {
         this.currentUser = user;
     }
 
+    /**
+     * returns a user object for the given id
+     * the returned user is not logged in automatically
+     * this method can be used to retrieve user information for displaying in MovieLists
+     * @param id T
+     * @return User
+     */
+    public User findById(Long id){
+
+        // just pass that stuff along
+        return super.findById(id);
+    }
+
 }
 
