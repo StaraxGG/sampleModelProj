@@ -169,8 +169,7 @@ public class MovieModel extends MasterModel<Long, Movie> {
      */
     List<Movie> getSimilarMovies(Movie movie, Integer page) {
 
-
-        List<MovieDb> results = movies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults()
+        List<MovieDb> results = movies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
     }
 
