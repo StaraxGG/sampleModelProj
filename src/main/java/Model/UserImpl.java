@@ -1,5 +1,7 @@
 package Model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.List;
 
 import static java.util.Objects.hash;
@@ -36,13 +38,13 @@ public class UserImpl implements User {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     @Override
-    public void addMovieList(MovieList movieList) {
-
+    public boolean addMovieList(MovieList movieList) {
+        throw new NotImplementedException();
     }
 
     @Override
-    public void deleteMovieList(Long id) {
-
+    public boolean deleteMovieList(Long id) {
+        throw new NotImplementedException();
     }
 
     @Override
@@ -56,7 +58,7 @@ public class UserImpl implements User {
     }
 
     @Override
-    public List<Long> getMovieLists() {
+    public List<MovieList> getMovieLists() {
         return null;
     }
 

@@ -28,14 +28,14 @@ public interface User {
      * adds a new list to this users movielists and adds this user as creator to the movieList
      * @param movieList
      */
-    void addMovieList(MovieList movieList);
+    boolean addMovieList(MovieList movieList);
 
     /**
      * deletes this users movielist with the following id
      * it should be ensured that the movielist with this id has this user as Creator/Maintainer so he can delete the list
      * @param id
      */
-    void deleteMovieList(Long id);
+    boolean deleteMovieList(Long id);
 
 
 
@@ -64,7 +64,7 @@ public interface User {
      * returns the ids of all movieLists where this user is listed, either as creator or contributor
      * @return List
      */
-    List<Long> getMovieLists();
+    List<MovieList> getMovieLists();
 
     /**
      * returns the hash for this username that was stored in the database
