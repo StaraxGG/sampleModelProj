@@ -2,6 +2,7 @@ package Model;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.persistence.Table;
 import java.util.List;
 
 import static java.util.Objects.hash;
@@ -14,6 +15,7 @@ import static java.util.Objects.hash;
  * @version 1.0
  * @since 2019-Feb-11
  */
+@Table(name = "user")
 public class UserImpl implements User {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
@@ -48,12 +50,7 @@ public class UserImpl implements User {
     }
 
     @Override
-    public Long getUserId() {
-        return null;
-    }
-
-    @Override
-    public String getUserName() {
+    public String getUsername() {
         return null;
     }
 

@@ -42,17 +42,11 @@ public interface User {
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**
-     * this is an id used for finding the user in the database, it is created when persisting the user to the database
-     * @return Long id
-     */
-    Long getUserId();
-
-    /**
      * returns this users username
      * it should be ensured that this value is unique (e.g. email-adress) so we can use it as authentication method
      * @return String
      */
-    String getUserName();
+    String getUsername();
 
     /**
      * set the username for this user

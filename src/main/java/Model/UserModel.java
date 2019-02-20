@@ -2,6 +2,12 @@ package Model;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.management.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * An implementation of UserModel
  * in samplemodelproject
@@ -10,7 +16,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @version 1.0
  * @since 2019-Feb-11
  */
-public class UserModel extends MasterModel<Long, User> {
+public class UserModel extends MasterModel<String, User> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -47,7 +53,18 @@ public class UserModel extends MasterModel<Long, User> {
      * @return User
      */
     public User login(User user){
-        throw new NotImplementedException();
+
+        User tmpUser = super.findById(user.getUsername());
+
+        if (tmpUser == null)
+            return null;
+
+        if (tmpUser.getPasswordHash().equals(user.getPasswordHash())) {
+            setCurrentUser(user);
+            return getCurrentUser();
+        }
+
+        else return null;
     }
 
     /**
@@ -57,7 +74,25 @@ public class UserModel extends MasterModel<Long, User> {
      * @return
      */
     public boolean register(User user){
-        throw new NotImplementedException();
+
+        // check if the user address is valid
+        if (!verifyMailAdress(user.getUsername()))
+            return false;
+
+        // try to retrieve this user
+        User tmpUser = super.findById(user.getUsername());
+
+        // check if the user exists
+        if (tmpUser != null) {
+            // this user exists
+            return false;
+        }
+
+        // otherwise create a new user
+        this.persist(user);
+        this.login(user);
+
+        return true;
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
@@ -89,6 +124,20 @@ public class UserModel extends MasterModel<Long, User> {
 
         // just pass that stuff along
         return userModel.findById(id);
+    }
+
+    /**
+     * verifies that the given username is a valid mail adress
+     * @param username
+     * @return true if username mail adress
+     */
+    private static boolean verifyMailAdress(String username){
+
+        final Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(username);
+        return matcher.find();
     }
 }
 
