@@ -27,7 +27,7 @@ public class UserModel extends MasterModel<Long, User> {
     /**
      * checks this users credentials and logs him into the database if valid
      * then this user will be set as currentUser automatically
-     *
+     * otherwise returns null
      * @param user User
      * @return User
      */
