@@ -82,6 +82,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Sets the unique movie ID of the current movie object
+     *
+     * @param id UUID
+     */
+    protected void setId(Long id) {
+        if (this.movieID == null) {
+            this.movieID = id;
+        }
+    }
+
+    /**
      * Returns the unique TmdB ID of the current movie object
      *
      * @return unique TmdbID
@@ -90,6 +101,16 @@ public class MovieImpl implements Movie {
     public Integer getTmdbId() {
 
         return this.tmdbID;
+    }
+
+    /**
+     * Sets the unique TmdB ID of the current movie object
+     *
+     * @param tmdbID Tmdb-ID
+     */
+    protected void setTmdbId(Integer tmdbID) {
+
+        this.tmdbID = tmdbID;
     }
 
     /**
@@ -104,6 +125,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Sets the title of the current movie object
+     *
+     * @param title movie title
+     */
+    @Override
+    public void setTitle(String title) {
+
+        this.title = title;
+    }
+
+    /**
      * Returns the popularity value of the current movie object
      *
      * @return popularity value
@@ -112,6 +144,16 @@ public class MovieImpl implements Movie {
     public Float getPopularity() {
 
         return this.popularity;
+    }
+
+    /**
+     * Sets the popularity value of the current movie object
+     *
+     * @param popularity popularity value
+     */
+    public void setPopularity(Float popularity) {
+
+        this.popularity = popularity;
     }
 
     /**
@@ -126,158 +168,6 @@ public class MovieImpl implements Movie {
     }
 
     /**
-     * Returns the release date of the current movie object
-     *
-     * @return release date as string
-     */
-    @Override
-    public String getReleaseDate() {
-
-        return this.releaseDate;
-    }
-
-    /**
-     * Returns adult status of the current movie object
-     *
-     * @return true/false adult status
-     */
-    @Override
-    public Boolean getIsAdult() {
-
-        return this.isAdult;
-    }
-
-    /**
-     * Returns a list of genres the current movie object belongs to
-     *
-     * @return list of genre types
-     */
-    @Override
-    public List<String> getGenres() {
-
-        return this.genres;
-    }
-
-    /**
-     * Returns a short overview text of the current movie objekt
-     *
-     * @return overview text
-     */
-    @Override
-    public String getOverview() {
-
-        return this.overview;
-    }
-
-    /**
-     * Returns the original language of the current movie object
-     *
-     * @return original language
-     */
-    @Override
-    public String getOriginalLanguage() {
-
-        return this.originalLanguage;
-    }
-
-    /**
-     * Returns a list of production companies of the current movie object
-     *
-     * @return list of production companies
-     */
-    @Override
-    public List<String> getProductionCompanies() {
-
-        return this.productionCompanies;
-    }
-
-    /**
-     * Returns a list of production countries of the current movie object
-     *
-     * @return list of production countries
-     */
-    @Override
-    public List<String> getProductionCountries() {
-
-        return this.productionCountries;
-    }
-
-    /**
-     * Returns the runtime of the current movie object
-     *
-     * @return runtime of the movie
-     */
-    @Override
-    public Integer getRuntime() {
-
-        return this.runtime;
-    }
-
-    /**
-     * Returns the average vote of the current movie object
-     *
-     * @return average vote
-     */
-    @Override
-    public Float getVoteAverage() {
-
-        return this.voteAverage;
-    }
-
-    /**
-     * Returns the status of the current movie object
-     *
-     * @return status of the movie
-     */
-    @Override
-    public String getStatus() {
-
-        return this.status;
-    }
-
-    /**
-     * Sets the unique movie ID of the current movie object
-     *
-     * @param id UUID
-     */
-    protected void setId(Long id) {
-        if (this.movieID == null) {
-            this.movieID = id;
-        }
-    }
-
-    /**
-     * Sets the unique TmdB ID of the current movie object
-     *
-     * @param tmdbID Tmdb-ID
-     */
-    protected void setTmdbId(Integer tmdbID) {
-
-        this.tmdbID = tmdbID;
-    }
-
-    /**
-     * Sets the title of the current movie object
-     *
-     * @param title movie title
-     */
-    @Override
-    public void setTitle(String title) {
-
-        this.title = title;
-    }
-
-    /**
-     * Sets the popularity value of the current movie object
-     *
-     * @param popularity popularity value
-     */
-    public void setPopularity(Float popularity) {
-
-        this.popularity = popularity;
-    }
-
-    /**
      * Sets the URL of the poster of the current movie object
      *
      * @param posterURL URL
@@ -286,6 +176,17 @@ public class MovieImpl implements Movie {
     public void setPosterUrl(String posterURL) {
 
         this.posterURL = posterURL;
+    }
+
+    /**
+     * Returns the release date of the current movie object
+     *
+     * @return release date as string
+     */
+    @Override
+    public String getReleaseDate() {
+
+        return this.releaseDate;
     }
 
     /**
@@ -300,6 +201,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Returns adult status of the current movie object
+     *
+     * @return true/false adult status
+     */
+    @Override
+    public Boolean getIsAdult() {
+
+        return this.isAdult;
+    }
+
+    /**
      * Sets adult status of the current movie object
      *
      * @param bool true/false adult status
@@ -308,6 +220,17 @@ public class MovieImpl implements Movie {
     public void setIsAdult(boolean bool) {
 
         this.isAdult = bool;
+    }
+
+    /**
+     * Returns a list of genres the current movie object belongs to
+     *
+     * @return list of genre types
+     */
+    @Override
+    public List<String> getGenres() {
+
+        return this.genres;
     }
 
     /**
@@ -322,6 +245,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Returns a short overview text of the current movie objekt
+     *
+     * @return overview text
+     */
+    @Override
+    public String getOverview() {
+
+        return this.overview;
+    }
+
+    /**
      * Sets a short overview text of the current movie objekt
      *
      * @param overview overview text
@@ -330,6 +264,17 @@ public class MovieImpl implements Movie {
     public void setOverview(String overview) {
 
         this.overview = overview;
+    }
+
+    /**
+     * Returns the original language of the current movie object
+     *
+     * @return original language
+     */
+    @Override
+    public String getOriginalLanguage() {
+
+        return this.originalLanguage;
     }
 
     /**
@@ -344,6 +289,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Returns a list of production companies of the current movie object
+     *
+     * @return list of production companies
+     */
+    @Override
+    public List<String> getProductionCompanies() {
+
+        return this.productionCompanies;
+    }
+
+    /**
      * Sets a list of production companies of the current movie object
      *
      * @param list list of production companies
@@ -352,6 +308,17 @@ public class MovieImpl implements Movie {
     public void setProductionCompanies(List<String> list) {
 
         this.productionCompanies = list;
+    }
+
+    /**
+     * Returns a list of production countries of the current movie object
+     *
+     * @return list of production countries
+     */
+    @Override
+    public List<String> getProductionCountries() {
+
+        return this.productionCountries;
     }
 
     /**
@@ -366,6 +333,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Returns the runtime of the current movie object
+     *
+     * @return runtime of the movie
+     */
+    @Override
+    public Integer getRuntime() {
+
+        return this.runtime;
+    }
+
+    /**
      * Sets the runtime of the current movie object
      *
      * @param runtime runtime of the movie
@@ -377,6 +355,17 @@ public class MovieImpl implements Movie {
     }
 
     /**
+     * Returns the average vote of the current movie object
+     *
+     * @return average vote
+     */
+    @Override
+    public Float getVoteAverage() {
+
+        return this.voteAverage;
+    }
+
+    /**
      * Sets the average vote of the current movie object
      *
      * @param averageVote average vote
@@ -385,6 +374,17 @@ public class MovieImpl implements Movie {
     public void setVoteAverage(Float averageVote) {
 
         this.voteAverage = averageVote;
+    }
+
+    /**
+     * Returns the status of the current movie object
+     *
+     * @return status of the movie
+     */
+    @Override
+    public String getStatus() {
+
+        return this.status;
     }
 
     /**

@@ -32,7 +32,7 @@ public class UserImpl implements User {
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public UserImpl(String userName, String password){
+    public UserImpl(String userName, String password) {
         this.setUserName(userName);
         this.setPasswordHash(password);
     }
@@ -64,13 +64,13 @@ public class UserImpl implements User {
         return null;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     @Override
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = hash(passwordHash);
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

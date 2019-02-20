@@ -58,7 +58,7 @@ public interface MovieList {
      *
      * @return List
      */
-    List<Movie> getMovies();
+    List<MovieImpl> getMovies();
 
     /**
      * returns the user id that created this movielist

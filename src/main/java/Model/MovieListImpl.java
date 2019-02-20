@@ -114,6 +114,15 @@ public class MovieListImpl implements MovieList {
     }
 
     /**
+     * Sets/changes the name of this movielist
+     *
+     * @param name name of movielist
+     */
+    protected void setName(String name) {
+        this.movieListName = name;
+    }
+
+    /**
      * returns the movielist
      *
      * @return List<MovieImpl>
@@ -141,15 +150,6 @@ public class MovieListImpl implements MovieList {
     @Override
     public List<Long> getUsers() {
         return this.users;
-    }
-
-    /**
-     * Sets/changes the name of this movielist
-     *
-     * @param name name of movielist
-     */
-    protected void setName(String name) {
-        this.movieListName = name;
     }
 
     /**

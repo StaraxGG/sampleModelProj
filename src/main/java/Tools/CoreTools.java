@@ -1,9 +1,8 @@
 package Tools;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.io.IOException;
-import java.net.*;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * An implementation of CoreTools
@@ -53,12 +52,13 @@ public class CoreTools {
 
     /**
      * swaps the elements in the given array at the two indices
-     * @param a T[] array
+     *
+     * @param a      T[] array
      * @param index1 int first index
      * @param index2 int second index
-     * @param <T> Type of the array
+     * @param <T>    Type of the array
      */
-    public static <T> void swap(T[] a, int index1, int index2){
+    public static <T> void swap(T[] a, int index1, int index2) {
         T tmp = a[index1];
         a[index1] = a[index2];
         a[index2] = tmp;
@@ -69,11 +69,12 @@ public class CoreTools {
     /**
      * returns the name of the current method in this stack trace. the parameter "depth" can help to retrive the name
      * of the method that was called before
+     *
      * @param depth int index of the method call in the stack trace, when that is viewed as an array with the current
      *              method starting with an index of 0
      * @return String name of the method at the index depth in the StackTrace
      */
-    public static String getStackTraceMethodName(final int depth){
+    public static String getStackTraceMethodName(final int depth) {
         final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
         return ste[depth].getMethodName();
     }
@@ -83,6 +84,7 @@ public class CoreTools {
     /**
      * this method check if internet connection is available
      * (preferably by checking if the Tmbd-Api can be reached, so we have that checked out as well)
+     *
      * @return true, if and only if an internet connection is available
      */
     public static boolean internetConnectionAvailable() {

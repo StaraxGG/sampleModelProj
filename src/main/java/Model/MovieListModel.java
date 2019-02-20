@@ -64,6 +64,7 @@ public class MovieListModel extends MasterModel<Long, Model.MovieList> {
 
     /**
      * returns the movieList with this specific id
+     *
      * @param id
      * @return MovieList
      */
@@ -72,11 +73,10 @@ public class MovieListModel extends MasterModel<Long, Model.MovieList> {
     }
 
     /**
-     *
      * @param ids
      * @return
      */
-    public List<MovieList> getMovieLists(List<Long> ids){
+    public List<MovieList> getMovieLists(List<Long> ids) {
         throw new NotImplementedException();
     }
 

@@ -41,11 +41,20 @@ public interface Movie {
     String getTitle();
 
     /**
+     * Sets the title of the current movie object
+     *
+     * @param title movie title
+     */
+    void setTitle(String title);
+
+    /**
      * returns this tmdbMovies
      *
      * @return Double
      */
     Float getPopularity();
+
+    void setPopularity(Float popularity);
 
     /**
      * returns the url for the poster of this movie
@@ -55,6 +64,13 @@ public interface Movie {
     String getPosterUrl();
 
     /**
+     * Sets the URL of the poster of the current movie object
+     *
+     * @param posterURL URL
+     */
+    void setPosterUrl(String posterURL);
+
+    /**
      * returns the release date of this movie
      *
      * @return String release date
@@ -62,11 +78,25 @@ public interface Movie {
     String getReleaseDate();
 
     /**
+     * Sets the release date of the current movie object
+     *
+     * @param releaseDate date as string
+     */
+    void setReleaseDate(String releaseDate);
+
+    /**
      * returns a Boolean determining if this movie is adult rated
      *
      * @return Boolean
      */
     Boolean getIsAdult();
+
+    /**
+     * Sets adult status of the current movie object
+     *
+     * @param bool true/false adult status
+     */
+    void setIsAdult(boolean bool);
 
     /**
      * returns a list of strings for this movie
@@ -77,6 +107,13 @@ public interface Movie {
     List<String> getGenres();
 
     /**
+     * Sets a list of genres the current movie object belongs to
+     *
+     * @param list of genre types
+     */
+    void setGenres(List<String> list);
+
+    /**
      * returns this tmdbMovies overview (the short explanation of this tmdbMovies content)
      * in this tmdbMovies language
      *
@@ -84,88 +121,8 @@ public interface Movie {
      */
     String getOverview();
 
-    /**
-     * returns this tmdbMovies original language
-     *
-     * @return String
-     */
-    String getOriginalLanguage();
-
-    /**
-     * returns a list of this tmdbMovies production companies names
-     *
-     * @return {@link List}
-     */
-    List<String> getProductionCompanies();
-
-    /**
-     * returns a list of production countries
-     *
-     * @return {@link List}
-     */
-    List<String> getProductionCountries();
-
-    /**
-     * returns the Runtime of this movie in mins
-     *
-     * @return Integer
-     */
-    Integer getRuntime();
-
-    /**
-     * returns the average rating for this movie
-     *
-     * @return Double
-     */
-    Float getVoteAverage();
-
-    /**
-     * returns the status
-     * this is information like released, coming soon, etc.
-     *
-     * @return String
-     */
-    String getStatus();
-
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
-
-    /**
-     * Sets the title of the current movie object
-     *
-     * @param title movie title
-     */
-    void setTitle(String title);
-
-    void setPopularity(Float popularity);
-
-    /**
-     * Sets the URL of the poster of the current movie object
-     *
-     * @param posterURL URL
-     */
-    void setPosterUrl(String posterURL);
-
-    /**
-     * Sets the release date of the current movie object
-     *
-     * @param releaseDate date as string
-     */
-    void setReleaseDate(String releaseDate);
-
-    /**
-     * Sets adult status of the current movie object
-     *
-     * @param bool true/false adult status
-     */
-    void setIsAdult(boolean bool);
-
-    /**
-     * Sets a list of genres the current movie object belongs to
-     *
-     * @param list of genre types
-     */
-    void setGenres(List<String> list);
 
     /**
      * Sets a short overview text of the current movie objekt
@@ -175,11 +132,25 @@ public interface Movie {
     void setOverview(String overview);
 
     /**
+     * returns this tmdbMovies original language
+     *
+     * @return String
+     */
+    String getOriginalLanguage();
+
+    /**
      * Sets the original language of the current movie object
      *
      * @param originalLang original language
      */
     void setOriginalLanguage(String originalLang);
+
+    /**
+     * returns a list of this tmdbMovies production companies names
+     *
+     * @return {@link List}
+     */
+    List<String> getProductionCompanies();
 
     /**
      * Sets a list of production companies of the current movie object
@@ -189,11 +160,25 @@ public interface Movie {
     void setProductionCompanies(List<String> list);
 
     /**
+     * returns a list of production countries
+     *
+     * @return {@link List}
+     */
+    List<String> getProductionCountries();
+
+    /**
      * Sets a list of production countries of the current movie object
      *
      * @param list list of production countries
      */
     void setProductionCountries(List<String> list);
+
+    /**
+     * returns the Runtime of this movie in mins
+     *
+     * @return Integer
+     */
+    Integer getRuntime();
 
     /**
      * Sets the runtime of the current movie object
@@ -203,11 +188,26 @@ public interface Movie {
     void setRuntime(Integer runtime);
 
     /**
+     * returns the average rating for this movie
+     *
+     * @return Double
+     */
+    Float getVoteAverage();
+
+    /**
      * Sets the average vote of the current movie object
      *
      * @param averageVote average vote
      */
     void setVoteAverage(Float averageVote);
+
+    /**
+     * returns the status
+     * this is information like released, coming soon, etc.
+     *
+     * @return String
+     */
+    String getStatus();
 
     /**
      * Sets the status of the current movie object

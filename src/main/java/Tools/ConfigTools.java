@@ -1,13 +1,9 @@
 package Tools;
 
-import org.hibernate.boot.cfgxml.internal.ConfigLoader;
-
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -26,19 +22,6 @@ public class ConfigTools {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
-    public static void main(String[] args) {
-        String lang = ConfigTools.getVal("lang");
-
-        ConfigTools.setVal("lang","en");
-        String lang2 = ConfigTools.getVal("lang");
-
-        ConfigTools.restoreDefault();
-        ConfigTools.setVal("test","true");
-        ConfigTools.setVal("test","false");
-        System.exit(0);
-
-    }
-
     static {
 
         p = new Properties();
@@ -53,6 +36,19 @@ public class ConfigTools {
 
     }
 
+    public static void main(String[] args) {
+        String lang = ConfigTools.getVal("lang");
+
+        ConfigTools.setVal("lang", "en");
+        String lang2 = ConfigTools.getVal("lang");
+
+        ConfigTools.restoreDefault();
+        ConfigTools.setVal("test", "true");
+        ConfigTools.setVal("test", "false");
+        System.exit(0);
+
+    }
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
@@ -64,12 +60,13 @@ public class ConfigTools {
     /**
      * returns the value for this key
      * if a new value was set then this will be returned, otherwise the default value will be searched
+     *
      * @param key
      * @return value
      */
     public static String getVal(String key) {
         String val = "";
-        if ( (val = p.getProperty(String.format("%s(changed)", key))) != null){
+        if ((val = p.getProperty(String.format("%s(changed)", key))) != null) {
             return val;
         } else if ((val = p.getProperty(key)) != null) {
             return val;
@@ -81,12 +78,13 @@ public class ConfigTools {
     /**
      * sets a new value to the properties
      * if the value existed it will be modified and a :changed tag will be appended
+     *
      * @param key
      * @param value
      */
-    public static void setVal(String key, String value){
+    public static void setVal(String key, String value) {
         if (p.containsKey(key)) {
-            p.setProperty(String.format("%s(changed)",key), value);
+            p.setProperty(String.format("%s(changed)", key), value);
         } else {
             p.setProperty(key, value);
         }
@@ -98,9 +96,9 @@ public class ConfigTools {
     /**
      * restores the default settings
      */
-    public static void restoreDefault(){
-        for (String key : p.stringPropertyNames()){
-            if (key.endsWith("(changed)")){
+    public static void restoreDefault() {
+        for (String key : p.stringPropertyNames()) {
+            if (key.endsWith("(changed)")) {
                 p.remove(key);
             }
         }
@@ -112,11 +110,11 @@ public class ConfigTools {
     /**
      * stores the properties file to the disk
      */
-    private static void storeProperties(){
+    private static void storeProperties() {
 
         try {
-            p.store(new FileWriter(configFilePath),"Configuration File, Saved at: " + new Date().toString());
-        } catch (IOException ioe){
+            p.store(new FileWriter(configFilePath), "Configuration File, Saved at: " + new Date().toString());
+        } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
         }
 

@@ -1,10 +1,5 @@
 package Model;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import javax.management.Query;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,25 +15,24 @@ public class UserModel extends MasterModel<String, User> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
-    public static void main(String[] args) {
-    }
+    private static User currentUser;
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
-
-    private static User currentUser;
     private static UserModel userModel;
+    private UserModel() {
+
+    }
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    private UserModel(){
-
+    public static void main(String[] args) {
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    public static UserModel getInstance(){
+    public static UserModel getInstance() {
         if (userModel == null)
             userModel = new UserModel();
 
@@ -46,13 +40,29 @@ public class UserModel extends MasterModel<String, User> {
     }
 
     /**
+     * verifies that the given username is a valid mail adress
+     *
+     * @param username
+     * @return true if username mail adress
+     */
+    private static boolean verifyMailAdress(String username) {
+
+        final Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(username);
+        return matcher.find();
+    }
+
+    /**
      * checks this users credentials and logs him into the database if valid
      * then this user will be set as currentUser automatically
      * otherwise returns null
+     *
      * @param user User
      * @return User
      */
-    public User login(User user){
+    public User login(User user) {
 
         User tmpUser = super.findById(user.getUsername());
 
@@ -62,18 +72,19 @@ public class UserModel extends MasterModel<String, User> {
         if (tmpUser.getPasswordHash().equals(user.getPasswordHash())) {
             setCurrentUser(user);
             return getCurrentUser();
-        }
-
-        else return null;
+        } else return null;
     }
+
+    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**
      * checks if this username is already used at the database and return false if so.
      * otherwise registers this user in the database and logs him in automatically
+     *
      * @param user
      * @return
      */
-    public boolean register(User user){
+    public boolean register(User user) {
 
         // check if the user address is valid
         if (!verifyMailAdress(user.getUsername()))
@@ -95,21 +106,21 @@ public class UserModel extends MasterModel<String, User> {
         return true;
     }
 
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
-
     /**
      * returns the currentUser that is logged in or otherwise null
+     *
      * @return User
      */
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return currentUser;
     }
 
     /**
      * sets the current user
+     *
      * @param user
      */
-    private static void setCurrentUser(User user){
+    private static void setCurrentUser(User user) {
         currentUser = user;
     }
 
@@ -117,27 +128,14 @@ public class UserModel extends MasterModel<String, User> {
      * returns a user object for the given id
      * the returned user is not logged in automatically
      * this method can be used to retrieve user information for displaying in MovieLists
+     *
      * @param id T
      * @return User
      */
-    public User findById(Long id){
+    public User findById(Long id) {
 
         // just pass that stuff along
         return userModel.findById(id);
-    }
-
-    /**
-     * verifies that the given username is a valid mail adress
-     * @param username
-     * @return true if username mail adress
-     */
-    private static boolean verifyMailAdress(String username){
-
-        final Pattern VALID_EMAIL_ADDRESS_REGEX =
-                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(username);
-        return matcher.find();
     }
 }
 
