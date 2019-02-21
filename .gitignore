@@ -6,6 +6,7 @@
 .idea
 .idea
 target/
+.DS_Store
 .idea/workspace.xml
 src/main/java/LocalDirectory/*.java
 !src/main/java/LocalDirectory/README.md
