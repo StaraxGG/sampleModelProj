@@ -22,7 +22,7 @@ public class MovieListImpl implements MovieList {
 
 
 
-    @ManyToMany(targetEntity = MovieImpl.class)
+    @OneToMany(targetEntity = MovieImpl.class)
     private LinkedList<MovieImpl> movies;
 
     @Id
