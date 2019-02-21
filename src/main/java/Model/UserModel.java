@@ -1,5 +1,8 @@
 package Model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -134,6 +137,17 @@ public class UserModel extends MasterModel<String, User> {
 
         // just pass that stuff along
         return userModel.findById(id);
+    }
+
+    /**
+     * this method returns all movielists where this movie is stored in already
+     * therefore you can show the user if he has already saved a movie and in which lists
+     * the movies are compared by their tmdpId / equals-method
+     * @param movie
+     * @return
+     */
+    List<MovieListImpl> findMovielistForMovie(Movie movie){
+        throw new NotImplementedException();
     }
 }
 

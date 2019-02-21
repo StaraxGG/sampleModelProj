@@ -121,6 +121,12 @@ public interface Movie {
      */
     String getOverview();
 
+    /**
+     * returns the movielists this movie is in
+     * @return MovieList
+     */
+    MovieListImpl getMovieList();
+
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
@@ -215,5 +221,11 @@ public interface Movie {
      * @param status status of the movie
      */
     void setStatus(String status);
+
+    /**
+     * sets the list of
+     * @param movieList
+     */
+    void setMovieList(MovieList movieList);
 }
 

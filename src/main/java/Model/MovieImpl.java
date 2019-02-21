@@ -67,6 +67,9 @@ public class MovieImpl implements Movie {
     @Column(name = "movie_status")
     private String status;
 
+    @Column(name = "movielist")
+    private MovieList movieList;
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -101,8 +104,15 @@ public class MovieImpl implements Movie {
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
+    @Override
+    public boolean equals(Object obj) {
 
+        // create MovieImpl object with cast
+        MovieImpl movie = (MovieImpl) obj;
 
+        // compare their tmdb id's and return true if they are the same
+        return this.getTmdbId().equals(movie.getTmdbId());
+    }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
@@ -434,6 +444,14 @@ public class MovieImpl implements Movie {
         this.status = status;
     }
 
+    @Override
+    public MovieListImpl getMovieList() {
+        return (MovieListImpl) this.movieList;
+    }
 
+    @Override
+    public void setMovieList(MovieList movieList) {
+        this.movieList = movieList;
+    }
 }
 

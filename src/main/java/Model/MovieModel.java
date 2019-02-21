@@ -125,9 +125,7 @@ public class MovieModel extends MasterModel<Long, Movie> {
      * @param movie
      */
     void addMovie(Movie movie) {
-        doInTransaction((em) -> {
-            em.persist(movie);
-        });
+        doInTransaction((em) -> em.persist(movie));
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

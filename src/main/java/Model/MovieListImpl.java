@@ -23,7 +23,7 @@ public class MovieListImpl implements MovieList {
 
 
     @ManyToMany(targetEntity = MovieImpl.class)
-    private LinkedList<MovieImpl> movieList;
+    private LinkedList<MovieImpl> movies;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,7 +50,7 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieListImpl() {
         this.users = new LinkedList<>();
-        this.movieList = new LinkedList<>();
+        this.movies = new LinkedList<>();
     }
 
     public MovieListImpl(String movieListName, Long creatorUserID) {
@@ -60,7 +60,7 @@ public class MovieListImpl implements MovieList {
         this.users = new LinkedList<>();
         this.users.add(UserModel.getInstance().findById(creatorUserID));
 
-        this.movieList = new LinkedList<>();
+        this.movies = new LinkedList<>();
     }
 
     public MovieListImpl(String movieListName, Long creatorUserID, MovieImpl movie) {
@@ -70,15 +70,15 @@ public class MovieListImpl implements MovieList {
         this.users = new LinkedList<>();
         this.users.add(UserModel.getInstance().findById(creatorUserID));
 
-        this.movieList = new LinkedList<>();
-        this.movieList.add(movie);
+        this.movies = new LinkedList<>();
+        this.movies.add(movie);
     }
 
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
-     * Adds the received movie to the movieList if
+     * Adds the received movie to the movies if
      * it is not already on the list
      *
      * @param movie movie object
@@ -86,23 +86,23 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(MovieImpl movie) {
-        if (!this.movieList.contains(movie)) {
-            this.movieList.add(movie);
+        if (!this.movies.contains(movie)) {
+            this.movies.add(movie);
             return true;
         }
         return false;
     }
 
     /**
-     * Deletes the received movie out of the movieList if existing
+     * Deletes the received movie out of the movies if existing
      *
      * @param movie movie object
      * @return boolean success
      */
     @Override
     public boolean deleteMovie(MovieImpl movie) {
-        if (this.movieList.contains(movie)) {
-            this.movieList.remove(movie);
+        if (this.movies.contains(movie)) {
+            this.movies.remove(movie);
             return true;
         }
         return false;
@@ -150,7 +150,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public List<MovieImpl> getMovies() {
-        return this.movieList;
+        return this.movies;
     }
 
     /**
