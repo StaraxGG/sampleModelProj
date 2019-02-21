@@ -21,10 +21,11 @@ public class MovieImpl implements Movie {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     @Id
+    @Column(name = "movie_ID", nullable = false)
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long movieID;
 
-    @Column(name = "tmdb_id", nullable = false)
+    @Column(name = "tmdb_ID", nullable = false)
     private Integer tmdbID;
 
     @Column(name = "title")
@@ -65,6 +66,7 @@ public class MovieImpl implements Movie {
 
     @Column(name = "movie_status")
     private String status;
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
