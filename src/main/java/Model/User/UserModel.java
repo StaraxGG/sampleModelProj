@@ -1,5 +1,8 @@
-package Model;
+package Model.User;
 
+import Model.MasterModel;
+import Model.Movie.Movie;
+import Model.MovieList.MovieListImpl;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;

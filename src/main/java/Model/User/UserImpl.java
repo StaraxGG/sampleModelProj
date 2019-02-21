@@ -1,6 +1,7 @@
-package Model;
+package Model.User;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import Model.MovieList.MovieList;
+import Model.MovieList.MovieListImpl;
 
 import javax.persistence.*;
 import java.util.LinkedList;

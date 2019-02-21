@@ -1,4 +1,8 @@
-package Model;
+package Model.MovieList;
+
+import Model.Movie.MovieImpl;
+import Model.User.UserImpl;
+import Model.User.UserModel;
 
 import javax.persistence.*;
 import java.util.LinkedList;

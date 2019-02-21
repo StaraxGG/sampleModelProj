@@ -1,5 +1,6 @@
-package Model;
+package Model.Movie;
 
+import Model.MasterModel;
 import Tools.ConfigTools;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbSearch;

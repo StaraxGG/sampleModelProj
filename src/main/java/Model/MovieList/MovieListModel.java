@@ -1,5 +1,6 @@
-package Model;
+package Model.MovieList;
 
+import Model.MasterModel;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @since 2019-Feb-10
  */
-public class MovieListModel extends MasterModel<Long, Model.MovieList> {
+public class MovieListModel extends MasterModel<Long, MovieList> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -46,7 +47,7 @@ public class MovieListModel extends MasterModel<Long, Model.MovieList> {
      *
      * @param movieList MovieList
      */
-    public void addMovieList(Model.MovieList movieList) {
+    public void addMovieList(MovieList movieList) {
         doInTransaction((em) -> {
             em.persist(movieList);
         });
