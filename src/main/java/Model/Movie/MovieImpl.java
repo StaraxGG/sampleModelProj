@@ -135,7 +135,7 @@ public class MovieImpl implements Movie {
      *
      * @param id UUID
      */
-    protected void setId(Long id) {
+    public void setId(Long id) {
         if (this.movieID == null) {
             this.movieID = id;
         }
@@ -157,7 +157,7 @@ public class MovieImpl implements Movie {
      *
      * @param tmdbID Tmdb-ID
      */
-    protected void setTmdbId(Integer tmdbID) {
+    public void setTmdbId(Integer tmdbID) {
 
         this.tmdbID = tmdbID;
     }

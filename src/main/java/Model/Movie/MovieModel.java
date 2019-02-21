@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 2019-Feb-10
  */
-public class MovieModel extends MasterModel<Long, Movie> {
+public class MovieModel extends MasterModel<Long, MovieImpl> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

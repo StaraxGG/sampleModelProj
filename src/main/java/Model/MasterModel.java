@@ -107,14 +107,16 @@ public abstract class MasterModel<T extends Serializable, C> {
             result = em.find(this.entityClass, id);
 
             // commit the thing
-            transaction.commit();
+            //transaction.commit();
+
+            em.flush();
 
         } catch (PersistenceException pe) {
             System.err.println(pe.getMessage());
             transaction.rollback();
 
         } finally {
-            em.flush();
+
         }
 
         return result;
@@ -142,7 +144,7 @@ public abstract class MasterModel<T extends Serializable, C> {
             masterTransaction.doInTransaction(em);
 
             // commit the thing
-            transaction.commit();
+            //transaction.commit();
 
         } catch (PersistenceException pe) {
             System.err.println(pe.getMessage());

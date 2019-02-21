@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @version 1.0
  * @since 2019-Feb-11
  */
-public class UserModel extends MasterModel<String, User> {
+public class UserModel extends MasterModel<String, UserImpl> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -104,7 +104,7 @@ public class UserModel extends MasterModel<String, User> {
         }
 
         // otherwise create a new user
-        this.persist(user);
+        this.persist((UserImpl) user);
         this.login(user);
 
         return true;

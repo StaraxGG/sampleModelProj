@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @since 2019-Feb-10
  */
-public class MovieListModel extends MasterModel<Long, MovieList> {
+public class MovieListModel extends MasterModel<Long, MovieListImpl> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

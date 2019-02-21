@@ -143,7 +143,7 @@ public class MovieListImpl implements MovieList {
      *
      * @param name name of movielist
      */
-    protected void setName(String name) {
+    public void setName(String name) {
         this.movieListName = name;
     }
 
@@ -209,7 +209,7 @@ public class MovieListImpl implements MovieList {
      *
      * @param movieListID ID of this movielist
      */
-    protected void setMovieListID(Long movieListID) {
+    public void setMovieListID(Long movieListID) {
         if (this.movieListID == null) {
             this.movieListID = movieListID;
         }

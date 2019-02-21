@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import static org.junit.Assert.assertTrue;
 
 /**
- * An implementation of MovieImplTest
+ * An implementation of Model.Movie.MovieImplTest
  * in samplemodelproject
  *
  * @author CHW
