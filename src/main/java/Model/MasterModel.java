@@ -7,13 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
-@FunctionalInterface
-interface MasterTransaction {
-
-    void doInTransaction(EntityManager em);
-
-}
-
 /**
  * An implementation of MasterModel
  * in samplemodelproject
