@@ -25,9 +25,6 @@ public class UserImpl implements User {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userID;
-
     @Column(name = "user_name")
     private String userName;
 
@@ -45,6 +42,9 @@ public class UserImpl implements User {
         this.setUserName(userName);
         this.setPasswordHash(password);
         this.movieLists = new LinkedList<>();
+    }
+
+    public UserImpl() {
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
