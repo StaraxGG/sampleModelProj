@@ -1,7 +1,8 @@
-package Model;
+package Model.MovieList;
 
 import Model.Movie.MovieImpl;
 import Model.MovieList.MovieListImpl;
+import Model.User.UserImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,7 +75,7 @@ public class MovieListImplTest {
 
     @Test
     public void testGetUsers() {
-        List<Long> list = this.movieListImpl.getUsers();
+        List<UserImpl> list = this.movieListImpl.getUsers();
         assertTrue(this.movieListImpl.getUsers().equals(list));
     }
 
@@ -86,9 +87,10 @@ public class MovieListImplTest {
 
     @Test
     public void testSetNewUser() {
-        Long userID = 111111L;
-        this.movieListImpl.getUsers().add(userID);
-        assertTrue(this.movieListImpl.getUsers().contains(userID));
+        //Long userID = 111111L;
+        UserImpl user = new UserImpl("username", "123456");
+        this.movieListImpl.getUsers().add(user);
+        assertTrue(this.movieListImpl.getUsers().contains(user));
     }
 
     @Test

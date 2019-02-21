@@ -1,4 +1,4 @@
-package Model;
+package Model.Movie;
 
 import Model.Movie.MovieImpl;
 import org.junit.After;

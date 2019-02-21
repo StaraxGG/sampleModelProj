@@ -27,7 +27,7 @@ public class MovieListImpl implements MovieList {
 
 
     @OneToMany(targetEntity = MovieImpl.class)
-    private LinkedList<MovieImpl> movies;
+    private List<MovieImpl> movies;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -184,7 +184,7 @@ public class MovieListImpl implements MovieList {
      * @param userID ID of the current user who want to use the list
      * @return boolean success
      */
-    protected boolean setNewUser(Long userID) {
+    public boolean setNewUser(Long userID) {
 
         UserImpl tmpUser = UserModel.getInstance().findById(userID);
 
