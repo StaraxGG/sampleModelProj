@@ -37,8 +37,8 @@ public class MovieListImpl implements MovieList {
     @Column(name = "movielist_name")
     private String movieListName;
 
-    @Column(name = "creator_user_id")
-    private Long creatorUserID;
+    @Column(name = "creator_user_name")
+    private String creatorUserName;
     //list of userIDs
 
     @ManyToMany
@@ -59,7 +59,7 @@ public class MovieListImpl implements MovieList {
 
     public MovieListImpl(String movieListName, String creatorUserName) {
         this.movieListName = movieListName;
-        this.creatorUserID = creatorUserID;
+        this.creatorUserName = creatorUserName;
 
         this.users = new LinkedList<>();
         this.users.add(UserModel.getInstance().findByUserName(creatorUserName));
@@ -69,7 +69,7 @@ public class MovieListImpl implements MovieList {
 
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) {
         this.movieListName = movieListName;
-        this.creatorUserID = creatorUserID;
+        this.creatorUserName = creatorUserName;
 
         this.users = new LinkedList<>();
         this.users.add(UserModel.getInstance().findByUserName(creatorUserName));
@@ -163,8 +163,8 @@ public class MovieListImpl implements MovieList {
      * @return Long
      */
     @Override
-    public Long getCreatorUserId() {
-        return this.creatorUserID;
+    public String getCreatorUserName() {
+        return this.creatorUserName;
     }
 
     /**
@@ -184,14 +184,23 @@ public class MovieListImpl implements MovieList {
      * @param username ID of the current user who want to use the list
      * @return boolean success
      */
-    public boolean setNewUser(String username) {
+    public boolean addNewUser(String username) {
 
         UserImpl tmpUser = UserModel.getInstance().findByUserName(username);
 
+        // check if this user exists
+        if (tmpUser == null)
+            return false;
+
+        // check if this user is NOT in the list
         if (!this.users.contains(tmpUser)) {
+
+            // add the user
             this.users.add(tmpUser);
             return true;
         }
+
+        // user was already in the list
         return false;
     }
 

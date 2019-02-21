@@ -68,7 +68,7 @@ public interface MovieList {
      *
      * @return Long id
      */
-    Long getCreatorUserId();
+    String getCreatorUserName();
 
     /**
      * returns the user ids that are contributors to this list
