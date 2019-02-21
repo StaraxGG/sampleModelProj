@@ -47,7 +47,7 @@ public class MovieImpl implements Movie {
     private boolean isAdult;
 
     @Column(name = "genres")
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private List<String> genres;
 
     @Column(name = "overview")
@@ -57,11 +57,11 @@ public class MovieImpl implements Movie {
     private String originalLanguage;
 
     @Column(name = "production_companies")
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private List<String> productionCompanies;
 
     @Column(name = "production_countries")
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private List<String> productionCountries;
 
     @Column(name = "runtime")
