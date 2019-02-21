@@ -45,7 +45,7 @@ public class UserImpl implements User {
         this.movieLists = new LinkedList<>();
     }
 
-    public UserImpl() {
+    private UserImpl() {
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */

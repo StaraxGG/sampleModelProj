@@ -83,7 +83,7 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @param entity
      */
     public void remove(C entity) {
-        doInTransaction((em) -> em.remove(entity));
+        doInTransaction((em) -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
     }
 
     /**
