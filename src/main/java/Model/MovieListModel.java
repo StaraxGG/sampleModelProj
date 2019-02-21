@@ -17,16 +17,29 @@ public class MovieListModel extends MasterModel<Long, Model.MovieList> {
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
+    private static MovieListModel movieListModel = null;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public MovieListModel() {
+    private MovieListModel() {
         super();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    /**
+     * returns THE instance of this MovieListModel
+     * @return MovieListModel
+     */
+    public static MovieListModel getInstance(){
+        if (movieListModel == null){
+            movieListModel = new MovieListModel();
+        }
+
+        return movieListModel;
+    }
 
     /**
      * add a new movielist to the database

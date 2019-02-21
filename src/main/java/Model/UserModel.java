@@ -21,15 +21,12 @@ public class UserModel extends MasterModel<String, User> {
     private static UserModel userModel;
 
     private UserModel() {
-
+        super();
     }
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-
-    public static void main(String[] args) {
-    }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 

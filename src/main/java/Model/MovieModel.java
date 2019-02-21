@@ -30,16 +30,29 @@ public class MovieModel extends MasterModel<Long, Movie> {
     protected TmdbMovies tmdbMovies;
     protected TmdbSearch tmdbSearch;
 
+    private static MovieModel movieModel = null;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-    public MovieModel() {
+    private MovieModel() {
         super();
         tmdbMovies = this.getTmdbApi().getMovies();
         tmdbSearch = this.getTmdbApi().getSearch();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    /**
+     * returns THE instance of this MovieModel
+     * @return MovieModel
+     */
+    public static MovieModel getInstance(){
+        if (movieModel == null)
+            movieModel = new MovieModel();
+
+        return movieModel;
+    }
 
     /**
      * Parses the received MovieDb object to an MovieImpl object by copying all
