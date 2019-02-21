@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 public class MovieListImplTest {
 
-    private static final String TEST_USER_NAME = "kloo@web.de";
+    private static final String TEST_USER_NAME = "kloo2@web.de";
     private static final String TEST_MOVIE_LIST_NAME = "Testname";
 
     private MovieImpl testMovie;

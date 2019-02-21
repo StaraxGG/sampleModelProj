@@ -146,12 +146,14 @@ public abstract class MasterModel<T extends Serializable, C> {
             // commit the thing
             //transaction.commit();
 
+            em.flush();
+
         } catch (PersistenceException pe) {
             System.err.println(pe.getMessage());
             transaction.rollback();
 
         } finally {
-            em.flush();
+
         }
 
     }
