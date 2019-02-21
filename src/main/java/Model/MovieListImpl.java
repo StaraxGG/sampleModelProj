@@ -1,5 +1,6 @@
 package Model;
 
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,17 +12,29 @@ import java.util.List;
  * @version 1.0
  * @since 2019-Feb-10
  */
+@Entity
+@Table(name = "movielist")
 public class MovieListImpl implements MovieList {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private LinkedList<MovieImpl> movieList;
+
+    @Column(name = "movielist_id")
     private Long movieListID;
+
+    @Column(name = "movielist_name")
     private String movieListName;
+
+    @Column(name = "creator_user_id")
     private Long creatorUserID;
     //list of userIDs
+
     private List<Long> users;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
