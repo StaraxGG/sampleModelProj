@@ -2,7 +2,7 @@ package Model;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 import static java.util.Objects.hash;
@@ -15,6 +15,7 @@ import static java.util.Objects.hash;
  * @version 1.0
  * @since 2019-Feb-11
  */
+@Entity
 @Table(name = "user")
 public class UserImpl implements User {
 
@@ -22,10 +23,14 @@ public class UserImpl implements User {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userID;
 
+    @Column(name = "user_name")
     private String userName;
 
+    @Column(name = "password_hash")
     private Integer passwordHash;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
