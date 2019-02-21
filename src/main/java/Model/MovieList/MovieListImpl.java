@@ -57,22 +57,22 @@ public class MovieListImpl implements MovieList {
         this.movies = new LinkedList<>();
     }
 
-    public MovieListImpl(String movieListName, Long creatorUserID) {
+    public MovieListImpl(String movieListName, String creatorUserName) {
         this.movieListName = movieListName;
         this.creatorUserID = creatorUserID;
 
         this.users = new LinkedList<>();
-        this.users.add(UserModel.getInstance().findById(creatorUserID));
+        this.users.add(UserModel.getInstance().findByUserName(creatorUserName));
 
         this.movies = new LinkedList<>();
     }
 
-    public MovieListImpl(String movieListName, Long creatorUserID, MovieImpl movie) {
+    public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) {
         this.movieListName = movieListName;
         this.creatorUserID = creatorUserID;
 
         this.users = new LinkedList<>();
-        this.users.add(UserModel.getInstance().findById(creatorUserID));
+        this.users.add(UserModel.getInstance().findByUserName(creatorUserName));
 
         this.movies = new LinkedList<>();
         this.movies.add(movie);
@@ -181,12 +181,12 @@ public class MovieListImpl implements MovieList {
      * Adds a new user to the users list if the user
      * is not already on the list
      *
-     * @param userID ID of the current user who want to use the list
+     * @param username ID of the current user who want to use the list
      * @return boolean success
      */
-    public boolean setNewUser(Long userID) {
+    public boolean setNewUser(String username) {
 
-        UserImpl tmpUser = UserModel.getInstance().findById(userID);
+        UserImpl tmpUser = UserModel.getInstance().findByUserName(username);
 
         if (!this.users.contains(tmpUser)) {
             this.users.add(tmpUser);
