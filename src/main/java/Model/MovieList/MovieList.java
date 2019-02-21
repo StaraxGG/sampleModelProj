@@ -1,6 +1,7 @@
 package Model.MovieList;
 
 
+import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.UserImpl;
 
@@ -76,5 +77,11 @@ public interface MovieList {
      * @return List
      */
     List<UserImpl> getUsers();
+
+    /**
+     * checks if this movieList contains the following moviee
+     * @return
+     */
+    boolean contains(Movie movie);
 
 }

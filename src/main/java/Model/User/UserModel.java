@@ -2,9 +2,11 @@ package Model.User;
 
 import Model.MasterModel;
 import Model.Movie.Movie;
+import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,13 +72,23 @@ public class UserModel extends MasterModel<String, UserImpl> {
 
         User tmpUser = super.findById(user.getUsername());
 
+        // check if he is already in the database
         if (tmpUser == null)
             return null;
 
+        // check if he has the right credentials
         if (tmpUser.getPasswordHash().equals(user.getPasswordHash())) {
             setCurrentUser(user);
             return getCurrentUser();
-        } else return null;
+        } else
+            return null;
+    }
+
+    /**
+     * logs the current user out
+     */
+    public void logout(){
+        currentUser = null;
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
@@ -147,10 +159,19 @@ public class UserModel extends MasterModel<String, UserImpl> {
      * therefore you can show the user if he has already saved a movie and in which lists
      * the movies are compared by their tmdpId / equals-method
      * @param movie
-     * @return
+     * @return List
      */
-    List<MovieListImpl> findMovielistForMovie(Movie movie){
-        throw new NotImplementedException();
+    List<? extends MovieList> findMovielistForMovie(Movie movie){
+        List<MovieListImpl> resultLists = new LinkedList<>();
+
+        for (MovieList movieList : this.getCurrentUser().getMovieLists()){
+
+            if (movieList.contains(movie))
+                resultLists.add((MovieListImpl) movieList);
+
+        }
+
+        return resultLists;
     }
 }
 

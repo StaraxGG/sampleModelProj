@@ -45,14 +45,14 @@ public class UserImpl implements User {
         this.movieLists = new LinkedList<>();
     }
 
-    private UserImpl() {
+    protected UserImpl() {
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     @Override
     public boolean addMovieList(MovieList movieList) {
-        if (this.movieLists.contains(movieList)){
+        if (this.movieLists.contains((MovieListImpl) movieList)){
             return false;
         }
 
@@ -92,6 +92,15 @@ public class UserImpl implements User {
 
     public void setMovieLists(List<MovieListImpl> movieLists) {
         this.movieLists = movieLists;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserImpl otherUser = (UserImpl) obj;
+
+        // check if name and password hash are the same
+        return this.getUsername().equals(otherUser.getUsername())
+                && (this.getPasswordHash().equals(otherUser.getPasswordHash()));
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

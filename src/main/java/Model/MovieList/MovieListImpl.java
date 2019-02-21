@@ -1,5 +1,6 @@
 package Model.MovieList;
 
+import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.UserImpl;
 import Model.User.UserModel;
@@ -112,8 +113,10 @@ public class MovieListImpl implements MovieList {
         return false;
     }
 
-
-
+    @Override
+    public boolean contains(Movie movie) {
+        return this.movies.contains(movie);
+    }
 
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

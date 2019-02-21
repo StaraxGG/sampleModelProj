@@ -69,14 +69,28 @@ public class UserModelTest {
 
     @Test
     public void getCurrentUser() {
+        userModel.login(user);
+        assertEquals(user, userModel.getCurrentUser());
     }
 
     @Test
     public void findByUserName() {
+
+        UserImpl tmpUser = null;
+        // add user to database
+        if ((userModel.login(user) == null) && (!userModel.register(user))){
+            // could not log the user in or register him
+            fail();
+        } else {
+            tmpUser = userModel.findByUserName(user.getUsername());
+        }
+
+        assertEquals(user, tmpUser);
     }
 
     @Test
     public void findMovielistForMovie() {
+        fail();
     }
 
     @After

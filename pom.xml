@@ -64,6 +64,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!--  TESTING DEPENDENCIES -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.192</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
@@ -81,6 +89,13 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
 </project>
