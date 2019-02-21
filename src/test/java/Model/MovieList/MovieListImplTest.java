@@ -23,14 +23,14 @@ public class MovieListImplTest {
 
     private MovieImpl testMovie = new MovieImpl();
     private MovieImpl testMovieTwo = new MovieImpl();
-    private MovieListImpl movieListImpl = new MovieListImpl("Testname", 333333L);
+    private MovieListImpl movieListImpl = new MovieListImpl("Testname", "kloo@web.de");
     //list of userIDs
     private List<Long> testUsers;
 
     @Before
     public void setUp() throws Exception {
 
-        this.movieListImpl.setNewUser(456789L);
+        this.movieListImpl.setNewUser("kloo@web.de");
     }
 
     @Test
@@ -69,7 +69,7 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testGetCreatorUserId() {
+    public void testGetCreatorUserName() {
         assertTrue(this.movieListImpl.getCreatorUserId() == 333333L);
     }
 
@@ -80,7 +80,7 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testSetName() {
+    public void testAddNewUser() {
         this.movieListImpl.setName("test setName");
         assertTrue(this.movieListImpl.getName().equals("test setName"));
     }
