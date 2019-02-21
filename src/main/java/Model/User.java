@@ -63,7 +63,7 @@ public interface User {
      *
      * @return List
      */
-    List<MovieList> getMovieLists();
+    List<MovieListImpl> getMovieLists();
 
     /**
      * returns the hash for this username that was stored in the database
