@@ -1,7 +1,6 @@
 package Model.MovieList;
 
 import Model.Movie.MovieImpl;
-import Model.MovieList.MovieListImpl;
 import Model.User.UserImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class MovieListImplTest {
     @Before
     public void setUp() throws Exception {
 
-        this.movieListImpl.setNewUser(456789L);
+        this.movieListImpl.addNewUser(456789L);
     }
 
     @Test
@@ -70,7 +69,7 @@ public class MovieListImplTest {
 
     @Test
     public void testGetCreatorUserId() {
-        assertTrue(this.movieListImpl.getCreatorUserId() == 333333L);
+        assertTrue(this.movieListImpl.getCreatorUserName() == 333333L);
     }
 
     @Test
