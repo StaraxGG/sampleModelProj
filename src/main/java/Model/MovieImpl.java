@@ -1,5 +1,6 @@
 package Model;
 
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,31 +12,64 @@ import java.util.List;
  * @version 1.0
  * @since 2019-Feb-10
  */
+@Entity
+@Table(name = "movie")
 public class MovieImpl implements Movie {
 
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long movieID;
+
+    @Column(name = "tmdb_id", nullable = false)
     private Integer tmdbID;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "popularity")
     private Float popularity;
+
+    @Column(name = "poster_URL")
     private String posterURL;
+
+    @Column(name = "release_date")
     private String releaseDate;
+
+    @Column(name = "is_adult")
     private boolean isAdult;
+
+    @Column(name = "genres")
     private List<String> genres;
+
+    @Column(name = "overview")
     private String overview;
+
+    @Column(name = "original_language")
     private String originalLanguage;
+
+    @Column(name = "production_companies")
     private List<String> productionCompanies;
+
+    @Column(name = "production_countries")
     private List<String> productionCountries;
+
+    @Column(name = "runtime")
     private Integer runtime;
+
+    @Column(name = "vote_average")
     private Float voteAverage;
+
+    @Column(name = "movie_status")
     private String status;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
+
 
     public MovieImpl(Integer tmdbID, String title, Float popularity, String posterURL, String releaseDate,
                      boolean isAdult, List<String> genres, String overview, String originalLanguage,
