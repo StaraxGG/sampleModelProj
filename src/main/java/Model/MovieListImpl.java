@@ -20,11 +20,13 @@ public class MovieListImpl implements MovieList {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 
+
+    @ManyToMany(targetEntity = MovieImpl.class)
     private LinkedList<MovieImpl> movieList;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "movielist_id")
     private Long movieListID;
 
@@ -35,13 +37,19 @@ public class MovieListImpl implements MovieList {
     private Long creatorUserID;
     //list of userIDs
 
-    private List<Long> users;
+    @ManyToMany
+    /*@JoinTable(
+            name = "movielist_user",
+            joinColumns = {@JoinColumn(name = "fk_movielist")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_user")}
+    )*/
+    private List<UserImpl> users;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieListImpl() {
-        this.users = new LinkedList<Long>();
+        this.users = new LinkedList<>();
         this.movieList = new LinkedList<>();
     }
 
@@ -49,8 +57,8 @@ public class MovieListImpl implements MovieList {
         this.movieListName = movieListName;
         this.creatorUserID = creatorUserID;
 
-        this.users = new LinkedList<Long>();
-        this.users.add(creatorUserID);
+        this.users = new LinkedList<>();
+        this.users.add(UserModel.getInstance().findById(creatorUserID));
 
         this.movieList = new LinkedList<>();
     }
@@ -59,8 +67,8 @@ public class MovieListImpl implements MovieList {
         this.movieListName = movieListName;
         this.creatorUserID = creatorUserID;
 
-        this.users = new LinkedList<Long>();
-        this.users.add(creatorUserID);
+        this.users = new LinkedList<>();
+        this.users.add(UserModel.getInstance().findById(creatorUserID));
 
         this.movieList = new LinkedList<>();
         this.movieList.add(movie);
@@ -78,7 +86,7 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(MovieImpl movie) {
-        if (this.movieList.contains(movie) == false) {
+        if (!this.movieList.contains(movie)) {
             this.movieList.add(movie);
             return true;
         }
@@ -161,7 +169,7 @@ public class MovieListImpl implements MovieList {
      * @return List<Long>
      */
     @Override
-    public List<Long> getUsers() {
+    public List<UserImpl> getUsers() {
         return this.users;
     }
 
@@ -173,8 +181,11 @@ public class MovieListImpl implements MovieList {
      * @return boolean success
      */
     protected boolean setNewUser(Long userID) {
-        if (this.users.contains(userID) == false) {
-            this.users.add(userID);
+
+        UserImpl tmpUser = UserModel.getInstance().findById(userID);
+
+        if (!this.users.contains(tmpUser)) {
+            this.users.add(tmpUser);
             return true;
         }
         return false;

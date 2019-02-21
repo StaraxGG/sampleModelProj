@@ -3,6 +3,7 @@ package Model;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.Objects.hash;
@@ -33,6 +34,9 @@ public class UserImpl implements User {
     @Column(name = "password_hash")
     private Integer passwordHash;
 
+    @ManyToMany
+    private List<MovieListImpl> movieLists;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
@@ -40,33 +44,40 @@ public class UserImpl implements User {
     public UserImpl(String userName, String password) {
         this.setUserName(userName);
         this.setPasswordHash(password);
+        this.movieLists = new LinkedList<>();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     @Override
     public boolean addMovieList(MovieList movieList) {
-        throw new NotImplementedException();
+        if (this.movieLists.contains(movieList)){
+            return false;
+        }
+
+        this.movieLists.add((MovieListImpl) movieList);
+        return true;
     }
 
     @Override
     public boolean deleteMovieList(Long id) {
-        throw new NotImplementedException();
+        this.movieLists.removeIf((movieList) -> movieList.getId().equals(id));
+        return true;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.userName;
     }
 
     @Override
-    public List<MovieList> getMovieLists() {
-        return null;
+    public List<MovieListImpl> getMovieLists() {
+        return this.movieLists;
     }
 
     @Override
     public Integer getPasswordHash() {
-        return null;
+        return this.passwordHash;
     }
 
     @Override
@@ -76,6 +87,10 @@ public class UserImpl implements User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setMovieLists(List<MovieListImpl> movieLists) {
+        this.movieLists = movieLists;
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

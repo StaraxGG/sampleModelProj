@@ -72,6 +72,6 @@ public interface MovieList {
      *
      * @return List
      */
-    List<Long> getUsers();
+    List<UserImpl> getUsers();
 
 }

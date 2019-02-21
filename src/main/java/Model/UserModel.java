@@ -19,6 +19,7 @@ public class UserModel extends MasterModel<String, User> {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     private static UserModel userModel;
+
     private UserModel() {
 
     }
@@ -132,7 +133,7 @@ public class UserModel extends MasterModel<String, User> {
      * @param id T
      * @return User
      */
-    public User findById(Long id) {
+    public UserImpl findById(Long id) {
 
         // just pass that stuff along
         return userModel.findById(id);
