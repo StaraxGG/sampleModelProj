@@ -133,13 +133,13 @@ public class UserModel extends MasterModel<String, User> {
      * the returned user is not logged in automatically
      * this method can be used to retrieve user information for displaying in MovieLists
      *
-     * @param id T
+     * @param username T
      * @return User
      */
-    public UserImpl findById(Long id) {
+    public UserImpl findByUserName(String username) {
 
         // just pass that stuff along
-        return userModel.findById(id);
+        return (UserImpl) this.findById(username);
     }
 
     /**
