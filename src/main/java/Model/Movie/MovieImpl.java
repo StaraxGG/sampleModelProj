@@ -47,6 +47,7 @@ public class MovieImpl implements Movie {
     private boolean isAdult;
 
     @Column(name = "genres")
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> genres;
 
     @Column(name = "overview")
@@ -56,9 +57,11 @@ public class MovieImpl implements Movie {
     private String originalLanguage;
 
     @Column(name = "production_companies")
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> productionCompanies;
 
     @Column(name = "production_countries")
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> productionCountries;
 
     @Column(name = "runtime")
@@ -69,9 +72,6 @@ public class MovieImpl implements Movie {
 
     @Column(name = "movie_status")
     private String status;
-
-    @Column(name = "movielist")
-    private MovieList movieList;
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -445,16 +445,6 @@ public class MovieImpl implements Movie {
     public void setStatus(String status) {
 
         this.status = status;
-    }
-
-    @Override
-    public MovieListImpl getMovieList() {
-        return (MovieListImpl) this.movieList;
-    }
-
-    @Override
-    public void setMovieList(MovieList movieList) {
-        this.movieList = movieList;
     }
 }
 
