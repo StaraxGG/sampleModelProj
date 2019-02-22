@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 public class MovieListImplTest {
 
-    private static final String TEST_USER_NAME = "kloo2@web.de";
+    private static final String TEST_USER_NAME = "CHW@weizenbaum.de";
     private static final String TEST_MOVIE_LIST_NAME = "Testname";
 
     private MovieImpl testMovie;
@@ -38,7 +38,8 @@ public class MovieListImplTest {
     public void setUp() throws Exception {
         testMovie = new MovieImpl();
         testMovieTwo = new MovieImpl();
-        UserImpl testUser = new UserImpl("kloo2@web.de", "123456");
+        //TODO not working
+        UserImpl testUser = new UserImpl("CHW@weizenbaum.de", "123456");
         movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
 
         this.movieListImpl.addNewUser(TEST_USER_NAME);
