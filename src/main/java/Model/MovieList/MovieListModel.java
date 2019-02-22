@@ -18,10 +18,6 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
-    public static void main(String[] args) {
-        MovieListModel movieListModel = MovieListModel.getInstance();
-    }
-
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     private static MovieListModel movieListModel = null;
 
