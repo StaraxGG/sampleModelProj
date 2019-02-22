@@ -1,8 +1,10 @@
 package Model.User;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import Model.Movie.Movie;
+import Model.MovieList.MovieList;
+import Model.MovieList.MovieListImpl;
+import Model.User.Exception.UserNotFoundException;
+import org.junit.*;
 
 import static java.util.Objects.hash;
 import static org.junit.Assert.*;
@@ -12,16 +14,40 @@ public class UserImplTest {
     private static final String TEST_USER_NAME = "test@test.de";
     private static final String TEST_USER_PASSWORD = "test_password";
 
-    User user;
+    private User user;
+    private UserModel userModel;
+
+    @BeforeClass
+    public void beforeClass(){
+        userModel = UserModel.getInstance();
+
+        if (userModel.findById(TEST_USER_NAME) == null) {
+            // add this user once
+            UserModel.getInstance().register(user);
+        } else {
+            user = userModel.login(new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD));
+        }
+
+    }
 
     @Before
     public void setUp() throws Exception {
-        user = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
+
     }
 
     @Test
     public void addMovieList() {
-        fail();
+        MovieList movieList = null;
+        try {
+            movieList = new MovieListImpl("MovieList1", TEST_USER_NAME);
+
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        user.addMovieList(movieList);
+        assertTrue(user.getMovieLists().contains(movieList));
     }
 
     @Test
@@ -62,5 +88,12 @@ public class UserImplTest {
     @After
     public void tearDown() throws Exception {
         user = null;
+    }
+
+    @AfterClass
+    public void afterClass(){
+
+        // remove the first added user
+        UserModel.getInstance().remove((UserImpl) user);
     }
 }
