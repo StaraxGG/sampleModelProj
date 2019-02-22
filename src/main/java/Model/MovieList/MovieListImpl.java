@@ -2,6 +2,8 @@ package Model.MovieList;
 
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
+import Model.User.Exception.UserNotFoundException;
+import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 
@@ -59,43 +61,41 @@ public class MovieListImpl implements MovieList {
     }
 
     /**
-     * Creates new watchlist. Automatically sets creator user name and
-     * adds creator user to users list
-     *
-     * @param movie movie object to add to the list
-     * @param creatorUserName user name who created the list
-     * @return boolean success
+     * this method creates a new movielist with a given user as creator user
+     * @param movieListName
+     * @param creatorUserName
+     * @throws UserNotFoundException when the user could not be found
      */
-    public MovieListImpl(String movieListName, String creatorUserName) {
-        this.movieListName = movieListName;
-        this.creatorUserName = creatorUserName;
-
-        this.users = new LinkedList<>();
-        this.users.add(UserModel.getInstance().findByUserName(creatorUserName));
-
-        this.movies = new LinkedList<>();
+    public MovieListImpl(String movieListName, String creatorUserName) throws UserNotFoundException {
+        this(movieListName, creatorUserName, null);
     }
 
 
     /**
-     * Creates new watchlist. Automatically sets creator user name and
-     * adds creator user to users list and first (or current) movie
-     * to the movie list
-     *
-     * @param movie movie object to add to the list
-     * @param creatorUserName user name who created the list
-     * @param movieListName name of this movie list (watchlist)
-     * @return boolean success
+     * this method creates a new movielist with a given user as creator user
+     * @param movieListName
+     * @param creatorUserName
+     * @param movie movie to add to the watchlist directly
+     * @throws UserNotFoundException when the user could not be found
      */
-    public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) {
+    public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
+        // init objects
         this.movieListName = movieListName;
-        this.creatorUserName = creatorUserName;
-
         this.users = new LinkedList<>();
-        this.users.add(UserModel.getInstance().findByUserName(creatorUserName));
-
         this.movies = new LinkedList<>();
-        this.movies.add(movie);
+
+        // work with the user
+        User user = UserModel.getInstance().findByUserName(creatorUserName);
+
+        if (user == null)
+            throw new UserNotFoundException();
+
+        this.creatorUserName = user.getUsername();
+        this.addNewUser(user.getUsername());
+
+        // add the movie
+        if (movie != null)
+            this.movies.add(movie);
     }
 
 
@@ -110,10 +110,11 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(MovieImpl movie) {
-        if (!this.movies.contains(movie)) {
+        if (movie != null && !this.movies.contains(movie)) {
             this.movies.add(movie);
             return true;
         }
+
         return false;
     }
 
@@ -200,30 +201,31 @@ public class MovieListImpl implements MovieList {
     }
 
     /**
-     * Adds a new user to the users list if the user
-     * is not already on the list
-     *
-     * @param username ID of the current user who want to use the list
-     * @return boolean success
+     * adds a new user to the users list of this movielist
+     * @param username username of the user that should already exist in the database
+     * @return true if the user was added, false if he was already on the list
+     * @throws UserNotFoundException when the user could not be found
      */
-    public boolean addNewUser(String username) {
+    public boolean addNewUser(String username) throws UserNotFoundException {
 
         UserImpl tmpUser = UserModel.getInstance().findByUserName(username);
 
         // check if this user exists
         if (tmpUser == null)
-            return false;
+            throw new UserNotFoundException();
 
         // check if this user is NOT in the list
-        if (!this.users.contains(tmpUser)) {
+        if (this.users.contains(tmpUser)) {
 
-            // add the user
-            this.users.add(tmpUser);
-            return true;
+            // user was already in the list
+            return false;
         }
 
-        // user was already in the list
-        return false;
+        // add the user
+        this.users.add(tmpUser);
+        return true;
+
+
     }
 
     /**

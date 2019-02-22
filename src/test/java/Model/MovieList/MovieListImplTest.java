@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
 public class MovieListImplTest {
 
     private static final String TEST_USER_NAME = "CHW@weizenbaum.de";
+    private static final String TEST_USER_PASSWORD = "test_password";
     private static final String TEST_MOVIE_LIST_NAME = "Testname";
 
     private MovieImpl testMovie;
@@ -39,11 +40,12 @@ public class MovieListImplTest {
         testMovie = new MovieImpl();
         testMovieTwo = new MovieImpl();
         //TODO not working
-        UserImpl testUser = new UserImpl("CHW@weizenbaum.de", "123456");
+        UserImpl testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
+
         movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
 
         this.movieListImpl.addNewUser(TEST_USER_NAME);
-        //MovieListModel.getInstance().addMovieList(this.movieListImpl);
+        
     }
 
     @Test
@@ -125,8 +127,6 @@ public class MovieListImplTest {
     @After
     public void tearDown(){
 
-            // remove the now added user
-        UserModel.getInstance().remove(testUser);
     }
 
 }

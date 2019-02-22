@@ -4,7 +4,6 @@ import Model.MasterModel;
 import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -141,23 +140,9 @@ public class UserModel extends MasterModel<String, UserImpl> {
     }
 
     /**
-     * returns a user object for the given id
-     * the returned user is not logged in automatically
-     * this method can be used to retrieve user information for displaying in MovieLists
-     *
-     * @param username T
-     * @return User
-     */
-    public UserImpl findByUserName(String username) {
-
-        // just pass that stuff along
-        return (UserImpl) this.findById(username);
-    }
-
-    /**
      * this method returns all movielists where this movie is stored in already
      * therefore you can show the user if he has already saved a movie and in which lists
-     * the movies are compared by their tmdpId / equals-method
+     * the movies are
      * @param movie
      * @return List
      */

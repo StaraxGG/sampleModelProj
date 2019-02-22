@@ -44,20 +44,12 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
     }
 
     /**
-     * returns the movieList with this specific id
-     *
-     * @param id
-     * @return MovieList
+     * returns a list of MovieLists
+     * this method can be used to access multiple lists at the same time
+     * @param ids the ids of the movielists
+     * @return List
      */
-    public MovieList getMovieList(Long id) {
-        return this.findById(id);
-    }
-
-    /**
-     * @param ids
-     * @return
-     */
-    public List<MovieList> getMovieLists(List<Long> ids) {
+    public List<MovieList> findByIds(List<Long> ids) {
         throw new NotImplementedException();
     }
 
