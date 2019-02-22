@@ -1,6 +1,7 @@
 package Model.MovieList;
 
 import Model.MasterModel;
+import Model.Movie.Movie;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -16,6 +17,10 @@ import java.util.List;
 public class MovieListModel extends MasterModel<Long, MovieListImpl> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
+
+    public static void main(String[] args) {
+        MovieListModel movieListModel = MovieListModel.getInstance();
+    }
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     private static MovieListModel movieListModel = null;
@@ -40,40 +45,6 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
         }
 
         return movieListModel;
-    }
-
-    /**
-     * add a new movielist to the database
-     *
-     * @param movieList MovieList
-     */
-    public void addMovieList(MovieList movieList) {
-        doInTransaction((em) -> {
-            em.persist(movieList);
-        });
-    }
-
-    /**
-     * delete a specific movielist from the database
-     *
-     * @param id Long
-     */
-    public void deleteMovieList(Long id) {
-        doInTransaction((em -> {
-            MovieList movieList = em.find(MovieList.class, id);
-            em.remove(movieList);
-        }));
-    }
-
-    /**
-     * updates the given entity in the database
-     *
-     * @param movieList MovieList
-     */
-    public void updateMovieList(MovieList movieList) {
-        doInTransaction((em) -> {
-            em.merge(movieList);
-        });
     }
 
     /**
