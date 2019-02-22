@@ -21,18 +21,22 @@ public class UserImplTest {
 
     @Test
     public void addMovieList() {
+        fail();
     }
 
     @Test
     public void deleteMovieList() {
+        fail();
     }
 
     @Test
     public void getUsername() {
+        fail();
     }
 
     @Test
     public void getMovieLists() {
+        fail();
     }
 
     @Test
@@ -42,14 +46,17 @@ public class UserImplTest {
 
     @Test
     public void setPasswordHash() {
+        fail();
     }
 
     @Test
     public void setUserName() {
+        fail();
     }
 
     @Test
     public void setMovieLists() {
+        fail();
     }
 
     @After
