@@ -58,6 +58,14 @@ public class MovieListImpl implements MovieList {
         this.movies = new LinkedList<>();
     }
 
+    /**
+     * Creates new watchlist. Automatically sets creator user name and
+     * adds creator user to users list
+     *
+     * @param movie movie object to add to the list
+     * @param creatorUserName user name who created the list
+     * @return boolean success
+     */
     public MovieListImpl(String movieListName, String creatorUserName) {
         this.movieListName = movieListName;
         this.creatorUserName = creatorUserName;
@@ -68,6 +76,17 @@ public class MovieListImpl implements MovieList {
         this.movies = new LinkedList<>();
     }
 
+
+    /**
+     * Creates new watchlist. Automatically sets creator user name and
+     * adds creator user to users list and first (or current) movie
+     * to the movie list
+     *
+     * @param movie movie object to add to the list
+     * @param creatorUserName user name who created the list
+     * @param movieListName name of this movie list (watchlist)
+     * @return boolean success
+     */
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) {
         this.movieListName = movieListName;
         this.creatorUserName = creatorUserName;

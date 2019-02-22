@@ -4,6 +4,7 @@ import Model.Movie.*;
 import Model.MovieList.MovieListImpl;
 import Model.MovieList.MovieListModel;
 import Model.User.UserImpl;
+import Model.User.UserModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,15 +32,17 @@ public class MovieListImplTest {
     private MovieListImpl movieListImpl;
     //list of userIDs
     private List<Long> testUsers;
+    UserImpl testUser;
 
     @Before
     public void setUp() throws Exception {
         testMovie = new MovieImpl();
         testMovieTwo = new MovieImpl();
+        UserImpl testUser = new UserImpl("kloo2@web.de", "123456");
         movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
 
         this.movieListImpl.addNewUser(TEST_USER_NAME);
-        MovieListModel.getInstance().addMovieList(this.movieListImpl);
+        //MovieListModel.getInstance().addMovieList(this.movieListImpl);
     }
 
     @Test
@@ -121,6 +124,8 @@ public class MovieListImplTest {
     @After
     public void tearDown(){
 
+            // remove the now added user
+        UserModel.getInstance().remove(testUser);
     }
 
 }
