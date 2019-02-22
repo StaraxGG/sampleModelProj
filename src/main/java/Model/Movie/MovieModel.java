@@ -120,38 +120,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
 
     }
 
-    /**
-     * add a movie to our local database of tmdbMovies
-     *
-     * @param movie
-     */
-    void addMovie(Movie movie) {
-        doInTransaction((em) -> em.persist(movie));
-    }
-
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
-
-    /**
-     * delete the given movie from our local database
-     *
-     * @param id Long
-     */
-    void deleteMovie(Long id) {
-        doInTransaction((em -> {
-            Movie movie = em.find(Movie.class, id);
-            em.remove(movie);
-        }));
-    }
-
-    /**
-     * returns a movie with the specific id from our database
-     *
-     * @param id
-     * @return Movie
-     */
-    Movie getMovie(Long id) {
-        return this.findById(id);
-    }
 
     /**
      * returns a movie from the tmdb database

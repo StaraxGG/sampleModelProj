@@ -72,18 +72,20 @@ public abstract class MasterModel<T extends Serializable, C> {
      * persists the given entity in the database
      *
      * @param entity
+     * @return boolean true if successful
      */
-    public void persist(C entity) {
-        doInTransaction((em) -> em.persist(entity));
+    public boolean persist(C entity) {
+        return doInTransaction((em) -> em.persist(entity));
     }
 
     /**
      * removes the given entity from the database
      *
      * @param entity
+     * @return true if successful
      */
-    public void remove(C entity) {
-        doInTransaction((em) -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
+    public boolean remove(C entity) {
+        return doInTransaction((em) -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
     }
 
     /**
@@ -115,8 +117,6 @@ public abstract class MasterModel<T extends Serializable, C> {
             System.err.println(pe.getMessage());
             transaction.rollback();
 
-        } finally {
-
         }
 
         return result;
@@ -128,8 +128,9 @@ public abstract class MasterModel<T extends Serializable, C> {
      * with rollback-Managament and stuff
      *
      * @param masterTransaction {@link MasterTransaction} implementation
+     * @return boolean returns true if transaction was successful
      */
-    protected void doInTransaction(MasterTransaction masterTransaction) {
+    protected boolean doInTransaction(MasterTransaction masterTransaction) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -152,9 +153,11 @@ public abstract class MasterModel<T extends Serializable, C> {
             System.err.println(pe.getMessage());
             transaction.rollback();
 
-        } finally {
+            return false;
 
         }
+
+        return true;
 
     }
 
