@@ -14,14 +14,17 @@ public class MovieListModelTest {
 
     @Test
     public void getInstance() {
+        fail();
     }
 
     @Test
     public void getMovieList() {
+        fail();
     }
 
     @Test
     public void getMovieLists() {
+        fail();
     }
 
     @After
