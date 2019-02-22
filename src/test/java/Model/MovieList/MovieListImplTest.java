@@ -42,6 +42,7 @@ public class MovieListImplTest {
         //TODO not working
         UserImpl testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
 
+
         movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
 
         this.movieListImpl.addNewUser(TEST_USER_NAME);

@@ -1,5 +1,6 @@
 package Model.MovieList;
 
+import Model.MasterModel;
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.Exception.UserNotFoundException;
@@ -85,7 +86,7 @@ public class MovieListImpl implements MovieList {
         this.movies = new LinkedList<>();
 
         // work with the user
-        User user = UserModel.getInstance().findByUserName(creatorUserName);
+        User user = UserModel.getInstance().getCurrentUser();
 
         if (user == null)
             throw new UserNotFoundException();
@@ -208,7 +209,7 @@ public class MovieListImpl implements MovieList {
      */
     public boolean addNewUser(String username) throws UserNotFoundException {
 
-        UserImpl tmpUser = UserModel.getInstance().findByUserName(username);
+        User tmpUser = UserModel.getInstance().getCurrentUser();
 
         // check if this user exists
         if (tmpUser == null)
@@ -222,7 +223,7 @@ public class MovieListImpl implements MovieList {
         }
 
         // add the user
-        this.users.add(tmpUser);
+        this.users.add((UserImpl)tmpUser);
         return true;
 
 
