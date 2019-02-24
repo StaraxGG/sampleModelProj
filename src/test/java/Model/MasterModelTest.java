@@ -10,6 +10,7 @@ public class MasterModelTest {
 
     @Before
     public void setUp() throws Exception {
+
     }
 
     @After
@@ -18,21 +19,26 @@ public class MasterModelTest {
 
     @Test
     public void getTmdbApi() {
+        fail();
     }
 
     @Test
     public void persist() {
+        fail();
     }
 
     @Test
     public void remove() {
+        fail();
     }
 
     @Test
     public void findById() {
+        fail();
     }
 
     @Test
     public void doInTransaction() {
+        fail();
     }
 }
