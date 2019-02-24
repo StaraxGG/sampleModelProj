@@ -138,13 +138,19 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      *
      * @param query
      * @param page
-     * @param adult boolean
      * @return List
      */
-    public List<Movie> getTmdbMovies(String query, Boolean adult, Integer page) {
+    public List<Movie> getTmdbMovies(String query, Integer page) {
         MovieResultsPage movieResultsPage =
-                tmdbSearch.searchMovie(query, null, tmdbLang, adult, page);
+                tmdbSearch.searchMovie(
+                        query,
+                        null,
+                        tmdbLang,
+                        Boolean.valueOf(ConfigTools.getVal("tmdb.adult")),
+                        page
+                );
 
+        // parses all the tmdb movies to our movie objects
         return parseTmdbMovieList(movieResultsPage.getResults());
     }
 
