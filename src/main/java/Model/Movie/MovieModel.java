@@ -81,6 +81,12 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
         LinkedList<String> productionCompanies = new LinkedList<>();
         LinkedList<String> productionCountries = new LinkedList<>();
 
+        //TODO: Chrisian
+        /*
+        Check if values like genres etc. are null before trying to add them here
+        maybe set them as null-values in MovieImpl so our ViewController Team knows that the attribute was not loaded
+        to load the full movie they have to use getTmdbMovie(id) again for that specific movie (see my comment)
+         */
         List<Genre> tempGenreList = curMovieDb.getGenres();
         for (int i = 0; i < tempGenreList.size(); i++) {
             Genre genre = tempGenreList.get(i);
@@ -134,7 +140,13 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
     }
 
     /**
-     * returns tmdbMovies that match the  query
+     * returns Movies that match the query
+     * you have to run the query again for the next pages of search results
+     * please notice: this method does use lazy-loading, that means that the returned MovieImpl objects
+     * have only attributes like title, posterpath, etc. filled.
+     *
+     * to get more details about the movie from this list, a call to {@link #getTmdbMovie(Integer)} is advised.
+     * this method will try to load as many attributes as possible.
      *
      * @param query
      * @param page
