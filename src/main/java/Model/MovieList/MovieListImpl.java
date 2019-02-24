@@ -86,8 +86,7 @@ public class MovieListImpl implements MovieList {
         this.movies = new LinkedList<>();
 
         // work with the user
-        User user = UserModel.getInstance().getCurrentUser();
-
+        User user = UserModel.getInstance().findById(creatorUserName);
         if (user == null)
             throw new UserNotFoundException();
 
@@ -139,6 +138,23 @@ public class MovieListImpl implements MovieList {
         return this.movies.contains(movie);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        MovieListImpl otherMovieList = (MovieListImpl) obj;
+
+        if (!this.getCreatorUserName().equals(((MovieListImpl) obj).getCreatorUserName()))
+            return false;
+
+        if (!this.getUsers().equals(otherMovieList.getUsers()))
+            return false;
+
+        if (!this.getMovies().equals(otherMovieList.getMovies()))
+            return false;
+
+        return true;
+
+    }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
@@ -209,7 +225,7 @@ public class MovieListImpl implements MovieList {
      */
     public boolean addNewUser(String username) throws UserNotFoundException {
 
-        User tmpUser = UserModel.getInstance().getCurrentUser();
+        User tmpUser = UserModel.getInstance().findById(username);
 
         // check if this user exists
         if (tmpUser == null)
