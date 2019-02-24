@@ -139,14 +139,22 @@ public class MovieListImpl implements MovieList {
     @Override
     public boolean equals(Object obj) {
 
+        // check if they are both MovieLists
+        if (!(obj instanceof MovieList))
+            return false;
+
+        // cast to movielist
         MovieListImpl otherMovieList = (MovieListImpl) obj;
 
+        // should have the same creator
         if (!this.getCreatorUserName().equals(((MovieListImpl) obj).getCreatorUserName()))
             return false;
 
+        // should have the same users
         if (!this.getUsers().equals(otherMovieList.getUsers()))
             return false;
 
+        // should have the same movies
         if (!this.getMovies().equals(otherMovieList.getMovies()))
             return false;
 
@@ -156,7 +164,7 @@ public class MovieListImpl implements MovieList {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.creatorUserName, this.movieListName);
+        return Objects.hash(this.creatorUserName, this.users, this.movies, this.movieListName);
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
