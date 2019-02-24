@@ -17,19 +17,23 @@ public class MovieModelTest {
 
     @Test
     public void parseTmdbMovie() {
+        fail();
     }
 
     @Test
     public void getTmdbMovie() {
+        fail();
         // we know the values for the TmdbMovie
     }
 
     @Test
     public void getTmdbMovies() {
+        fail();
     }
 
     @Test
     public void getSimilarMovies() {
+        fail();
     }
 
     @After
