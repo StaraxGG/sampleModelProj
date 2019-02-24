@@ -1,8 +1,6 @@
 package Model.MovieList;
 
 import Model.Movie.*;
-import Model.MovieList.MovieListImpl;
-import Model.MovieList.MovieListModel;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import org.junit.After;
@@ -81,7 +79,7 @@ public class MovieListImplTest {
 
     @Test
     public void testGetMovies() {
-        List list = this.movieListImpl.getMovies();
+        Set<MovieImpl> list = this.movieListImpl.getMovies();
         assertTrue(this.movieListImpl.getMovies().equals(list));
     }
 

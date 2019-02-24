@@ -5,7 +5,6 @@ import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.UserImpl;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -63,7 +62,7 @@ public interface MovieList {
      *
      * @return List
      */
-    List<MovieImpl> getMovies();
+    Set<MovieImpl> getMovies();
 
     /**
      * returns the user id that created this movielist

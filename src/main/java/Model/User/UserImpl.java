@@ -6,6 +6,7 @@ import Model.MovieList.MovieListImpl;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Objects.hash;
 
@@ -101,6 +102,11 @@ public class UserImpl implements User {
         // check if name and password hash are the same
         return this.getUsername().equals(otherUser.getUsername())
                 && (this.getPasswordHash().equals(otherUser.getPasswordHash()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.userName, this.passwordHash);
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

@@ -1,6 +1,5 @@
 package Model.MovieList;
 
-import Model.MasterModel;
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.Exception.UserNotFoundException;
@@ -9,10 +8,7 @@ import Model.User.UserImpl;
 import Model.User.UserModel;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An implementation of MovieListImpl
@@ -33,7 +29,7 @@ public class MovieListImpl implements MovieList {
 
 
     @OneToMany(targetEntity = MovieImpl.class)
-    private List<MovieImpl> movies;
+    private Set<MovieImpl> movies;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,7 +56,7 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieListImpl() {
         this.users = new HashSet<>();
-        this.movies = new LinkedList<>();
+        this.movies = new HashSet<>();
     }
 
     /**
@@ -85,7 +81,7 @@ public class MovieListImpl implements MovieList {
         // init objects
         this.movieListName = movieListName;
         this.users = new HashSet<>();
-        this.movies = new LinkedList<>();
+        this.movies = new HashSet<>();
 
         // work with the user
         User user = UserModel.getInstance().findById(creatorUserName);
@@ -158,6 +154,11 @@ public class MovieListImpl implements MovieList {
 
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.creatorUserName, this.movieListName);
+    }
+
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**
@@ -195,7 +196,7 @@ public class MovieListImpl implements MovieList {
      * @return List<MovieImpl>
      */
     @Override
-    public List<MovieImpl> getMovies() {
+    public Set<MovieImpl> getMovies() {
         return this.movies;
     }
 
