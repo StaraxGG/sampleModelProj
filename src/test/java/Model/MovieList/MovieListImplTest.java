@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -91,7 +92,7 @@ public class MovieListImplTest {
 
     @Test
     public void testGetUsers() {
-        List<UserImpl> list = this.movieListImpl.getUsers();
+        Set<UserImpl> list = this.movieListImpl.getUsers();
         assertTrue(this.movieListImpl.getUsers().equals(list));
     }
 

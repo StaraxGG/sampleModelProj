@@ -6,6 +6,7 @@ import Model.Movie.MovieImpl;
 import Model.User.UserImpl;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * An implementation of MovieList
@@ -76,7 +77,7 @@ public interface MovieList {
      *
      * @return List
      */
-    List<UserImpl> getUsers();
+    Set<UserImpl> getUsers();
 
     /**
      * checks if this movieList contains the following moviee

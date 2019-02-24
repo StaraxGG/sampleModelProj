@@ -9,8 +9,10 @@ import Model.User.UserImpl;
 import Model.User.UserModel;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * An implementation of MovieListImpl
@@ -51,13 +53,13 @@ public class MovieListImpl implements MovieList {
             joinColumns = {@JoinColumn(name = "fk_movielist")},
             inverseJoinColumns = {@JoinColumn(name = "fk_user")}
     )*/
-    private List<UserImpl> users;
+    private Set<UserImpl> users;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     public MovieListImpl() {
-        this.users = new LinkedList<>();
+        this.users = new HashSet<>();
         this.movies = new LinkedList<>();
     }
 
@@ -82,7 +84,7 @@ public class MovieListImpl implements MovieList {
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
         // init objects
         this.movieListName = movieListName;
-        this.users = new LinkedList<>();
+        this.users = new HashSet<>();
         this.movies = new LinkedList<>();
 
         // work with the user
@@ -213,7 +215,7 @@ public class MovieListImpl implements MovieList {
      * @return List<Long>
      */
     @Override
-    public List<UserImpl> getUsers() {
+    public Set<UserImpl> getUsers() {
         return this.users;
     }
 

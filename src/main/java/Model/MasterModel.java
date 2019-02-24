@@ -30,7 +30,7 @@ public abstract class MasterModel<T extends Serializable, C> {
      */
     protected String tmdbLang = "en";
     @PersistenceContext
-    EntityManagerFactory ENTITY_MANAGER_FACTORY =
+    protected EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("sample-persistence-unit");
     private TmdbApi tmdbApi = null;
 

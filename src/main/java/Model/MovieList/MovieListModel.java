@@ -1,9 +1,8 @@
 package Model.MovieList;
 
 import Model.MasterModel;
-import Model.Movie.Movie;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -33,10 +32,11 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
 
     /**
      * returns THE instance of this MovieListModel
+     *
      * @return MovieListModel
      */
-    public static MovieListModel getInstance(){
-        if (movieListModel == null){
+    public static MovieListModel getInstance() {
+        if (movieListModel == null) {
             movieListModel = new MovieListModel();
         }
 
@@ -46,11 +46,18 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
     /**
      * returns a list of MovieLists
      * this method can be used to access multiple lists at the same time
+     *
      * @param ids the ids of the movielists
      * @return List
      */
     public List<MovieList> findByIds(List<Long> ids) {
-        throw new NotImplementedException();
+
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        return em.createQuery("SELECT m FROM MovieListImpl m WHERE m.movieListID in :ids", MovieList.class)
+                .setParameter("ids", ids)
+                .getResultList();
+
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
