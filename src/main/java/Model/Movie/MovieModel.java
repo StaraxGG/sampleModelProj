@@ -128,7 +128,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @param id
      * @return Movie
      */
-    Movie getTmdbMovie(Integer id) {
+    public Movie getTmdbMovie(Integer id) {
         MovieDb movie = tmdbMovies.getMovie(id, tmdbLang);
         return parseTmdbMovie(movie);
     }
@@ -141,7 +141,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @param adult boolean
      * @return List
      */
-    List<Movie> getTmdbMovies(String query, Boolean adult, Integer page) {
+    public List<Movie> getTmdbMovies(String query, Boolean adult, Integer page) {
         MovieResultsPage movieResultsPage =
                 tmdbSearch.searchMovie(query, null, tmdbLang, adult, page);
 
@@ -156,7 +156,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      *              e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
      * @return List
      */
-    List<Movie> getSimilarMovies(Movie movie, Integer page) {
+    public List<Movie> getSimilarMovies(Movie movie, Integer page) {
 
         List<MovieDb> results =
                 tmdbMovies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
