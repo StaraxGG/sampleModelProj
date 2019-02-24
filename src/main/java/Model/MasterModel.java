@@ -28,11 +28,11 @@ public abstract class MasterModel<T extends Serializable, C> {
     /**
      * the language parameter that can be passed along every query
      */
-    protected String tmdbLang;
+    protected static String tmdbLang;
     @PersistenceContext
-    protected EntityManagerFactory ENTITY_MANAGER_FACTORY =
+    protected static EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("sample-persistence-unit");
-    private TmdbApi tmdbApi = null;
+    private static TmdbApi tmdbApi = null;
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -46,7 +46,7 @@ public abstract class MasterModel<T extends Serializable, C> {
         this.entityClass = (Class<C>) genericSuperclass.getActualTypeArguments()[1];
 
         // load the language
-        this.tmdbLang = ConfigTools.getVal("tmdb.language");
+        tmdbLang = ConfigTools.getVal("tmdb.language");
     }
 
 
@@ -59,11 +59,11 @@ public abstract class MasterModel<T extends Serializable, C> {
      */
     protected TmdbApi getTmdbApi() {
 
-        if (this.tmdbApi == null) {
-            this.tmdbApi = new TmdbApi(ConfigTools.getVal("tmdb.api_key"));
+        if (tmdbApi == null) {
+            tmdbApi = new TmdbApi(ConfigTools.getVal("tmdb.api_key"));
         }
 
-        return this.tmdbApi;
+        return tmdbApi;
     }
 
     /* ---------------------------------------- CRUD - Methods ------------------------------------------------------ */
@@ -130,7 +130,7 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @param masterTransaction {@link MasterTransaction} implementation
      * @return boolean returns true if transaction was successful
      */
-    protected boolean doInTransaction(MasterTransaction masterTransaction) {
+    private boolean doInTransaction(MasterTransaction masterTransaction) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -159,6 +159,15 @@ public abstract class MasterModel<T extends Serializable, C> {
 
         return true;
 
+    }
+
+    /**
+     * this method should be called at the end of the application to cleanup everything
+     */
+    public static void exit(){
+
+        // close the EMF which closes the database connection pool
+        ENTITY_MANAGER_FACTORY.close();
     }
 
 
