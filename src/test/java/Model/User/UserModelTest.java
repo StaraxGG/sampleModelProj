@@ -78,6 +78,23 @@ public class UserModelTest {
         fail();
     }
 
+    /* ------------------ Database Tests ------------------ */
+
+    @Test
+    public void persist(){
+        fail();
+    }
+
+    @Test
+    public void remove(){
+        fail();
+    }
+
+    @Test
+    public void findById(){
+        fail();
+    }
+
     @After
     public void tearDown() throws Exception {
 

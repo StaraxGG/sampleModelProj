@@ -53,6 +53,23 @@ public class MovieListModelTest {
         UserModel.getInstance().remove((UserImpl) user);
     }
 
+    /* ------------------ Database Tests ------------------ */
+
+    @Test
+    public void persist(){
+        fail();
+    }
+
+    @Test
+    public void remove(){
+        fail();
+    }
+
+    @Test
+    public void findById(){
+        fail();
+    }
+
     @Test
     public void findByIds(){
         List<MovieList> movieListList =  movieListModel.findByIds(Arrays.asList(movieList1.getId(), movieList2.getId()));
