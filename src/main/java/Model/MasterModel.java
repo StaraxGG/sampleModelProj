@@ -28,7 +28,7 @@ public abstract class MasterModel<T extends Serializable, C> {
     /**
      * the language parameter that can be passed along every query
      */
-    protected String tmdbLang = "en";
+    protected String tmdbLang;
     @PersistenceContext
     protected EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("sample-persistence-unit");
