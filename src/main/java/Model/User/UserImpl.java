@@ -33,7 +33,7 @@ public class UserImpl implements User {
     @Column(name = "password_hash")
     private Integer passwordHash;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<MovieListImpl> movieLists;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */

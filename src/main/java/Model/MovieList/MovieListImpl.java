@@ -43,7 +43,7 @@ public class MovieListImpl implements MovieList {
     private String creatorUserName;
     //list of userIDs
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     /*@JoinTable(
             name = "movielist_user",
             joinColumns = {@JoinColumn(name = "fk_movielist")},
