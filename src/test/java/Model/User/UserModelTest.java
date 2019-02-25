@@ -41,7 +41,7 @@ public class UserModelTest {
             fail();
 
         // now try to login
-        assertEquals(userModel.login(user), user);
+        assertEquals(user, userModel.login(user));
 
     }
 
@@ -73,26 +73,49 @@ public class UserModelTest {
         assertEquals(user, userModel.getCurrentUser());
     }
 
-    @Test
-    public void findMovielistForMovie() {
-        fail();
-    }
-
     /* ------------------ Database Tests ------------------ */
 
     @Test
     public void persist(){
-        fail();
+
+        // we persist the test user
+        userModel.persist((UserImpl) user);
+
+        // we check if the new user is there
+        User tmpUser = userModel.findById(user.getUsername());
+
+        // check if they are the same
+        assertEquals(user, tmpUser);
     }
 
     @Test
     public void remove(){
-        fail();
+
+        // create a user
+        UserImpl newUser = new UserImpl("new_user@test.de", "new_user_pass");
+
+        // persist him
+        userModel.persist(newUser);
+
+        // remove him
+        userModel.remove(newUser);
+
+        // check if he is there
+        User tmpUser = userModel.findById(newUser.getUsername());
+
+        assertNull(tmpUser);
     }
 
     @Test
     public void findById(){
-        fail();
+        // persist our user first
+        userModel.persist((UserImpl) user);
+
+        // try to get him
+        User tmpUser = userModel.findById(user.getUsername());
+
+        // check if it is really him
+        assertEquals(user, tmpUser);
     }
 
     @After

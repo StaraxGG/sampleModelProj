@@ -139,24 +139,5 @@ public class UserModel extends MasterModel<String, UserImpl> {
         currentUser = user;
     }
 
-    /**
-     * this method returns all movielists where this movie is stored in already
-     * therefore you can show the user if he has already saved a movie and in which lists
-     * the movies are
-     * @param movie
-     * @return List
-     */
-    List<? extends MovieList> findMovielistForMovie(Movie movie){
-        List<MovieListImpl> resultLists = new LinkedList<>();
-
-        for (MovieList movieList : this.getCurrentUser().getMovieLists()){
-
-            if (movieList.contains(movie))
-                resultLists.add((MovieListImpl) movieList);
-
-        }
-
-        return resultLists;
-    }
 }
 

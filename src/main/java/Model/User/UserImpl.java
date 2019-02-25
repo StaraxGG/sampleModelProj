@@ -1,5 +1,6 @@
 package Model.User;
 
+import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import com.sun.istack.internal.NotNull;
@@ -66,6 +67,26 @@ public class UserImpl implements User {
     public boolean deleteMovieList(@NotNull MovieList movieList) {
         this.movieLists.removeIf((userMovieList) -> userMovieList.equals(movieList));
         return true;
+    }
+
+    /**
+     * this method returns all movielists where this movie is stored in already
+     * therefore you can show the user if he has already saved a movie and in which lists
+     * the movies are
+     * @param movie
+     * @return List
+     */
+    List<? extends MovieList> findMovielistForMovie(Movie movie){
+        List<MovieListImpl> resultLists = new LinkedList<>();
+
+        for (MovieList movieList : this.getMovieLists()){
+
+            if (movieList.contains(movie))
+                resultLists.add((MovieListImpl) movieList);
+
+        }
+
+        return resultLists;
     }
 
     @Override
