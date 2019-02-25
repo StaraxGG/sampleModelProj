@@ -40,7 +40,7 @@ public interface User {
      *
      * @param id
      */
-    boolean deleteMovieList(Long id);
+    boolean deleteMovieList(MovieList movieList);
 
 
 
