@@ -81,7 +81,15 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
         LinkedList<String> productionCompanies = new LinkedList<>();
         LinkedList<String> productionCountries = new LinkedList<>();
 
+        /*
 
+        this is also a possible solution
+        the attribute genres has to be set to null before though
+
+        if (curMovieDb.getGenres() != null){
+            genres = curMovieDb.getGenres().stream().map(Genre::getName).collect(Collectors.toCollection(LinkedList::new));
+        }
+        */
         List<Genre> tempGenreList = curMovieDb.getGenres();
         if(tempGenreList!=null && tempGenreList.size()>0) {
             for (int i = 0; i < tempGenreList.size(); i++) {
