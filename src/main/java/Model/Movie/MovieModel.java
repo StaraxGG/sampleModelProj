@@ -81,28 +81,35 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
         LinkedList<String> productionCompanies = new LinkedList<>();
         LinkedList<String> productionCountries = new LinkedList<>();
 
-        //TODO: Chrisian
-        /*
-        Check if values like genres etc. are null before trying to add them here
-        maybe set them as null-values in MovieImpl so our ViewController Team knows that the attribute was not loaded
-        to load the full movie they have to use getTmdbMovie(id) again for that specific movie (see my comment)
-         */
+
         List<Genre> tempGenreList = curMovieDb.getGenres();
-        for (int i = 0; i < tempGenreList.size(); i++) {
-            Genre genre = tempGenreList.get(i);
-            genres.add(genre.getName());
+        if(tempGenreList!=null && tempGenreList.size()>0) {
+            for (int i = 0; i < tempGenreList.size(); i++) {
+                Genre genre = tempGenreList.get(i);
+                genres.add(genre.getName());
+            }
+        } else {
+            genres = null;
         }
 
         List<ProductionCompany> tempProdCompList = curMovieDb.getProductionCompanies();
-        for (int i = 0; i < tempProdCompList.size(); i++) {
-            ProductionCompany curProdComp = tempProdCompList.get(i);
-            productionCompanies.add(curProdComp.getName());
+        if(tempProdCompList!=null && tempProdCompList.size()>0) {
+            for (int i = 0; i < tempProdCompList.size(); i++) {
+                ProductionCompany curProdComp = tempProdCompList.get(i);
+                productionCompanies.add(curProdComp.getName());
+            }
+        } else{
+            productionCompanies = null;
         }
 
         List<ProductionCountry> tempProdCounList = curMovieDb.getProductionCountries();
-        for (int i = 0; i < tempProdCounList.size(); i++) {
-            ProductionCountry curProdCountry = tempProdCounList.get(i);
-            productionCountries.add(curProdCountry.getName());
+        if(tempProdCounList!=null && tempProdCounList.size()>0) {
+            for (int i = 0; i < tempProdCounList.size(); i++) {
+                ProductionCountry curProdCountry = tempProdCounList.get(i);
+                productionCountries.add(curProdCountry.getName());
+            }
+        } else {
+            productionCountries = null;
         }
 
         return new MovieImpl(tmdbID, title, popularity, posterUrl, releaseDate,
