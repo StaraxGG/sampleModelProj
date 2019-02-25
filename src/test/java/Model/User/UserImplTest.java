@@ -1,10 +1,11 @@
 package Model.User;
 
-import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import Model.User.Exception.UserNotFoundException;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import static java.util.Objects.hash;
 import static org.junit.Assert.*;
@@ -19,22 +20,18 @@ public class UserImplTest {
     private static UserModel userModel;
 
     @BeforeClass
-    public static void beforeClass(){
+    public static void beforeClass() {
 
         // we create a user
         user = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
         userModel = UserModel.getInstance();
 
-        if ((userModel.login(user)) == null){
+        if ((userModel.login(user)) == null) {
             userModel.register(user);
         }
 
     }
 
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
     @Test
     public void addMovieList() {
@@ -82,23 +79,8 @@ public class UserImplTest {
     }
 
 
-    @Test
-    public void setUserName() {
-        fail();
-    }
-
-    @Test
-    public void setMovieLists() {
-        fail();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     @AfterClass
-    public static void afterClass(){
+    public static void afterClass() {
 
         // remove the first added user
         UserModel.getInstance().remove((UserImpl) user);

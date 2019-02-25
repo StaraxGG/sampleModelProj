@@ -69,25 +69,6 @@ public class UserImpl implements User {
     }
 
     @Override
-    public String getUsername() {
-        return this.userName;
-    }
-
-    @Override
-    public List<MovieListImpl> getMovieLists() {
-        return this.movieLists;
-    }
-
-    @Override
-    public Integer getPasswordHash() {
-        return this.passwordHash;
-    }
-
-    public void setMovieLists(List<MovieListImpl> movieLists) {
-        this.movieLists = movieLists;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         UserImpl otherUser = (UserImpl) obj;
 
@@ -103,12 +84,31 @@ public class UserImpl implements User {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
+
+    @Override
+    public List<MovieListImpl> getMovieLists() {
+        return this.movieLists;
+    }
+
+    @Override
+    public Integer getPasswordHash() {
+        return this.passwordHash;
+    }
+
     private void setUserName(String userName){
         this.userName = userName;
     }
 
     private void setPasswordHash(String password){
         this.passwordHash = hash(password);
+    }
+
+    private void setMovieLists(List<MovieListImpl> movieLists) {
+        this.movieLists = movieLists;
     }
 
 }
