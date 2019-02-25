@@ -38,7 +38,7 @@ public interface User {
      * deletes this users movielist with the following id
      * it should be ensured that the movielist with this id has this user as Creator/Maintainer so he can delete the list
      *
-     * @param id
+     * @param movieList
      */
     boolean deleteMovieList(MovieList movieList);
 
@@ -55,13 +55,6 @@ public interface User {
     String getUsername();
 
     /**
-     * set the username for this user
-     *
-     * @param username
-     */
-    void setUserName(String username);
-
-    /**
      * returns the ids of all movieLists where this user is listed, either as creator or contributor
      *
      * @return List
@@ -75,12 +68,6 @@ public interface User {
      */
     Integer getPasswordHash();
 
-    /**
-     * sets the password hash for this user
-     *
-     * @param passwordHash
-     */
-    void setPasswordHash(String passwordHash);
 
 }
 

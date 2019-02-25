@@ -54,7 +54,7 @@ public class UserImpl implements User {
 
     @Override
     public boolean addMovieList(MovieList movieList) {
-        if (this.movieLists.contains((MovieListImpl) movieList)){
+        if (this.movieLists.contains((MovieListImpl) movieList)) {
             return false;
         }
 
@@ -83,15 +83,6 @@ public class UserImpl implements User {
         return this.passwordHash;
     }
 
-    @Override
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = hash(passwordHash);
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public void setMovieLists(List<MovieListImpl> movieLists) {
         this.movieLists = movieLists;
     }
@@ -111,6 +102,14 @@ public class UserImpl implements User {
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
+
+    private void setUserName(String userName){
+        this.userName = userName;
+    }
+
+    private void setPasswordHash(String password){
+        this.passwordHash = hash(password);
+    }
 
 }
 

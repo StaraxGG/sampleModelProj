@@ -67,18 +67,13 @@ public class UserImplTest {
 
         // delete the movielist
         MovieList movieListFromUser = user.getMovieLists().get(0);
-        user.deleteMovieList(movieListFromUser.getId());
-        assertTrue(user.getMovieLists().contains(movieListFromUser));
+        user.deleteMovieList(movieListFromUser);
+        assertTrue(!user.getMovieLists().contains(movieListFromUser));
     }
 
     @Test
     public void getUsername() {
-        fail();
-    }
-
-    @Test
-    public void getMovieLists() {
-        fail();
+        assertEquals(TEST_USER_NAME, user.getUsername());
     }
 
     @Test
@@ -86,10 +81,6 @@ public class UserImplTest {
         assertEquals(hash(TEST_USER_PASSWORD), (int) user.getPasswordHash());
     }
 
-    @Test
-    public void setPasswordHash() {
-        fail();
-    }
 
     @Test
     public void setUserName() {
