@@ -21,10 +21,10 @@ import static org.junit.Assert.assertTrue;
 public class MovieImplTest {
 
     private MovieImpl movie = new MovieImpl();
-    private String genreOne = "Horror";
-    private String genreTwo = "Comedy";
-    private String prodCom = "Test productions";
-    private String proCoun = "Test country";
+    private static final String genreOne = "Horror";
+    private static final String genreTwo = "Comedy";
+    private static final String prodCom = "Test productions";
+    private static final String proCoun = "Test country";
 
     @Before
     public void setUp() throws Exception {

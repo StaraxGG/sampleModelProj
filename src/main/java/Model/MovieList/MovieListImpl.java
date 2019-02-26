@@ -44,11 +44,7 @@ public class MovieListImpl implements MovieList {
     //list of userIDs
 
     @ManyToMany(fetch = FetchType.EAGER)
-    /*@JoinTable(
-            name = "movielist_user",
-            joinColumns = {@JoinColumn(name = "fk_movielist")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_user")}
-    )*/
+
     private Set<UserImpl> users;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
