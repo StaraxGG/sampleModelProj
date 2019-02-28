@@ -55,7 +55,10 @@ public class UserImpl implements User {
 
     @Override
     public boolean addMovieList(MovieList movieList) {
-        if (this.movieLists.contains((MovieListImpl) movieList)) {
+        if (!(movieList instanceof MovieListImpl))
+            return false;
+
+        if (this.movieLists.contains(movieList)) {
             return false;
         }
 

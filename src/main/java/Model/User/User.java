@@ -32,6 +32,8 @@ public interface User {
      * adds a new list to this users movielists and adds this user as creator to the movieList
      *
      * @param movieList
+     * @return boolean - true if the movieList was added, false if it was null/not a MovieListImpl object
+     * or is already contained in the list
      */
     boolean addMovieList(MovieList movieList);
 
@@ -40,6 +42,7 @@ public interface User {
      * parameter here.
      * before that, it checks if the creator of this movielist is the same as this user, because only a creator can
      * delete his list
+     *
      * @param movieList
      * @return
      */
@@ -47,6 +50,7 @@ public interface User {
 
     /**
      * returns all movielists of this user that contain this movie
+     *
      * @param movie Movie that will be searched
      * @return
      */
