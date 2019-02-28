@@ -1,5 +1,6 @@
 package Model.User;
 
+import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 
@@ -43,6 +44,13 @@ public interface User {
      * @return
      */
     boolean deleteMovieList(MovieList movieList);
+
+    /**
+     * returns all movielists of this user that contain this movie
+     * @param movie Movie that will be searched
+     * @return
+     */
+    List<? extends MovieList> findMovielistForMovie(Movie movie);
 
 
 

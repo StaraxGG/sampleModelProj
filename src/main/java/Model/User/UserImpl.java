@@ -69,12 +69,8 @@ public class UserImpl implements User {
         return true;
     }
 
-    /**
-     * returns all movielists of this user that contain this movie
-     * @param movie Movie that will be searched
-     * @return
-     */
-    List<? extends MovieList> findMovielistForMovie(Movie movie){
+    @Override
+    public List<? extends MovieList> findMovielistForMovie(Movie movie){
         List<MovieListImpl> resultLists = new LinkedList<>();
 
         for (MovieList movieList : this.getMovieLists()){
