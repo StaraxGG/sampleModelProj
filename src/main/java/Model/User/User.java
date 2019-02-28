@@ -35,10 +35,12 @@ public interface User {
     boolean addMovieList(MovieList movieList);
 
     /**
-     * deletes this users movielist with the following id
-     * it should be ensured that the movielist with this id has this user as Creator/Maintainer so he can delete the list
-     *
+     * goes through all movielists that this user has and deletes the one that is equal to the one that is passed as a
+     * parameter here.
+     * before that, it checks if the creator of this movielist is the same as this user, because only a creator can
+     * delete his list
      * @param movieList
+     * @return
      */
     boolean deleteMovieList(MovieList movieList);
 
