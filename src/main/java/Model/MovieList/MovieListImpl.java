@@ -50,7 +50,7 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-    public MovieListImpl() {
+    protected MovieListImpl() {
         this.users = new HashSet<>();
         this.movies = new HashSet<>();
     }
@@ -74,10 +74,11 @@ public class MovieListImpl implements MovieList {
      * @throws UserNotFoundException when the user could not be found
      */
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
-        // init objects
+        // run default constructor for init shit
+        this();
+
+        // init attributes
         this.movieListName = movieListName;
-        this.users = new HashSet<>();
-        this.movies = new HashSet<>();
 
         // work with the user
         User user = UserModel.getInstance().findById(creatorUserName);
