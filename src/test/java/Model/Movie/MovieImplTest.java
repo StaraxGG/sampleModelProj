@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * An implementation of Model.Movie.MovieImplTest
@@ -77,7 +78,9 @@ public class MovieImplTest {
 
     @Test
     public void testGetPosterUrl() {
-        assertTrue(this.movie.getPosterUrl().equals("http://test.de"));
+        // the method is new, please change the test TODO: CHW
+        //assertTrue(this.movie.getPosterUrl().equals("http://test.de"));
+        fail();
     }
 
     @Test
@@ -155,8 +158,10 @@ public class MovieImplTest {
 
     @Test
     public void testSetPosterUrl() {
-        this.movie.setPosterUrl("http://setter_test.org");
-        assertTrue(this.movie.getPosterUrl().equals("http://setter_test.org"));
+        // TODO CHW
+        //this.movie.setPosterUrl("http://setter_test.org");
+        //assertTrue(this.movie.getPosterUrl().equals("http://setter_test.org"));
+        fail();
     }
 
     @Test
