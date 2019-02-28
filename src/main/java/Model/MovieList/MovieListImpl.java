@@ -130,6 +130,10 @@ public class MovieListImpl implements MovieList {
 
     @Override
     public boolean contains(Movie movie) {
+        // instaceof checks for null as well
+        // i mean if this is not a movie, why check at all?
+        if (!(movie instanceof MovieImpl))
+            return false;
         return this.movies.contains(movie);
     }
 
