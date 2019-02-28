@@ -64,7 +64,7 @@ public interface Movie {
      *
      * @return String
      */
-    String getPosterUrl();
+    String getPosterUrl(MoviePosterSize posterSize);
 
     /**
      * Sets the URL of the poster of the current movie object

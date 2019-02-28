@@ -217,9 +217,12 @@ public class MovieImpl implements Movie {
      * @return poster URL
      */
     @Override
-    public String getPosterUrl() {
+    public String getPosterUrl(MoviePosterSize posterSize) {
 
-        return this.posterURL;
+        final String baseUrl = "http://image.tmdb.org/t/p";
+
+        // build a string from values and use it
+        return String.format("%s/%s/%s",baseUrl, posterSize.toString(), this.posterURL);
     }
 
     /**
@@ -229,7 +232,6 @@ public class MovieImpl implements Movie {
      */
     @Override
     public void setPosterUrl(String posterURL) {
-
         this.posterURL = posterURL;
     }
 
