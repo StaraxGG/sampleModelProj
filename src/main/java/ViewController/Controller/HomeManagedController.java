@@ -4,6 +4,7 @@ import Model.Movie.Movie;
 import Model.Movie.MovieModel;
 import ViewController.Constructs.MovieConstruct;
 import ViewController.WindowManager;
+import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +34,7 @@ public class HomeManagedController implements Initializable {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
     @FXML
-    private TilePane tilePanePopular;
+    private JFXMasonryPane masonryPopular;
 
     @FXML
     private TilePane tilePaneLatest;
@@ -75,7 +76,7 @@ public class HomeManagedController implements Initializable {
      * @param listToDisplay
      */
     private void setupPopular(List<Movie> listToDisplay ){
-        listToDisplay.stream().forEach(e -> tilePanePopular.getChildren().add(new MovieConstruct(e)));
+        listToDisplay.stream().forEach(e -> masonryPopular.getChildren().add(new MovieConstruct(e)));
     }
 
     /**

@@ -1,6 +1,7 @@
 package ViewController.Constructs;
 
 import Model.Movie.Movie;
+import Model.Movie.MoviePosterSize;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -58,8 +59,8 @@ public class MovieOverviewConstruct extends BorderPane {
         }
 
         //todo change back when getPosterURL returns url and not key
-        imgPoster.setImage(new Image("https://image.tmdb.org/t/p/w300"+
-                movie.getPosterUrl(),200,350,true,true));
+        imgPoster.setImage(new Image(movie.getPosterUrl(MoviePosterSize.W342),
+                200,350,true,true));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.TilePane?>
 
 
+<?import com.jfoenix.controls.JFXMasonryPane?>
 <StackPane blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.HomeManagedController">
    <children>
       <JFXTabPane blendMode="MULTIPLY" cache="true" cacheHint="SPEED" prefHeight="400" prefWidth="800">
@@ -14,7 +15,7 @@
               <Tab closable="false" text="Popular Movies">
                   <content>
                       <ScrollPane fx:id="spPopular" fitToHeight="true" fitToWidth="true">
-                          <TilePane fx:id="tilePanePopular" styleClass="center" tileAlignment="TOP_LEFT" />
+                          <JFXMasonryPane fx:id="masonryPopular" HSpacing="0" VSpacing="0" styleClass="center"/>
                       </ScrollPane>
                   </content>
               </Tab>

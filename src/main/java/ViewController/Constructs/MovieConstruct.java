@@ -1,6 +1,7 @@
 package ViewController.Constructs;
 
 import Model.Movie.Movie;
+import Model.Movie.MoviePosterSize;
 import ViewController.Start;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -68,8 +69,8 @@ public class MovieConstruct extends BorderPane {
         imgPoster.setFitHeight(278);
         imgPoster.setFitWidth(185);
         imgPoster.setPreserveRatio(true);
-        imgPoster.setImage(new Image("https://image.tmdb.org/t/p/w185"+
-                movie.getPosterUrl(),185,278,true,true));
+        imgPoster.setImage(new Image(movie.getPosterUrl(MoviePosterSize.W342),
+                185,278,true,true));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
