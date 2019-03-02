@@ -1,0 +1,101 @@
+image: maven:3-jdk-8
+
+stages:
+  - check_commit
+  - checkenv
+  - validate
+  - compile
+  - build
+  - install
+
+
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode"
+
+before_script:
+  - echo Installing JavaFX...
+  - apt-get update -qq && apt-get install -y -qq openjfx
+  - java -version
+  - printenv | grep java
+
+commit-msg:
+  stage: check_commit
+  before_script: []
+  allow_failure: true
+  script:
+    - len=${#CI_COMMIT_MESSAGE}
+    - echo "Commit msg is {$len} chars long"
+    - "(([ $len -le 50 ]) && exit 0) || exit 1"
+
+
+java-dir:
+  stage: checkenv
+  script: 
+    - "(ls $JAVA_HOME/ && exit 0) || exit 1"
+
+jfx-exists-lib:
+  stage: checkenv
+  script:
+    - echo "Checking if javafx-mx.jar and ant-javafx.jar exist"
+    - ls $JAVA_HOME/jre/lib/
+    - (ls $JAVA_HOME/lib/*javafx* && exit 0) || exit 1
+
+jfx-config-exists:
+  stage: checkenv
+  script:
+    - ls $JAVA_HOME/jre/lib/ 
+    - (cat $JAVA_HOME/jre/lib/javafx.properties && exit 0) || exit 1
+
+
+jfx-exists-ext:
+  stage: checkenv
+  script: 
+    - ls $JAVA_HOME/jre/lib/ext/
+    - "(ls /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/*jfx* && exit 0) || exit 1"
+
+maven-validate-jfx-preinstalled:
+  stage: validate
+  script: mvn $MAVEN_CLI_OPTS validate
+
+maven-validate:
+  stage: validate
+  before_script: []
+  script: mvn $MAVEN_CLI_OPTS validate
+
+maven-compile-jfx-preinstalled:
+  stage: compile
+  script: mvn $MAVEN_CLI_OPTS compile
+
+maven-compile:
+  stage: compile
+  before_script: []
+  script: mvn $MAVEN_CLI_OPTS compile
+
+maven-build-jfx-preinstalled:
+  only:
+    - develop
+  stage: build
+  script: mvn $MAVEN_CLI_OPTS package
+
+maven-build:
+  only:
+  - develop
+  stage: build
+  before_script: []
+  script: mvn $MAVEN_CLI_OPTS package
+
+
+maven-install-jfx-preinstalled:
+  only:
+  - develop
+  stage: install
+  script: mvn $MAVEN_CLI_OPTS install
+
+maven-install:
+  only:
+  - develop
+  stage: install
+  before_script: []
+  script: mvn $MAVEN_CLI_OPTS install
+
+
