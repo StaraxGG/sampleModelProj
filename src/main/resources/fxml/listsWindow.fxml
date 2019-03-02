@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.ListManagedController">
-    <children>
-        <Label layoutX="246.0" layoutY="214.0" text="Lists" />
-    </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.ListManagedController">
+   <top>
+      <HBox>
+         <children>
+            <JFXToggleButton fx:id="jfxAdultToggle" text="Adult">
+               <padding>
+                  <Insets bottom="-10.0" top="-10.0" />
+               </padding>
+            </JFXToggleButton>
+            <JFXButton fx:id="buttonCollapse" text="buttonCollapse" />
+            <JFXButton fx:id="buttonExp" text="buttonExpand " />
+            <JFXButton fx:id="but3d" text="but3d" />
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <JFXListView fx:id="jfxList" depth="2" verticalGap="5.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <JFXMasonryPane fx:id="jfxMasonry" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
