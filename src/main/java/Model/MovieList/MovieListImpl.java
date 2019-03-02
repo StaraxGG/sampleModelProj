@@ -6,6 +6,7 @@ import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
+import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
 import java.util.*;
@@ -104,13 +105,24 @@ public class MovieListImpl implements MovieList {
      * @return boolean success
      */
     @Override
-    public boolean addMovie(MovieImpl movie) {
-        if (movie != null && !this.movies.contains(movie)) {
-            this.movies.add(movie);
+    public boolean addMovie(Movie movie) {
+        if (movie instanceof MovieImpl && !this.movies.contains(movie)) {
+            this.movies.add((MovieImpl) movie);
             return true;
         }
 
         return false;
+    }
+
+    @Override
+    public boolean addMovies(List<Movie> movies) {
+        if (movies == null)
+            return false;
+
+        for (Movie movie : movies)
+            this.addMovie(movie);
+
+        return true;
     }
 
     /**
@@ -120,8 +132,8 @@ public class MovieListImpl implements MovieList {
      * @return boolean success
      */
     @Override
-    public boolean deleteMovie(MovieImpl movie) {
-        if (this.movies.contains(movie)) {
+    public boolean deleteMovie(Movie movie) {
+        if (movie instanceof MovieImpl && this.movies.contains(movie)) {
             this.movies.remove(movie);
             return true;
         }
