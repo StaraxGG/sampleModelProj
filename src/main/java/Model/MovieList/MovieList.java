@@ -5,6 +5,7 @@ import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.UserImpl;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +33,13 @@ public interface MovieList {
      * @return boolean success
      */
     boolean addMovie(Movie movie);
+
+    /**
+     * adds all given movies to this movieList
+     * @param movies - not null, but can be empty
+     * @return boolean success
+     */
+    boolean addMovies(List<Movie> movies);
 
     /**
      * deletes the movie from the list
