@@ -195,6 +195,5 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
                 tmdbMovies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
     }
-
 }
 

@@ -91,12 +91,12 @@ public class MovieImplTest {
 
     @Test
     public void testGetReleaseDate() {
-        assertTrue(this.movie.getReleaseDate().equals("2017-10-08"));
+        assertTrue(this.movie.getReleaseDate().equals(testReleaseDate));
     }
 
     @Test
     public void testGetIsAdult() {
-        assertTrue(this.movie.getIsAdult()==true);
+        assertTrue(this.movie.getIsAdult() == true);
     }
 
     @Test
@@ -106,12 +106,12 @@ public class MovieImplTest {
 
     @Test
     public void testGetOverview() {
-        assertTrue(this.movie.getOverview().equals("This is a overview"));
+        assertTrue(this.movie.getOverview().equals(testOverview));
     }
 
     @Test
     public void testGetOriginalLanguage() {
-        assertTrue(this.movie.getOriginalLanguage().equals("de"));
+        assertTrue(this.movie.getOriginalLanguage().equals(testLanguage));
     }
 
     @Test
@@ -126,22 +126,22 @@ public class MovieImplTest {
 
     @Test
     public void testGetRuntime() {
-        assertTrue(this.movie.getRuntime()==120);
+        assertTrue(this.movie.getRuntime() == 120);
     }
 
     @Test
     public void testGetVoteAverage() {
-        assertTrue(this.movie.getVoteAverage()==3.5f);
+        assertTrue(this.movie.getVoteAverage() == 3.5f);
     }
 
     @Test
     public void testGetStatus() {
-        assertTrue(this.movie.getStatus().equals("released"));
+        assertTrue(this.movie.getStatus().equals(testStatus));
     }
 
     @Test
     public void testGetID() {
-        assertTrue(this.movie.getId()==123456L);
+        assertTrue(this.movie.getId() == 123456L);
     }
 
     @Test
@@ -152,13 +152,14 @@ public class MovieImplTest {
 
     @Test
     public void testSetTitle() {
-        this.movie.setTitle("Setter Test Title");
-        assertTrue(this.movie.getTitle().equals("Setter Test Title"));    }
+        this.movie.setTitle(testTitle);
+        assertTrue(this.movie.getTitle().equals(testTitle));
+    }
 
     @Test
     public void testSetPopularity() {
         this.movie.setPopularity(9.9f);
-        assertTrue(this.movie.getPopularity()==9.9f);
+        assertTrue(this.movie.getPopularity() == 9.9f);
 
     }
 
@@ -192,13 +193,13 @@ public class MovieImplTest {
     public void testSetGenresSize() {
         String genreThree = "Thriller";
         this.movie.getGenres().add(genreThree);
-        assertTrue(this.movie.getGenres().size()==3);
+        assertTrue(this.movie.getGenres().size() == 3);
     }
 
     @Test
     public void testSetOverview() {
-        this.movie.setOverview("This is a test overview");
-        assertTrue(this.movie.getOverview().equals("This is a test overview"));
+        this.movie.setOverview(testOverview);
+        assertTrue(this.movie.getOverview().equals(testOverview));
     }
 
     @Test
@@ -218,7 +219,7 @@ public class MovieImplTest {
     public void testSetProductionCompaniesSize() {
         String curProdComp = "Test Productions";
         this.movie.getProductionCompanies().add(curProdComp);
-        assertTrue(this.movie.getProductionCompanies().size()==2);
+        assertTrue(this.movie.getProductionCompanies().size() == 2);
     }
 
     @Test
@@ -232,20 +233,20 @@ public class MovieImplTest {
     public void testSetProductionCountriesSize() {
         String curProdCoun = "Testland";
         this.movie.getProductionCountries().add(curProdCoun);
-        assertTrue(this.movie.getProductionCountries().size()==2);
+        assertTrue(this.movie.getProductionCountries().size() == 2);
     }
 
     @Test
     public void testSetRuntime() {
         this.movie.setRuntime(150);
-        assertTrue(this.movie.getRuntime()==150);
+        assertTrue(this.movie.getRuntime() == 150);
 
     }
 
     @Test
     public void testSetVoteAverage() {
         this.movie.setVoteAverage(7.7f);
-        assertTrue(this.movie.getVoteAverage()==7.7f);
+        assertTrue(this.movie.getVoteAverage() == 7.7f);
 
     }
 
@@ -258,6 +259,20 @@ public class MovieImplTest {
     @Test
     public void testSetIDalreadySet() {
         this.movie.setId(456789L);
-        assertTrue(this.movie.getId()==123456L);
+        assertTrue(this.movie.getId() == 123456L);
+    }
+
+    @Test
+    public void testEquals() {
+        MovieImpl testMovieOne = movie;
+        MovieImpl testMovieTwo = movie;
+        assertTrue(testMovieOne.equals(testMovieTwo) && testMovieTwo.equals(testMovieOne));
+    }
+
+    @Test
+    public void testHashcode() {
+        MovieImpl testMovieOne = movie;
+        MovieImpl testMovieTwo = movie;
+        assertTrue(testMovieOne.hashCode() == testMovieTwo.hashCode());
     }
 }
