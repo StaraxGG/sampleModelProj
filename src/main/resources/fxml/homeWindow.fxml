@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+
+
+<StackPane blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.HomeManagedController">
+   <children>
+      <JFXTabPane blendMode="MULTIPLY" cache="true" cacheHint="SPEED" prefHeight="400" prefWidth="800">
+          <tabs>
+              <Tab closable="false" text="Popular Movies">
+                  <content>
+                      <ScrollPane fx:id="spPopular" fitToHeight="true" fitToWidth="true">
+                          <TilePane fx:id="tilePanePopular" styleClass="center" tileAlignment="TOP_LEFT" />
+                      </ScrollPane>
+                  </content>
+              </Tab>
+              <Tab closable="false" text="New Movies">
+                  <content>
+                      <ScrollPane fx:id="spLatest">
+                          <TilePane fx:id="tilePaneLatest" styleClass="center" />
+                      </ScrollPane>
+                  </content>
+              </Tab>
+          </tabs>
+      </JFXTabPane>
+   </children>
+</StackPane>
