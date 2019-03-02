@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.BaseManagedController">
+   <top>
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="600.0" styleClass="navBar" stylesheets="@../css/base.css" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btnLists" text="Lists" />
+            <JFXButton fx:id="btnHome" text="Home" />
+            <JFXButton fx:id="btnStats" text="Stats" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <StackPane fx:id="masterStackpane" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
