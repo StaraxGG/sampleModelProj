@@ -26,20 +26,28 @@ public class MovieImplTest {
     private static final String genreTwo = "Comedy";
     private static final String prodCom = "Test productions";
     private static final String proCoun = "Test country";
+    private static final int tmdbID = 12345;
+    private static final String testTitle = "Test Movie Title";
+    private static final String testPosterURL = "http://image.tmdb.org/t/p/w92/1234abcd.jpg";
+    private static final String testPosterPath = "/1234abcd.jpg";
+    private static final String testReleaseDate = "2017-10-08";
+    private static final String testOverview = "This is a overview";
+    private static final String testLanguage = "de";
+    private static final String testStatus = "released";
 
     @Before
     public void setUp() throws Exception {
-        this.movie.setTmdbId(12345);
-        this.movie.setTitle("Test Movie Title");
+        this.movie.setTmdbId(tmdbID);
+        this.movie.setTitle(testTitle);
         this.movie.setPopularity(5.5f);
-        this.movie.setPosterUrl("http://test.de");
-        this.movie.setReleaseDate("2017-10-08");
+        this.movie.setPosterUrl(testPosterPath);
+        this.movie.setReleaseDate(testReleaseDate);
         this.movie.setIsAdult(true);
-        this.movie.setOverview("This is a overview");
-        this.movie.setOriginalLanguage("de");
+        this.movie.setOverview(testOverview);
+        this.movie.setOriginalLanguage(testLanguage);
         this.movie.setRuntime(120);
         this.movie.setVoteAverage(3.5f);
-        this.movie.setStatus("released");
+        this.movie.setStatus(testStatus);
         this.movie.setId(123456L);
 
         LinkedList<String> genres = new LinkedList<>();
@@ -63,12 +71,12 @@ public class MovieImplTest {
 
     @Test
     public void testGetTmdbId() {
-        assertTrue(this.movie.getTmdbId() == 12345);
+        assertTrue(this.movie.getTmdbId() == tmdbID);
     }
 
     @Test
     public void testGetTitle() {
-        assertTrue(this.movie.getTitle().equals("Test Movie Title"));
+        assertTrue(this.movie.getTitle().equals(testTitle));
     }
 
     @Test
@@ -78,9 +86,7 @@ public class MovieImplTest {
 
     @Test
     public void testGetPosterUrl() {
-        // the method is new, please change the test TODO: CHW
-        //assertTrue(this.movie.getPosterUrl().equals("http://test.de"));
-        fail();
+        assertTrue(this.movie.getPosterUrl(MoviePosterSize.W92).equals(testPosterURL));
     }
 
     @Test
@@ -158,10 +164,8 @@ public class MovieImplTest {
 
     @Test
     public void testSetPosterUrl() {
-        // TODO CHW
-        //this.movie.setPosterUrl("http://setter_test.org");
-        //assertTrue(this.movie.getPosterUrl().equals("http://setter_test.org"));
-        fail();
+        this.movie.setPosterUrl(testPosterPath);
+        assertTrue(this.movie.getPosterUrl(MoviePosterSize.W92).equals(testPosterURL));
     }
 
     @Test
