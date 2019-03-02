@@ -31,7 +31,7 @@ public interface MovieList {
      * @param movie movie to add
      * @return boolean success
      */
-    boolean addMovie(MovieImpl movie);
+    boolean addMovie(Movie movie);
 
     /**
      * deletes the movie from the list
@@ -39,7 +39,7 @@ public interface MovieList {
      * @param movie movie to remove
      * @return boolean success
      */
-    boolean deleteMovie(MovieImpl movie);
+    boolean deleteMovie(Movie movie);
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 

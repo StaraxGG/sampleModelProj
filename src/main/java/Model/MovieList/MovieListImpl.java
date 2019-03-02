@@ -104,9 +104,9 @@ public class MovieListImpl implements MovieList {
      * @return boolean success
      */
     @Override
-    public boolean addMovie(MovieImpl movie) {
-        if (movie != null && !this.movies.contains(movie)) {
-            this.movies.add(movie);
+    public boolean addMovie(Movie movie) {
+        if (movie instanceof MovieImpl && !this.movies.contains(movie)) {
+            this.movies.add((MovieImpl) movie);
             return true;
         }
 
@@ -120,8 +120,8 @@ public class MovieListImpl implements MovieList {
      * @return boolean success
      */
     @Override
-    public boolean deleteMovie(MovieImpl movie) {
-        if (this.movies.contains(movie)) {
+    public boolean deleteMovie(Movie movie) {
+        if (movie instanceof MovieImpl && this.movies.contains(movie)) {
             this.movies.remove(movie);
             return true;
         }
