@@ -65,7 +65,7 @@ public class ListManagedController implements Initializable {
     private JFXButton buttonExp;
 
 
-    private List<String> stringList     = new ArrayList<>(5);
+    private List<Label> stringList     = new ArrayList<>(5);
     private ObservableList observableList = FXCollections.observableArrayList();
 
     private int counter = 0;
