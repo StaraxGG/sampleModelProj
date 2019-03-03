@@ -66,7 +66,7 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void tesAddMovies_AlreadyContainsMovie(){
+    public void testAddMovies_AlreadyContainsMovie(){
         fail();
     }
 
