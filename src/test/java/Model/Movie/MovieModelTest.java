@@ -63,6 +63,13 @@ public class MovieModelTest {
         assertTrue(testMovieListOne.equals(testMovieListTwo));
     }
 
+    @Test
+    public void testGetPopularMovies() {
+        List<Movie> testMovieListOne = movieModel.getPopularMovies(1);
+        List<Movie> testMovieListTwo = movieModel.getPopularMovies(1);
+        assertTrue(testMovieListOne.equals(testMovieListTwo));
+    }
+
     @After
     public void tearDown() throws Exception {
         movieModel = null;

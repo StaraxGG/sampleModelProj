@@ -195,5 +195,19 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
                 tmdbMovies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
     }
+
+    /**
+     * returns the daily movie popularity list from the TMDB website
+     *
+     * @param page  the search result page that will be fetched
+     *              e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
+     * @return List
+     */
+    public List<Movie> getPopularMovies(Integer page) {
+
+        List<MovieDb> results =
+                tmdbMovies.getPopularMovies(ConfigTools.getVal("lang"), page).getResults();
+        return parseTmdbMovieList(results);
+    }
 }
 
