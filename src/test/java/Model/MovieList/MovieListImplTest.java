@@ -55,9 +55,19 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddMovieSize() {
+    public void testAddMovie_Size() {
         this.movieListImpl.addMovie(testMovie);
         assertTrue(this.movieListImpl.getMovies().size() == 1);
+    }
+
+    @Test
+    public void testAddMovies(){
+        fail();
+    }
+
+    @Test
+    public void tesAddMovies_AlreadyContainsMovie(){
+        fail();
     }
 
     @Test
@@ -84,7 +94,7 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testSetCreatorUserName(){
+    public void testGetCreatorUserName(){
         assertEquals(TEST_USER_NAME, this.movieListImpl.getCreatorUserName());
     }
 
@@ -95,13 +105,13 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddNewUser() {
+    public void testSetName() {
         this.movieListImpl.setName("test setName");
         assertTrue(this.movieListImpl.getName().equals("test setName"));
     }
 
     @Test
-    public void testSetNewUser() {
+    public void testAddNewUser() {
         //Long userID = 111111L;
         UserImpl user = new UserImpl("username", "123456");
         this.movieListImpl.getUsers().add(user);
@@ -109,19 +119,27 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testSetID() {
-        Long testID = 334455L;
-        this.movieListImpl.setMovieListID(testID);
-        assertTrue(this.movieListImpl.getId() == 334455L);
+    public void testSetMovieListID() {
+        //ID is already set in setUp()
+        assertTrue(this.movieListImpl.getId() == MOVIE_LIST_ID);
 
     }
 
     @Test
-    public void testSetIDalreadyset() {
+    public void testSetMovieListID_AlreadySet() {
         this.movieListImpl.setMovieListID(123456L);
         this.movieListImpl.setMovieListID(334455L);
         assertTrue(this.movieListImpl.getId().equals(123456L));
     }
+
+    @Test
+    public void testContains(){fail();}
+
+    @Test
+    public void testEquals(){fail();}
+
+    @Test
+    public void testHashcode(){fail();}
 
     @After
     public void tearDown(){
