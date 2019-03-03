@@ -16,6 +16,7 @@ public class MovieModelTest {
     MovieModel movieModel = null;
     MovieDb curMovieDb = null;
     MovieImpl curMovie = null;
+    private static final String region = "Saarbrücken";
 
     @Before
     public void setUp() throws Exception {
@@ -67,6 +68,27 @@ public class MovieModelTest {
     public void testGetPopularMovies() {
         List<Movie> testMovieListOne = movieModel.getPopularMovies(1);
         List<Movie> testMovieListTwo = movieModel.getPopularMovies(1);
+        assertTrue(testMovieListOne.equals(testMovieListTwo));
+    }
+
+    @Test
+    public void testGetNowPlayingMovies() {
+        List<Movie> testMovieListOne = movieModel.getNowPlayingMovies(region, 0);
+        List<Movie> testMovieListTwo = movieModel.getNowPlayingMovies(region, 0);
+        assertTrue(testMovieListOne.equals(testMovieListTwo));
+    }
+
+    @Test
+    public void testGetUpcoming() {
+        List<Movie> testMovieListOne = movieModel.getUpcoming(region, 0);
+        List<Movie> testMovieListTwo = movieModel.getUpcoming(region, 0);
+        assertTrue(testMovieListOne.equals(testMovieListTwo));
+    }
+
+    @Test
+    public void testGetTopRatedMovies() {
+        List<Movie> testMovieListOne = movieModel.getTopRatedMovies(0);
+        List<Movie> testMovieListTwo = movieModel.getTopRatedMovies(0);
         assertTrue(testMovieListOne.equals(testMovieListTwo));
     }
 

@@ -46,9 +46,10 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
 
     /**
      * returns THE instance of this MovieModel
+     *
      * @return MovieModel
      */
-    public static MovieModel getInstance(){
+    public static MovieModel getInstance() {
         if (movieModel == null)
             movieModel = new MovieModel();
 
@@ -91,7 +92,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
         }
         */
         List<Genre> tempGenreList = curMovieDb.getGenres();
-        if(tempGenreList!=null && tempGenreList.size()>0) {
+        if (tempGenreList != null && tempGenreList.size() > 0) {
             for (int i = 0; i < tempGenreList.size(); i++) {
                 Genre genre = tempGenreList.get(i);
                 genres.add(genre.getName());
@@ -101,17 +102,17 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
         }
 
         List<ProductionCompany> tempProdCompList = curMovieDb.getProductionCompanies();
-        if(tempProdCompList!=null && tempProdCompList.size()>0) {
+        if (tempProdCompList != null && tempProdCompList.size() > 0) {
             for (int i = 0; i < tempProdCompList.size(); i++) {
                 ProductionCompany curProdComp = tempProdCompList.get(i);
                 productionCompanies.add(curProdComp.getName());
             }
-        } else{
+        } else {
             productionCompanies = null;
         }
 
         List<ProductionCountry> tempProdCounList = curMovieDb.getProductionCountries();
-        if(tempProdCounList!=null && tempProdCounList.size()>0) {
+        if (tempProdCounList != null && tempProdCounList.size() > 0) {
             for (int i = 0; i < tempProdCounList.size(); i++) {
                 ProductionCountry curProdCountry = tempProdCounList.get(i);
                 productionCountries.add(curProdCountry.getName());
@@ -159,7 +160,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * you have to run the query again for the next pages of search results
      * please notice: this method does use lazy-loading, that means that the returned MovieImpl objects
      * have only attributes like title, posterpath, etc. filled.
-     *
+     * <p>
      * to get more details about the movie from this list, a call to {@link #getTmdbMovie(Integer)} is advised.
      * this method will try to load as many attributes as possible.
      *
@@ -199,14 +200,59 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
     /**
      * returns the daily movie popularity list from the TMDB website
      *
-     * @param page  the search result page that will be fetched
-     *              e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
+     * @param page the search result page that will be fetched
+     *             e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
      * @return List
      */
     public List<Movie> getPopularMovies(Integer page) {
 
         List<MovieDb> results =
                 tmdbMovies.getPopularMovies(ConfigTools.getVal("lang"), page).getResults();
+        return parseTmdbMovieList(results);
+    }
+
+    /**
+     * returns a list of movies currently playing in local cinemas
+     *
+     * @param region the users locale region
+     * @param page   the search result page that will be fetched
+     *               e.g. 0 returns the first page, for the next page you have to
+     *               call this method again but with a 1
+     * @return List
+     */
+    public List<Movie> getNowPlayingMovies(String region, Integer page) {
+
+        List<MovieDb> results =
+                tmdbMovies.getNowPlayingMovies(ConfigTools.getVal("lang"), page, region).getResults();
+        return parseTmdbMovieList(results);
+    }
+
+    /**
+     * returns a list of upcoming movies
+     *
+     * @param region the users locale
+     * @param page   the search result page that will be fetched
+     *               e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
+     * @return List
+     */
+    public List<Movie> getUpcoming(String region, Integer page) {
+
+        List<MovieDb> results =
+                tmdbMovies.getUpcoming(ConfigTools.getVal("lang"), page, region).getResults();
+        return parseTmdbMovieList(results);
+    }
+
+    /**
+     * returns a list of the top rated movies
+     *
+     * @param page the search result page that will be fetched
+     *             e.g. 0 returns the first page, for the next page you have to call this method again but with a 1
+     * @return List
+     */
+    public List<Movie> getTopRatedMovies(Integer page) {
+
+        List<MovieDb> results =
+                tmdbMovies.getTopRatedMovies(ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
     }
 }
