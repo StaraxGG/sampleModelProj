@@ -222,7 +222,7 @@ public class MovieImpl implements Movie {
         final String baseUrl = "http://image.tmdb.org/t/p";
 
         // build a string from values and use it
-        return String.format("%s/%s/%s",baseUrl, posterSize.toString(), this.posterURL);
+        return String.format("%s/%s%s",baseUrl, posterSize.toString(), this.posterURL);
     }
 
     /**
