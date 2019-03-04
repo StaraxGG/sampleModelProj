@@ -6,6 +6,7 @@ import ViewController.Constructs.MovieConstruct;
 import ViewController.WindowManager;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
@@ -37,13 +38,13 @@ public class HomeManagedController implements Initializable {
     private JFXMasonryPane masonryPopular;
 
     @FXML
-    private TilePane tilePaneLatest;
+    private JFXMasonryPane masonryTop;
 
     @FXML
     private ScrollPane spPopular;
 
     @FXML
-    private ScrollPane spLatest;
+    private ScrollPane spTop;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -58,16 +59,33 @@ public class HomeManagedController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        JFXScrollPane.smoothScrolling(spPopular);
-        JFXScrollPane.smoothScrolling(spLatest);
+        //Sets some settings for the scrollPanes
+        setupScrollpanes();
 
         //Retrieves lists with movies from TMDB
         MovieModel movieModel = MovieModel.getInstance();
-        List<Movie> harry_potter = movieModel.getTmdbMovies("Harry Potter", 0);
+        List<Movie> popularMovies = movieModel.getPopularMovies(0);
+        popularMovies.addAll(movieModel.getPopularMovies(2));
 
-        //Fills tilepane with corresponding list
-        setupPopular(harry_potter);
-        setupLatest(harry_potter);
+        List<Movie> topRatedMovies = movieModel.getPopularMovies(0);
+        topRatedMovies.addAll(movieModel.getPopularMovies(2));
+
+        //Fills masonryPane with corresponding list
+        setupPopular(popularMovies);
+        setupLatest(topRatedMovies);
+    }
+
+    /**
+     * Smooths scrolling and fixes some refreshing issue.
+     */
+    private void setupScrollpanes(){
+        //Fixes scrollPane issue, where window is only scrollable if resized
+        //manually before once. //TODO issues still there
+        Platform.runLater(spPopular::requestLayout);
+
+        //scrolles slow as hell otherwise with JavafX standard.
+        JFXScrollPane.smoothScrolling(spPopular);
+        JFXScrollPane.smoothScrolling(spTop);
     }
 
     /**
@@ -85,7 +103,7 @@ public class HomeManagedController implements Initializable {
      * @param listToDisplay
      */
     private void setupLatest(List<Movie> listToDisplay ){
-        listToDisplay.stream().forEach(e -> tilePaneLatest.getChildren().add(new MovieConstruct(e)));
+        listToDisplay.stream().forEach(e -> masonryTop.getChildren().add(new MovieConstruct(e)));
     }
 
 
