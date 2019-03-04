@@ -15,6 +15,7 @@ import ViewController.WindowManager;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,13 +59,7 @@ public class ListManagedController implements Initializable {
     private JFXMasonryPane jfxMasonry;
 
     @FXML
-    private JFXButton buttonCollapse;
-
-    @FXML
-    private JFXButton but3d;
-
-    @FXML
-    private JFXButton buttonExp;
+    private JFXButton btnDelete;
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -97,11 +92,11 @@ public class ListManagedController implements Initializable {
             System.out.println("Böse");
         }
 
-        userModel.logout();
 
         List<MovieListImpl> movieLists = user.getMovieLists();
         setUpListView2(movieLists);
 
+        btnDelete.setOnAction(event -> delteMovieList());
     }
 
     /**
@@ -124,7 +119,7 @@ public class ListManagedController implements Initializable {
      */
     private void setUpListView2(List<MovieListImpl> movieLists){
         jfxList.getItems().clear();
-        
+
         movieLists.stream().forEach(e -> {
             jfxList.getItems().add(new Label(e.getName()));
         });
@@ -135,6 +130,18 @@ public class ListManagedController implements Initializable {
             jfxMasonry.getChildren().clear();
             movieList.getMovies().stream().forEach(e -> jfxMasonry.getChildren().add(new MovieConstruct(e)));
         });
+    }
+
+    /**
+     * Deletes currently shown movieList
+     * from the Users Lists and stops displaying it.
+     */
+    private void delteMovieList(){
+        int index = jfxList.getSelectionModel().getSelectedIndex();
+        User currentUser = UserModel.getInstance().getCurrentUser();
+        currentUser.getMovieLists().remove(index);
+
+        setUpListView2(currentUser.getMovieLists());
     }
 
 
