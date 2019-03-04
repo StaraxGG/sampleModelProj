@@ -67,7 +67,8 @@ public class WindowManager {
         //set current Stage
         currentStage = stage;
 
-        switchScreenTo(Screens.HOMESCREEN);
+        //switchScreenTo(Screens.HOMESCREEN);
+        switchScreenTo(Screens.LISTS);
     }
 
     /**

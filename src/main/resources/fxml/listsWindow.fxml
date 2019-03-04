@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXToggleButton?>
@@ -17,16 +16,13 @@
                   <Insets bottom="-10.0" top="-10.0" />
                </padding>
             </JFXToggleButton>
-            <JFXButton fx:id="buttonCollapse" text="buttonCollapse" />
-            <JFXButton fx:id="buttonExp" text="buttonExpand " />
-            <JFXButton fx:id="but3d" text="but3d" />
          </children>
       </HBox>
    </top>
    <left>
-      <JFXListView fx:id="jfxList" depth="2" verticalGap="5.0" BorderPane.alignment="CENTER" />
+      <JFXListView fx:id="jfxList" depth="2" verticalGap="5.0"/>
    </left>
    <center>
-      <JFXMasonryPane fx:id="jfxMasonry" BorderPane.alignment="CENTER" />
+      <JFXMasonryPane fx:id="jfxMasonry" />
    </center>
 </BorderPane>

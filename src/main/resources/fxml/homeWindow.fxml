@@ -11,7 +11,7 @@
         <Tab closable="false" text="Popular Movies">
          <content>
             <ScrollPane fx:id="spPopular" fitToWidth="true" hbarPolicy="NEVER">
-             <JFXMasonryPane fx:id="masonryPopular" HSpacing="10" VSpacing="0">
+             <JFXMasonryPane fx:id="masonryPopular" HSpacing="0" VSpacing="0">
                    </JFXMasonryPane>
              </ScrollPane>
          </content>
@@ -19,7 +19,7 @@
         <Tab closable="false" text="Top Movies">
             <content>
                 <ScrollPane fx:id="spTop" fitToWidth="true" hbarPolicy="NEVER">
-                    <JFXMasonryPane fx:id="masonryTop" HSpacing="10" VSpacing="0">
+                    <JFXMasonryPane fx:id="masonryTop" HSpacing="0" VSpacing="0">
                           </JFXMasonryPane>
                 </ScrollPane>
             </content>
