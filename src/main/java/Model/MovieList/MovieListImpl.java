@@ -6,7 +6,7 @@ import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
-import com.sun.istack.internal.NotNull;
+
 
 import javax.persistence.*;
 import java.util.*;

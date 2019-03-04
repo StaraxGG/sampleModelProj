@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.sun.java.accessibility.util.EventID.ITEM;
-
 /**
  * An implementation of ListManagedController
  * in sample-model-project

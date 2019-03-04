@@ -3,7 +3,8 @@ package Model.User;
 import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
-import com.sun.istack.internal.NotNull;
+
+
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -67,7 +68,7 @@ public class UserImpl implements User {
     }
 
     @Override
-    public boolean deleteMovieList(@NotNull MovieList movieList) {
+    public boolean deleteMovieList( MovieList movieList) {
         this.movieLists.removeIf((userMovieList) -> userMovieList.equals(movieList));
         return true;
     }
