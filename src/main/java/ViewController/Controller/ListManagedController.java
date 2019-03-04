@@ -97,6 +97,7 @@ public class ListManagedController implements Initializable {
         setUpListView2(movieLists);
 
         //btnDelete.setOnAction(event -> delteMovieList());
+        setupDeleteButton();
     }
 
     /**
@@ -119,6 +120,7 @@ public class ListManagedController implements Initializable {
      */
     private void setUpListView2(List<MovieListImpl> movieLists){
         jfxList.getItems().clear();
+        jfxMasonry.getChildren().clear();
 
         movieLists.stream().forEach(e -> {
             jfxList.getItems().add(new Label(e.getName()));
@@ -140,10 +142,12 @@ public class ListManagedController implements Initializable {
      */
     private void delteMovieList(){
         int index = jfxList.getSelectionModel().getSelectedIndex();
-        User currentUser = UserModel.getInstance().getCurrentUser();
-        currentUser.getMovieLists().remove(index);
+        if(index != -1){
+            User currentUser = UserModel.getInstance().getCurrentUser();
+            currentUser.getMovieLists().remove(index);
 
-        setUpListView2(currentUser.getMovieLists());
+            setUpListView2(currentUser.getMovieLists());
+        }
     }
 
     private void setupDeleteButton(){
@@ -153,6 +157,18 @@ public class ListManagedController implements Initializable {
 
         JFXPopup popup = new JFXPopup(list);
         btnDelete.setOnAction(e -> popup.show(btnDelete, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
+
+        list.setOnMouseClicked(e -> {
+            int selectedIndex = list.getSelectionModel().getSelectedIndex();
+
+            if(selectedIndex == 0){
+                delteMovieList();
+                popup.hide();
+            }
+            else {
+                popup.hide();
+            }
+        });
     }
 
 
