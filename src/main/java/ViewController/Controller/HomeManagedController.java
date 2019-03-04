@@ -4,11 +4,13 @@ import Model.Movie.Movie;
 import Model.Movie.MovieModel;
 import ViewController.Constructs.MovieConstruct;
 import ViewController.WindowManager;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -105,6 +107,8 @@ public class HomeManagedController implements Initializable {
     private void setupLatest(List<Movie> listToDisplay ){
         listToDisplay.stream().forEach(e -> masonryTop.getChildren().add(new MovieConstruct(e)));
     }
+
+
 
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

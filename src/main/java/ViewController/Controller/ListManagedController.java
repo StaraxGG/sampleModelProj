@@ -96,7 +96,7 @@ public class ListManagedController implements Initializable {
         List<MovieListImpl> movieLists = user.getMovieLists();
         setUpListView2(movieLists);
 
-        btnDelete.setOnAction(event -> delteMovieList());
+        //btnDelete.setOnAction(event -> delteMovieList());
     }
 
     /**
@@ -126,9 +126,11 @@ public class ListManagedController implements Initializable {
 
         jfxList.setOnMouseClicked(event -> {
             int selectedIndex = jfxList.getSelectionModel().getSelectedIndex();
-            MovieListImpl movieList = movieLists.get(selectedIndex);
-            jfxMasonry.getChildren().clear();
-            movieList.getMovies().stream().forEach(e -> jfxMasonry.getChildren().add(new MovieConstruct(e)));
+            if(selectedIndex >= 0){
+                MovieListImpl movieList = movieLists.get(selectedIndex);
+                jfxMasonry.getChildren().clear();
+                movieList.getMovies().stream().forEach(e -> jfxMasonry.getChildren().add(new MovieConstruct(e)));
+            }
         });
     }
 
@@ -142,6 +144,15 @@ public class ListManagedController implements Initializable {
         currentUser.getMovieLists().remove(index);
 
         setUpListView2(currentUser.getMovieLists());
+    }
+
+    private void setupDeleteButton(){
+        JFXListView<Label> list = new JFXListView<>();
+        list.getItems().add(new Label("yes"));
+        list.getItems().add(new Label("naa, bring me back"));
+
+        JFXPopup popup = new JFXPopup(list);
+        btnDelete.setOnAction(e -> popup.show(btnDelete, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
     }
 
 
