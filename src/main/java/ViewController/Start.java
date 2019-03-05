@@ -48,6 +48,7 @@ public class Start extends Application {
         WindowManager windowManager = WindowManager.getInstance(primaryStage);
         windowManagerSave = windowManager;
         primaryStage.setScene(new Scene(windowManager.getBaseView()));
+        windowManager.switchScreenTo(Screens.LOGIN);
         primaryStage.show();
     }
 

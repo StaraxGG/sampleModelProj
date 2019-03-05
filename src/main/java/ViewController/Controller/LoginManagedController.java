@@ -4,14 +4,18 @@ import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import ViewController.Screens;
+import ViewController.Start;
 import ViewController.WindowManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -65,7 +69,7 @@ public class LoginManagedController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.windowManager = WindowManager.getInstance(null);
+        this.windowManager = Start.getManager();
 
 
         this.UMINstance = UserModel.getInstance();
@@ -74,7 +78,6 @@ public class LoginManagedController implements Initializable {
         this.signUpButton.setOnMouseClicked(this.signUpButtonClicked);
     }
 
-    
     private EventHandler<? super MouseEvent> loginButtonClicked = mouseEvent -> {
         String usertext = this.usernameField.getText();
         String pwtext = this.passwordField.getText();
@@ -84,12 +87,14 @@ public class LoginManagedController implements Initializable {
         try{
             user = new UserImpl(usertext, pwtext);
         }catch (NullPointerException e){
-            //play error animation
+            //Display invalid character warning.
         }
 
         try{
             if(this.UMINstance.login(user) != null){
                 this.windowManager.switchScreenTo(Screens.HOMESCREEN);
+            }else{
+                this.playLoginFailAnimation();
             }
         }catch(Exception e ){
             //log
@@ -103,9 +108,29 @@ public class LoginManagedController implements Initializable {
     private EventHandler<? super MouseEvent> rememberMeCheckboxClicked = mouseEvent -> {
         this.rememberMeCheckBox.setSelected(!this.rememberMeCheckBox.isSelected());
     };
-    
-    
 
+
+
+    /* ---------------------------------------- Animation ----------------------------------------------------------- */
+    private void playLoginFailAnimation(){
+
+        TranslateTransition translateRight = new TranslateTransition(Duration.millis(25), this.loginButton);
+        translateRight.setFromX(0);
+        translateRight.setToX(5);
+        translateRight.setCycleCount(2);
+        translateRight.setAutoReverse(true);
+
+        TranslateTransition translateLeft = new TranslateTransition(Duration.millis(25), this.loginButton);
+        translateLeft.setFromX(0);
+        translateLeft.setToX(-5);
+        translateLeft.setCycleCount(2);
+        translateLeft.setAutoReverse(true);
+
+        SequentialTransition sequentialTransition= new SequentialTransition();
+        sequentialTransition.getChildren().addAll(translateRight, translateLeft);
+        sequentialTransition.play();
+
+    }
 
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
