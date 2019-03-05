@@ -44,7 +44,7 @@ public interface User {
      * delete his list
      *
      * @param movieList
-     * @return
+     * @return true if an operation was done
      */
     boolean deleteMovieList(MovieList movieList);
 
@@ -52,7 +52,7 @@ public interface User {
      * returns all movielists of this user that contain this movie
      *
      * @param movie Movie that will be searched
-     * @return
+     * @return List of movies that include this movie - or null if the given movie was null
      */
     List<? extends MovieList> findMovielistForMovie(Movie movie);
 

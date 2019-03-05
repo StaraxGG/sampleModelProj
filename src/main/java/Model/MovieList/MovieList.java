@@ -3,6 +3,7 @@ package Model.MovieList;
 
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
+import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 
@@ -55,9 +56,9 @@ public interface MovieList {
      * notice, that the here given user will NOT be the creator user, although that should not be able to happen during
      * application workflow
      * @param user
-     * @return true if the user set did not contain this user before and the user was now added
+     * @return true if the user (1) exists (2) was not in this movieList before (3) and is now added
      */
-    boolean addUser(User user);
+    boolean addUser(User user) throws UserNotFoundException;
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 

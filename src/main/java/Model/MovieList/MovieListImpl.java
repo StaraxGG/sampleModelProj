@@ -143,9 +143,20 @@ public class MovieListImpl implements MovieList {
     }
 
     @Override
-    public boolean addUser(User user) {
+    public boolean addUser(User user) throws UserNotFoundException {
+        // null check
         if (user == null)
             return false;
+
+        // verify if this user exists
+        User userTmp = UserModel.getInstance().findById(user.getUsername());
+        if (userTmp == null)
+            throw new UserNotFoundException();
+
+        // give this user the movie list
+        user.addMovieList(this);
+
+        // add this user to the movieList
         return this.users.add((UserImpl) user);
     }
 
