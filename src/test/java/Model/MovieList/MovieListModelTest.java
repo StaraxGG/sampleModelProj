@@ -55,9 +55,9 @@ public class MovieListModelTest {
 
     @AfterClass
     public static void afterClass() {
-        //movieListModel.remove((MovieListImpl) movieList1);
-        //movieListModel.remove((MovieListImpl) movieList2);
-        //UserModel.getInstance().remove((UserImpl) user);
+        movieListModel.remove((MovieListImpl) movieList1);
+        movieListModel.remove((MovieListImpl) movieList2);
+        UserModel.getInstance().remove((UserImpl) user);
     }
 
     /* ------------------ Database Tests ------------------ */
