@@ -3,6 +3,7 @@ package Model.MovieList;
 
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
+import Model.User.User;
 import Model.User.UserImpl;
 
 import java.util.List;
@@ -48,6 +49,15 @@ public interface MovieList {
      * @return boolean success
      */
     boolean deleteMovie(Movie movie);
+
+    /**
+     * adds a user to this movieList and adds this movieList to the users movielists
+     * notice, that the here given user will NOT be the creator user, although that should not be able to happen during
+     * application workflow
+     * @param user
+     * @return true if the user set did not contain this user before and the user was now added
+     */
+    boolean addUser(User user);
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
