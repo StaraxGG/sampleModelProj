@@ -2,11 +2,15 @@ package Model.Movie;
 
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Model.User.Exception.UserNotFoundException;
+import Model.User.User;
+import Model.User.UserModel;
 
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * An implementation of MovieImpl
@@ -26,7 +30,7 @@ public class MovieImpl implements Movie {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     @Id
     @Column(name = "movie_ID", nullable = false)
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long movieID;
 
     @Column(name = "tmdb_ID", nullable = false)
@@ -74,6 +78,14 @@ public class MovieImpl implements Movie {
     @Column(name = "movie_status")
     private String status;
 
+    @ManyToMany
+    @JoinTable(
+            name = "movie_movielist",
+            joinColumns = @JoinColumn(name = "movie_ID"),
+            inverseJoinColumns = @JoinColumn(name = "movielist_id")
+    )
+    private Set<MovieListImpl> movieLists;
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -120,7 +132,7 @@ public class MovieImpl implements Movie {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.tmdbID,this.title);
+        return Objects.hash(this.tmdbID, this.title);
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
@@ -222,7 +234,7 @@ public class MovieImpl implements Movie {
         final String baseUrl = "http://image.tmdb.org/t/p";
 
         // build a string from values and use it
-        return String.format("%s/%s%s",baseUrl, posterSize.toString(), this.posterURL);
+        return String.format("%s/%s%s", baseUrl, posterSize.toString(), this.posterURL);
     }
 
     /**
@@ -453,6 +465,21 @@ public class MovieImpl implements Movie {
     public void setStatus(String status) {
 
         this.status = status;
+    }
+
+    @Override
+    public Set<MovieList> getMovieLists() {
+        // get the current user for filtering
+        User currentUser = UserModel.getInstance().getCurrentUser();
+        if (currentUser == null)
+            throw new UserNotFoundException("The current user was not found.");
+
+        Set<MovieList> filteredSet = this.movieLists.stream().filter(movieList -> movieList.hasUser())
+    }
+
+    @Override
+    public void setMovieLists(Set<MovieList> movieLists) {
+
     }
 }
 

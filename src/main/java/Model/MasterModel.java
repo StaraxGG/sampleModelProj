@@ -120,6 +120,8 @@ public abstract class MasterModel<T extends Serializable, C> {
             em.close();
         }
 
+        // forces full loading of entity
+        if (result != null) result.hashCode();
         return result;
     }
 
@@ -166,7 +168,7 @@ public abstract class MasterModel<T extends Serializable, C> {
     /**
      * this method should be called at the end of the application to cleanup everything
      */
-    public static void exit(){
+    public static void exit() {
 
         // close the EMF which closes the database connection pool
         ENTITY_MANAGER_FACTORY.close();

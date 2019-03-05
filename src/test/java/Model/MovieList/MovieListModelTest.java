@@ -59,7 +59,7 @@ public class MovieListModelTest {
     @Test
     public void persist() throws UserNotFoundException {
         // create a new moveList
-        MovieListImpl movieList = new MovieListImpl(user.getUsername(), USER_PASSWORD);
+        MovieListImpl movieList = new MovieListImpl(MOVIE_LIST_NAME  + "_TMP", user.getUsername());
 
         // persist this list
         movieListModel.persist(movieList);
@@ -75,7 +75,7 @@ public class MovieListModelTest {
     public void remove() throws UserNotFoundException {
 
         // create and persist a list
-        MovieListImpl movieList = new MovieListImpl(user.getUsername(), USER_PASSWORD);
+        MovieListImpl movieList = new MovieListImpl(MOVIE_LIST_NAME  + "_TMP", user.getUsername());
 
         // persist this list
         movieListModel.persist(movieList);

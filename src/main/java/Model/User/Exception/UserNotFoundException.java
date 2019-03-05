@@ -8,7 +8,7 @@ package Model.User.Exception;
  * @version 1.0
  * @since 2019-Feb-22
  */
-public class UserNotFoundException extends Exception{
+public class UserNotFoundException extends Exception {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -17,7 +17,9 @@ public class UserNotFoundException extends Exception{
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-
+    public UserNotFoundException(String msg){
+        super(msg);
+    }
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

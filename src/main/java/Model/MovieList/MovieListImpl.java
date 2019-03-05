@@ -30,7 +30,7 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
 
-    @OneToMany(targetEntity = MovieImpl.class)
+    @ManyToMany(targetEntity = MovieImpl.class, fetch = FetchType.EAGER)
     private Set<MovieImpl> movies;
 
     @Id
@@ -301,6 +301,9 @@ public class MovieListImpl implements MovieList {
         }
     }
 
+    protected void setMovies(Set<MovieImpl> movies) {
+        this.movies = movies;
+    }
 }
 
 
