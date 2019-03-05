@@ -32,6 +32,11 @@ public class UserImplTest {
 
     }
 
+    @Test (expected = Exception.class)
+    public void UserImpl(){
+        User user = new UserImpl(null, "");
+    }
+
 
     @Test
     public void addMovieList() {

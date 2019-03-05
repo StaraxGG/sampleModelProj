@@ -3,6 +3,7 @@ package Model.User;
 import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Tools.MessageTools;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
@@ -42,7 +43,18 @@ public class UserImpl implements User {
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public UserImpl(String userName, String password) {
+    /**
+     * creates a new user object that is not yet persisted in the database
+     * @param userName not null user name
+     * @param password password not null and not empty!
+     * @throws IllegalArgumentException
+     */
+    public UserImpl(String userName, String password) throws IllegalArgumentException {
+        if (userName == null || userName.isEmpty())
+            throw new IllegalArgumentException("");
+
+        if (password == null || password.isEmpty())
+            throw new IllegalArgumentException(String.format("The given password (%s) was invalid.",password));
         this.setUserName(userName);
         this.setPasswordHash(password);
         this.movieLists = new LinkedList<>();
@@ -90,6 +102,8 @@ public class UserImpl implements User {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof UserImpl))
+            return false;
         UserImpl otherUser = (UserImpl) obj;
 
         // check if name and password hash are the same
