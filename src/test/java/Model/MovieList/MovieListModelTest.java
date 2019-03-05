@@ -1,5 +1,6 @@
 package Model.MovieList;
 
+import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
@@ -58,15 +59,23 @@ public class MovieListModelTest {
     /* ------------------ Database Tests ------------------ */
 
     @Test
-    public void persist() {
-        movieListModel.persist((MovieListImpl) movieList1);
-        MovieList tmpMovieList = movieListModel.findById(movieList1.getId());
-        assertEquals(movieList1, tmpMovieList);
+    public void persist() throws UserNotFoundException {
+        // create a new moveList
+        MovieListImpl movieList = new MovieListImpl(user.getUsername(), USER_PASSWORD);
+
+        // persist this list
+        movieListModel.persist(movieList);
+
+        // retrieve it again
+        MovieList tmpMovieList = movieListModel.findById(movieList.getId());
+
+        // check if they were the same
+        assertEquals(movieList, tmpMovieList);
     }
 
     @Test
     public void remove() {
-        fail();
+
     }
 
     @Test
