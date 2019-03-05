@@ -72,12 +72,19 @@ public class MovieListModelTest {
     }
 
     @Test
-    public void remove() {
+    public void remove() throws UserNotFoundException {
+
+        // create and persist a list
+        MovieListImpl movieList = new MovieListImpl(user.getUsername(), USER_PASSWORD);
+
+        // persist this list
+        movieListModel.persist(movieList);
+
         // remove our list
-        movieListModel.remove((MovieListImpl) movieList2);
+        movieListModel.remove(movieList);
 
         // now if we search for it...
-        MovieList tmpMovieList = movieListModel.findById(movieList2.getId());
+        MovieList tmpMovieList = movieListModel.findById(movieList.getId());
 
         // it should not be there
         assertNull(tmpMovieList);
@@ -85,7 +92,8 @@ public class MovieListModelTest {
 
     @Test
     public void findById() {
-        fail();
+        MovieList tmpMovieList = movieListModel.findById(movieList1.getId());
+        assertEquals(movieList1, tmpMovieList);
     }
 
     @Test
