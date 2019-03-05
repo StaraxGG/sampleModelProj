@@ -6,10 +6,12 @@ import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
-import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * An implementation of MovieListImpl
@@ -28,7 +30,6 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
 
-
     @OneToMany(targetEntity = MovieImpl.class)
     private Set<MovieImpl> movies;
 
@@ -45,7 +46,6 @@ public class MovieListImpl implements MovieList {
     //list of userIDs
 
     @ManyToMany(fetch = FetchType.EAGER)
-
     private Set<UserImpl> users;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -58,6 +58,7 @@ public class MovieListImpl implements MovieList {
 
     /**
      * this method creates a new movielist with a given user as creator user
+     *
      * @param movieListName
      * @param creatorUserName
      * @throws UserNotFoundException when the user could not be found
@@ -69,9 +70,10 @@ public class MovieListImpl implements MovieList {
 
     /**
      * this method creates a new movielist with a given user as creator user
+     *
      * @param movieListName
      * @param creatorUserName
-     * @param movie movie to add to the watchlist directly
+     * @param movie           movie to add to the watchlist directly
      * @throws UserNotFoundException when the user could not be found
      */
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
@@ -138,6 +140,24 @@ public class MovieListImpl implements MovieList {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean addUser(User user) throws UserNotFoundException {
+        // null check
+        if (user == null)
+            return false;
+
+        // verify if this user exists
+        User userTmp = UserModel.getInstance().findById(user.getUsername());
+        if (userTmp == null)
+            throw new UserNotFoundException();
+
+        // give this user the movie list
+        user.addMovieList(this);
+
+        // add this user to the movieList
+        return this.users.add((UserImpl) user);
     }
 
     @Override
@@ -243,6 +263,7 @@ public class MovieListImpl implements MovieList {
 
     /**
      * adds a new user to the users list of this movielist
+     *
      * @param username username of the user that should already exist in the database
      * @return true if the user was added, false if he was already on the list
      * @throws UserNotFoundException when the user could not be found
@@ -263,7 +284,7 @@ public class MovieListImpl implements MovieList {
         }
 
         // add the user
-        this.users.add((UserImpl)tmpUser);
+        this.users.add((UserImpl) tmpUser);
         return true;
 
 

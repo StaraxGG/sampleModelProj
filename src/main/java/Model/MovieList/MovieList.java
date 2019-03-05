@@ -3,6 +3,8 @@ package Model.MovieList;
 
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
+import Model.User.Exception.UserNotFoundException;
+import Model.User.User;
 import Model.User.UserImpl;
 
 import java.util.List;
@@ -48,6 +50,15 @@ public interface MovieList {
      * @return boolean success
      */
     boolean deleteMovie(Movie movie);
+
+    /**
+     * adds a user to this movieList and adds this movieList to the users movielists
+     * notice, that the here given user will NOT be the creator user, although that should not be able to happen during
+     * application workflow
+     * @param user
+     * @return true if the user (1) exists (2) was not in this movieList before (3) and is now added
+     */
+    boolean addUser(User user) throws UserNotFoundException;
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 

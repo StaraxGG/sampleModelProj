@@ -68,12 +68,14 @@ public class UserImpl implements User {
 
     @Override
     public boolean deleteMovieList(@NotNull MovieList movieList) {
-        this.movieLists.removeIf((userMovieList) -> userMovieList.equals(movieList));
-        return true;
+        return this.movieLists.removeIf((userMovieList) -> userMovieList.equals(movieList));
     }
 
     @Override
     public List<? extends MovieList> findMovielistForMovie(Movie movie){
+        // check for null value
+        if (movie == null)
+            return null;
         List<MovieListImpl> resultLists = new LinkedList<>();
 
         for (MovieList movieList : this.getMovieLists()){
