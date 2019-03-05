@@ -14,10 +14,12 @@ import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -51,6 +53,9 @@ public class LoginManagedController implements Initializable {
     @FXML
     private JFXButton signUpButton;
 
+    @FXML
+    private Label errorLabel;
+
 
 
     private WindowManager windowManager;
@@ -81,20 +86,25 @@ public class LoginManagedController implements Initializable {
     private EventHandler<? super MouseEvent> loginButtonClicked = mouseEvent -> {
         String usertext = this.usernameField.getText();
         String pwtext = this.passwordField.getText();
-        
-        User user = null;
-        
-        try{
-            user = new UserImpl(usertext, pwtext);
-        }catch (NullPointerException e){
-            //Display invalid character warning.
+
+        if(Objects.equals(usertext, "")){
+            this.errorLabel.setText("Please enter a Username");
+            return;
+        }else if(!Objects.equals(usertext, "") && Objects.equals(pwtext, "")){
+            this.errorLabel.setText("Please enter a password");
+            return;
+        }else{
+            this.errorLabel.setText("");
         }
+
+        User user = new UserImpl(usertext, pwtext);
 
         try{
             if(this.UMINstance.login(user) != null){
                 this.windowManager.switchScreenTo(Screens.HOMESCREEN);
             }else{
                 this.playLoginFailAnimation();
+                this.errorLabel.setText("Couldn't find a user with matching credentials");
             }
         }catch(Exception e ){
             //log
