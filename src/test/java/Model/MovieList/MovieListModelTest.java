@@ -12,9 +12,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class MovieListModelTest {
 
@@ -75,7 +73,14 @@ public class MovieListModelTest {
 
     @Test
     public void remove() {
+        // remove our list
+        movieListModel.remove((MovieListImpl) movieList2);
 
+        // now if we search for it...
+        MovieList tmpMovieList = movieListModel.findById(movieList2.getId());
+
+        // it should not be there
+        assertNull(tmpMovieList);
     }
 
     @Test
