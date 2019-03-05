@@ -74,7 +74,7 @@ public class MovieImpl implements Movie {
     @Column(name = "movie_status")
     private String status;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "movie_movielist",
             joinColumns = @JoinColumn(name = "movie_ID"),

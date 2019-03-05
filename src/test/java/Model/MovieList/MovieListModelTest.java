@@ -1,5 +1,6 @@
 package Model.MovieList;
 
+import Model.Movie.MovieModel;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
@@ -41,17 +42,22 @@ public class MovieListModelTest {
         movieList1 = new MovieListImpl(MOVIE_LIST_NAME, user.getUsername());
         movieList2 = new MovieListImpl(MOVIE_LIST_NAME + "2", user.getUsername());
 
+        // add some movies to the second one for testing
+        movieList2.addMovies(MovieModel.getInstance().getTmdbMovies("Harry Potter", 0));
+
         // add to the database
         movieListModel.persist((MovieListImpl) movieList1);
         movieListModel.persist((MovieListImpl) movieList2);
+
+
 
     }
 
     @AfterClass
     public static void afterClass() {
-        movieListModel.remove((MovieListImpl) movieList1);
-        movieListModel.remove((MovieListImpl) movieList2);
-        UserModel.getInstance().remove((UserImpl) user);
+        //movieListModel.remove((MovieListImpl) movieList1);
+        //movieListModel.remove((MovieListImpl) movieList2);
+        //UserModel.getInstance().remove((UserImpl) user);
     }
 
     /* ------------------ Database Tests ------------------ */
@@ -92,8 +98,9 @@ public class MovieListModelTest {
 
     @Test
     public void findById() {
-        MovieList tmpMovieList = movieListModel.findById(movieList1.getId());
-        assertEquals(movieList1, tmpMovieList);
+
+        MovieList tmpMovieList = movieListModel.findById(movieList2.getId());
+        assertEquals(movieList2, tmpMovieList);
     }
 
     @Test

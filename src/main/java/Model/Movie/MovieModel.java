@@ -10,6 +10,10 @@ import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.ProductionCountry;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.TypedQuery;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -254,6 +258,32 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
         List<MovieDb> results =
                 tmdbMovies.getTopRatedMovies(ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
+    }
+
+    /**
+     * finds a movie by its tmdb it
+     *
+     * @param id
+     * @return MovieImpl if it was found, null if more than one was found (which should not happen) or none was found
+     */
+    public MovieImpl findByTmdbId(Integer id) {
+
+        EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        TypedQuery<MovieImpl> query =
+                entityManager
+                        .createQuery("SELECT m FROM MovieImpl m WHERE m.tmdbID = :tmdbid", MovieImpl.class)
+                        .setParameter("tmdbid", id);
+        try {
+
+            return query.getSingleResult();
+
+        } catch (NoResultException | NonUniqueResultException nre) {
+            System.err.println(nre);
+            return null;
+        } finally {
+            entityManager.close();
+        }
+
     }
 }
 

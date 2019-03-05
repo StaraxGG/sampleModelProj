@@ -120,8 +120,6 @@ public abstract class MasterModel<T extends Serializable, C> {
             em.close();
         }
 
-        // forces full loading of entity
-        if (result != null) result.hashCode();
         return result;
     }
 

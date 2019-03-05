@@ -118,7 +118,7 @@ public class MovieListImpl implements MovieList {
         }
 
         // search the database for this movie
-        tmpMovie = movieModel.findById(movie.getId());
+        tmpMovie = movieModel.findByTmdbId(movie.getTmdbId());
 
         // if this movie is already in the database, then add THAT to this MovieList
         if (tmpMovie != null) {
@@ -127,7 +127,7 @@ public class MovieListImpl implements MovieList {
             // also: make the bidirectional connection
             tmpMovie.addMovieList(this);
         } else {
-            // otherwise add THIS movie to this list and persist it in the databse
+            // otherwise add THIS movie to this list and persist it in the database
             this.movies.add((MovieImpl) movie);
             movieModel.persist((MovieImpl) movie);
         }
