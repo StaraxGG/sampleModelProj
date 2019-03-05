@@ -32,7 +32,7 @@ public class MovieImpl implements Movie {
     @Column(name = "tmdb_ID", nullable = false)
     private Integer tmdbID;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 1000)
     private String title;
 
     @Column(name = "popularity")
@@ -51,7 +51,7 @@ public class MovieImpl implements Movie {
     @ElementCollection
     private List<String> genres;
 
-    @Column(name = "overview")
+    @Column(name = "overview", columnDefinition = "TEXT")
     private String overview;
 
     @Column(name = "original_language")
@@ -71,7 +71,7 @@ public class MovieImpl implements Movie {
     @Column(name = "vote_average")
     private Float voteAverage;
 
-    @Column(name = "movie_status")
+    @Column(name = "movie_status", length = 1000)
     private String status;
 
     @ManyToMany(fetch = FetchType.EAGER)
