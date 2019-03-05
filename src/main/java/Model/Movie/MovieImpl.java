@@ -113,6 +113,7 @@ public class MovieImpl implements Movie {
         this.genres = new LinkedList<>();
         this.productionCountries = new LinkedList<>();
         this.productionCompanies = new LinkedList<>();
+        this.movieLists = new HashSet<>();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */

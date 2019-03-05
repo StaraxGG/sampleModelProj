@@ -29,10 +29,11 @@ public interface MovieList {
 
 
     /**
-     * adds the movie to this list
-     *
-     * @param movie movie to add
-     * @return boolean success
+     * First we check if THIS movie, the parameter is already in the database
+     * if it is: add the movie from the database to this movieList
+     * if it is NOT: persist the given movie AND add the given movie to this movieList
+     * @param movie
+     * @return true, if any operation was done
      */
     boolean addMovie(Movie movie);
 

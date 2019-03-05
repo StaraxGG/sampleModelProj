@@ -2,6 +2,7 @@ package Model.MovieList;
 
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
+import Model.Movie.MovieModel;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
@@ -108,12 +109,30 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(Movie movie) {
-        if (movie instanceof MovieImpl && !this.movies.contains(movie)) {
-            this.movies.add((MovieImpl) movie);
-            return true;
+
+        MovieModel movieModel = MovieModel.getInstance();
+        MovieImpl tmpMovie;
+
+        if (!(movie instanceof MovieImpl) || this.movies.contains(movie)) {
+            return false;
         }
 
-        return false;
+        // search the database for this movie
+        tmpMovie = movieModel.findById(movie.getId());
+
+        // if this movie is already in the database, then add THAT to this MovieList
+        if (tmpMovie != null) {
+            this.movies.add(tmpMovie);
+
+            // also: make the bidirectional connection
+            tmpMovie.addMovieList(this);
+        } else {
+            // otherwise add THIS movie to this list and persist it in the databse
+            this.movies.add((MovieImpl) movie);
+            movieModel.persist((MovieImpl) movie);
+        }
+
+        return true;
     }
 
     @Override
