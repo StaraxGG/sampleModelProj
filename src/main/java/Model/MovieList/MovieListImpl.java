@@ -274,7 +274,7 @@ public class MovieListImpl implements MovieList {
 
         // check if this user exists
         if (tmpUser == null)
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("The given User was not found");
 
         // check if this user is NOT in the list
         if (this.users.contains(tmpUser)) {
@@ -288,6 +288,13 @@ public class MovieListImpl implements MovieList {
         return true;
 
 
+    }
+
+    @Override
+    public boolean hasUser(User user) {
+        if (!(user instanceof UserImpl))
+            return false;
+        return this.users.contains(user);
     }
 
     /**

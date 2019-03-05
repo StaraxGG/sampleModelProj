@@ -60,6 +60,13 @@ public interface MovieList {
      */
     boolean addUser(User user) throws UserNotFoundException;
 
+    /**
+     * returns true if this user is participating in this MovieList
+     * @param user
+     * @return
+     */
+    boolean hasUser(User user);
+
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**

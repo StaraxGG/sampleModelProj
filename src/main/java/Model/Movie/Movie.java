@@ -1,6 +1,7 @@
 package Model.Movie;
 
 import Model.MovieList.MovieList;
+import Model.User.User;
 
 import java.util.List;
 import java.util.Set;
@@ -222,14 +223,16 @@ public interface Movie {
      *
      * @return Set
      */
-    Set<MovieList> getMovieLists();
+    Set<MovieList> getMovieLists(User user);
+
 
     /**
-     * sets the Set of MovieLists
+     * adds the given movieList to this movies movieList Set
      *
-     * @param movieLists Set
+     * @param movieList
+     * @return true if any operation was done
      */
-    void setMovieLists(Set<MovieList> movieLists);
+    boolean addMovieList(MovieList movieList);
 
 }
 

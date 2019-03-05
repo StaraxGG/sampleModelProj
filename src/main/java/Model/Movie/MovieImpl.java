@@ -2,15 +2,11 @@ package Model.Movie;
 
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
-import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
-import Model.User.UserModel;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of MovieImpl
@@ -110,6 +106,7 @@ public class MovieImpl implements Movie {
         this.runtime = runtime;
         this.voteAverage = voteAverage;
         this.status = status;
+        this.movieLists = new HashSet<>();
     }
 
     public MovieImpl() {
@@ -468,18 +465,16 @@ public class MovieImpl implements Movie {
     }
 
     @Override
-    public Set<MovieList> getMovieLists() {
-        // get the current user for filtering
-        User currentUser = UserModel.getInstance().getCurrentUser();
-        if (currentUser == null)
-            throw new UserNotFoundException("The current user was not found.");
-
-        Set<MovieList> filteredSet = this.movieLists.stream().filter(movieList -> movieList.hasUser())
+    public Set<MovieList> getMovieLists(User user) {
+        if (user == null)
+            return new HashSet<>();
+        return this.movieLists.stream().filter(movieList -> movieList.hasUser(user)).collect(Collectors.toSet());
     }
 
     @Override
-    public void setMovieLists(Set<MovieList> movieLists) {
-
+    public boolean addMovieList(MovieList movieList) {
+        if (movieList == null) return false;
+        return this.movieLists.add((MovieListImpl) movieList);
     }
 }
 
