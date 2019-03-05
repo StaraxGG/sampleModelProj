@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -58,7 +59,9 @@ public class MovieListModelTest {
 
     @Test
     public void persist() {
-        fail();
+        movieListModel.persist((MovieListImpl) movieList1);
+        MovieList tmpMovieList = movieListModel.findById(movieList1.getId());
+        assertEquals(movieList1, tmpMovieList);
     }
 
     @Test
