@@ -76,7 +76,7 @@ public class UserModelTest {
     /* ------------------ Database Tests ------------------ */
 
     @Test
-    public void persist(){
+    public void persist() {
 
         // we persist the test user
         userModel.persist((UserImpl) user);
@@ -89,7 +89,7 @@ public class UserModelTest {
     }
 
     @Test
-    public void remove(){
+    public void remove() {
 
         // create a user
         UserImpl newUser = new UserImpl("new_user@test.de", "new_user_pass");
@@ -107,7 +107,7 @@ public class UserModelTest {
     }
 
     @Test
-    public void findById(){
+    public void findById() {
         // persist our user first
         userModel.persist((UserImpl) user);
 

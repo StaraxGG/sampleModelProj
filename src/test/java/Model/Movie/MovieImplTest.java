@@ -1,6 +1,5 @@
 package Model.Movie;
 
-import Model.Movie.MovieImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +7,6 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * An implementation of Model.Movie.MovieImplTest

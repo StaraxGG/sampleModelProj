@@ -1,6 +1,6 @@
 package Model.MovieList;
 
-import Model.Movie.*;
+import Model.Movie.MovieImpl;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import org.junit.After;
@@ -61,12 +61,12 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddMovies(){
+    public void testAddMovies() {
         fail();
     }
 
     @Test
-    public void testAddMovies_AlreadyContainsMovie(){
+    public void testAddMovies_AlreadyContainsMovie() {
         fail();
     }
 
@@ -94,7 +94,7 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testGetCreatorUserName(){
+    public void testGetCreatorUserName() {
         assertEquals(TEST_USER_NAME, this.movieListImpl.getCreatorUserName());
     }
 
@@ -133,16 +133,22 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testContains(){fail();}
+    public void testContains() {
+        fail();
+    }
 
     @Test
-    public void testEquals(){fail();}
+    public void testEquals() {
+        fail();
+    }
 
     @Test
-    public void testHashcode(){fail();}
+    public void testHashcode() {
+        fail();
+    }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         //UserModel.getInstance().remove(testUser);
     }
 
