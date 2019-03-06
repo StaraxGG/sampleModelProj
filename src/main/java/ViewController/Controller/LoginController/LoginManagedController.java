@@ -1,4 +1,4 @@
-package ViewController.Controller;
+package ViewController.Controller.LoginController;
 
 import Model.User.User;
 import Model.User.UserImpl;
@@ -50,10 +50,6 @@ public class LoginManagedController implements Initializable {
 
     @FXML
     private JFXButton signUpButton;
-
-
-
-    private WindowManager windowManager;
     
     private UserModel UMINstance;
 
@@ -69,8 +65,6 @@ public class LoginManagedController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.windowManager = Start.getManager();
-
 
         this.UMINstance = UserModel.getInstance();
         this.loginButton.setOnMouseClicked(this.loginButtonClicked);
@@ -92,7 +86,7 @@ public class LoginManagedController implements Initializable {
 
         try{
             if(this.UMINstance.login(user) != null){
-                this.windowManager.switchScreenTo(Screens.HOMESCREEN);
+                Start.getManager().switchScreenTo(Screens.HOMESCREEN);
             }else{
                 this.playLoginFailAnimation();
             }
@@ -102,7 +96,7 @@ public class LoginManagedController implements Initializable {
     };
 
     private EventHandler<? super MouseEvent> signUpButtonClicked = mouseEvent -> {
-        //todo switch window manager to display register form
+        Start.getManager().switchScreenTo(Screens.REGISTER);
     };
 
     private EventHandler<? super MouseEvent> rememberMeCheckboxClicked = mouseEvent -> {
