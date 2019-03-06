@@ -99,6 +99,16 @@ public class MovieListImpl implements MovieList {
 
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+    @Override
+    public boolean addMovies(List<Movie> movies) {
+        if (movies == null)
+            return false;
+
+        for (Movie movie : movies)
+            this.addMovie(movie);
+
+        return true;
+    }
 
     /**
      * Adds the received movie to the movies if
@@ -136,32 +146,6 @@ public class MovieListImpl implements MovieList {
     }
 
     @Override
-    public boolean addMovies(List<Movie> movies) {
-        if (movies == null)
-            return false;
-
-        for (Movie movie : movies)
-            this.addMovie(movie);
-
-        return true;
-    }
-
-    /**
-     * Deletes the received movie out of the movies if existing
-     *
-     * @param movie movie object
-     * @return boolean success
-     */
-    @Override
-    public boolean deleteMovie(Movie movie) {
-        if (movie instanceof MovieImpl && this.movies.contains(movie)) {
-            this.movies.remove(movie);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public boolean addUser(User user) throws UserNotFoundException {
         // null check
         if (user == null)
@@ -177,6 +161,50 @@ public class MovieListImpl implements MovieList {
 
         // add this user to the movieList
         return this.users.add((UserImpl) user);
+    }
+
+    /**
+     * adds a new user to the users list of this movielist
+     *
+     * @param username username of the user that should already exist in the database
+     * @return true if the user was added, false if he was already on the list
+     * @throws UserNotFoundException when the user could not be found
+     */
+    public boolean addUserByName(String username) throws UserNotFoundException {
+
+        User tmpUser = UserModel.getInstance().findById(username);
+
+        // check if this user exists
+        if (tmpUser == null)
+            throw new UserNotFoundException("The given User was not found");
+
+        // check if this user is NOT in the list
+        if (this.users.contains(tmpUser)) {
+
+            // user was already in the list
+            return false;
+        }
+
+        // add the user
+        this.users.add((UserImpl) tmpUser);
+        return true;
+
+
+    }
+
+    /**
+     * Deletes the received movie out of the movies if existing
+     *
+     * @param movie movie object
+     * @return boolean success
+     */
+    @Override
+    public boolean deleteMovie(Movie movie) {
+        if (movie instanceof MovieImpl && this.movies.contains(movie)) {
+            this.movies.remove(movie);
+            return true;
+        }
+        return false;
     }
 
 
@@ -213,6 +241,13 @@ public class MovieListImpl implements MovieList {
 
         return true;
 
+    }
+
+    @Override
+    public boolean hasUser(User user) {
+        if (!(user instanceof UserImpl))
+            return false;
+        return this.users.contains(user);
     }
 
     @Override
@@ -261,6 +296,10 @@ public class MovieListImpl implements MovieList {
         return this.movies;
     }
 
+    protected void setMovies(Set<MovieImpl> movies) {
+        this.movies = movies;
+    }
+
     /**
      * returns the ID of the creator of this list
      *
@@ -282,42 +321,6 @@ public class MovieListImpl implements MovieList {
     }
 
     /**
-     * adds a new user to the users list of this movielist
-     *
-     * @param username username of the user that should already exist in the database
-     * @return true if the user was added, false if he was already on the list
-     * @throws UserNotFoundException when the user could not be found
-     */
-    public boolean addUserByName(String username) throws UserNotFoundException {
-
-        User tmpUser = UserModel.getInstance().findById(username);
-
-        // check if this user exists
-        if (tmpUser == null)
-            throw new UserNotFoundException("The given User was not found");
-
-        // check if this user is NOT in the list
-        if (this.users.contains(tmpUser)) {
-
-            // user was already in the list
-            return false;
-        }
-
-        // add the user
-        this.users.add((UserImpl) tmpUser);
-        return true;
-
-
-    }
-
-    @Override
-    public boolean hasUser(User user) {
-        if (!(user instanceof UserImpl))
-            return false;
-        return this.users.contains(user);
-    }
-
-    /**
      * Sets the movielist ID if not already set
      *
      * @param movieListID ID of this movielist
@@ -326,10 +329,6 @@ public class MovieListImpl implements MovieList {
         if (this.movieListID == null) {
             this.movieListID = movieListID;
         }
-    }
-
-    protected void setMovies(Set<MovieImpl> movies) {
-        this.movies = movies;
     }
 }
 
