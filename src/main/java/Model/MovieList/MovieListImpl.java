@@ -90,7 +90,7 @@ public class MovieListImpl implements MovieList {
             throw new UserNotFoundException();
 
         this.creatorUserName = user.getUsername();
-        this.addNewUser(user.getUsername());
+        this.addUserByName(user.getUsername());
 
         // add the movie
         if (movie != null)
@@ -178,6 +178,7 @@ public class MovieListImpl implements MovieList {
         // add this user to the movieList
         return this.users.add((UserImpl) user);
     }
+
 
     @Override
     public boolean contains(Movie movie) {
@@ -287,7 +288,7 @@ public class MovieListImpl implements MovieList {
      * @return true if the user was added, false if he was already on the list
      * @throws UserNotFoundException when the user could not be found
      */
-    public boolean addNewUser(String username) throws UserNotFoundException {
+    public boolean addUserByName(String username) throws UserNotFoundException {
 
         User tmpUser = UserModel.getInstance().findById(username);
 

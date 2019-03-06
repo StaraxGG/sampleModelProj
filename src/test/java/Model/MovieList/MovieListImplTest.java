@@ -1,6 +1,8 @@
 package Model.MovieList;
 
 import Model.Movie.MovieImpl;
+import Model.User.Exception.UserNotFoundException;
+import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import org.junit.After;
@@ -25,27 +27,28 @@ public class MovieListImplTest {
 
     private static final String TEST_USER_NAME = "CHW@weizenbaum.de";
     private static final String TEST_USER_PASSWORD = "test_password";
+    private static final String SEC_TEST_USER_NAME = "testuser@test.de";
+    private static final String SEC_TEST_USER_PASSWORD = "123456";
     private static final String TEST_MOVIE_LIST_NAME = "Testname";
     private static final Long MOVIE_LIST_ID = 123456L;
 
     private MovieImpl testMovie;
     private MovieImpl testMovieTwo;
     private MovieListImpl movieListImpl;
-    //list of userIDs
-    private List<Long> testUsers;
-    UserImpl testUser;
+
 
     @Before
     public void setUp() throws Exception {
         testMovie = new MovieImpl();
         testMovieTwo = new MovieImpl();
         UserImpl testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
+        //UserImpl testUserTwo = new UserImpl(SEC_TEST_USER_NAME, SEC_TEST_USER_PASSWORD);
         UserModel.getInstance().register(testUser);
 
         movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
         this.movieListImpl.setMovieListID(MOVIE_LIST_ID);
 
-        this.movieListImpl.addNewUser(TEST_USER_NAME);
+        this.movieListImpl.addUserByName(TEST_USER_NAME);
     }
 
     @Test
@@ -71,10 +74,16 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testDeleteMovie() {
-        //this.movieListImpl.getTmdbMovies().remove(testMovieTwo);
-        assertTrue(this.movieListImpl.getMovies().size() == 0);
+    public void testDeleteMovieFalse() {
+        assertFalse(movieListImpl.deleteMovie(testMovie));
     }
+
+    @Test
+    public void testDeleteMovieTrue() {
+        this.movieListImpl.addMovie(testMovie);
+        assertTrue(movieListImpl.deleteMovie(testMovie));
+    }
+
 
     @Test
     public void testGetId() {
@@ -111,9 +120,26 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddNewUser() {
-        //Long userID = 111111L;
-        UserImpl user = new UserImpl("username", "123456");
+    public void testAddUserByName() throws UserNotFoundException {
+        this.movieListImpl.addUserByName(SEC_TEST_USER_NAME);
+        assertTrue(this.movieListImpl.getUsers().contains(UserModel.getInstance().findById(SEC_TEST_USER_NAME)));
+    }
+
+    @Test (expected = UserNotFoundException.class)
+    public void testAddUserByNameEXCEPTION() throws UserNotFoundException{
+        this.movieListImpl.addUserByName("not a username");
+    }
+
+    @Test
+    public void testAddUser() throws UserNotFoundException {
+        UserImpl user = UserModel.getInstance().findById(SEC_TEST_USER_NAME);
+        this.movieListImpl.addUser(user);
+        assertTrue(this.movieListImpl.getUsers().contains(user));
+    }
+
+    @Test
+    public void testAddUserEXCEPTION() throws UserNotFoundException {
+        UserImpl user = new UserImpl(TEST_USER_NAME, "123456");
         this.movieListImpl.getUsers().add(user);
         assertTrue(this.movieListImpl.getUsers().contains(user));
     }
