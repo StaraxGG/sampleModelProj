@@ -103,6 +103,7 @@ public class MovieListImpl implements MovieList {
      * @param username username of the user that should already exist in the database
      * @return true if the user was added, false if he was already on the list
      * @throws UserNotFoundException when the user could not be found
+     * @deprecated use {@link #addUser(User)} instead
      */
     public boolean addUserByName(String username) throws UserNotFoundException {
 
