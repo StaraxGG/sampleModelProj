@@ -9,7 +9,7 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import com.jfoenix.controls.JFXButton?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.ListManagedController">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.ListManagedController">
    <top>
       <HBox>
          <children>

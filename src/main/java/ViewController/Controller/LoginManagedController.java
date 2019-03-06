@@ -65,6 +65,7 @@ public class LoginManagedController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        /*
         this.windowManager = WindowManager.getInstance(null);
 
 
@@ -72,6 +73,7 @@ public class LoginManagedController implements Initializable {
         this.loginButton.setOnMouseClicked(this.loginButtonClicked);
         this.rememberMeCheckBox.setOnMouseClicked(this.rememberMeCheckboxClicked);
         this.signUpButton.setOnMouseClicked(this.signUpButtonClicked);
+        */
     }
 
     

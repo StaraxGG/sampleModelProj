@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #09093B;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.LoginManagedController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #09093B;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.LoginManagedController">
    <children>
       <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="157.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,7 +22,7 @@
             <Image url="@../graphics/Icons/iconfinder_lock_172497.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="signUpButton" layoutX="529.0" layoutY="14.0" onMousePressed="#signUpButtonClicked" style="-fx-background-color: #565695;" text="Sign up" textFill="#8080b3" />
+      <JFXButton fx:id="signUpButton" layoutX="529.0" layoutY="14.0"  style="-fx-background-color: #565695;" text="Sign up" textFill="#8080b3" />
       <JFXTextField fx:id="usernameField" layoutX="205.0" layoutY="152.0" prefHeight="25.0" prefWidth="191.0" promptText="Username" unFocusColor="#8080b3">
          <opaqueInsets>
             <Insets />
@@ -30,7 +30,7 @@
       </JFXTextField>
       <JFXTextField fx:id="passwordField" layoutX="205.0" layoutY="195.0" prefHeight="25.0" prefWidth="191.0" promptText="Password" unFocusColor="#8080b3" />
       <JFXCheckBox fx:id="rememberMeCheckBox" checkedColor="#565695" layoutX="177.0" layoutY="251.0" text="Remember me" textFill="#8080b3" />
-      <JFXButton fx:id="loginButton" layoutX="345.0" layoutY="248.0" onMouseDragged="#loginButtonClicked" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #565695;" text="Login" />
+      <JFXButton fx:id="loginButton" layoutX="345.0" layoutY="248.0"  prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #565695;" text="Login" />
       <JFXButton layoutX="228.0" layoutY="304.0" text="Forgot password?" textFill="#8080b3">
          <font>
             <Font name="System Bold" size="15.0" />

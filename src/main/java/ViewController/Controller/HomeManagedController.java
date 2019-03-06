@@ -61,6 +61,7 @@ public class HomeManagedController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
         //Sets some settings for the scrollPanes
         setupScrollpanes();
 
@@ -75,6 +76,7 @@ public class HomeManagedController implements Initializable {
         //Fills masonryPane with corresponding list
         setupPopular(popularMovies);
         setupLatest(topRatedMovies);
+
     }
 
     /**

@@ -72,10 +72,13 @@ public class ListManagedController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         UserModel userModel = UserModel.getInstance();
 
+        //userModel.register(new UserImpl("test3@test.de", "test3"));
         User user = userModel.login(new UserImpl("test3@test.de", "test3"));
-
+        //User user = userModel.getCurrentUser();
         MovieModel instanceMovieModel = MovieModel.getInstance();
 
         try{
@@ -96,6 +99,8 @@ public class ListManagedController implements Initializable {
 
         //btnDelete.setOnAction(event -> delteMovieList());
         setupDeleteButton();
+
+
     }
 
     /**
