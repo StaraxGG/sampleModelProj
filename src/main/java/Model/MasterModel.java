@@ -2,6 +2,8 @@ package Model;
 
 import Tools.ConfigTools;
 import info.movito.themoviedbapi.TmdbApi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +35,8 @@ public abstract class MasterModel<T extends Serializable, C> {
     protected static EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("sample-persistence-unit");
     private static TmdbApi tmdbApi = null;
+
+    final Logger logger = LoggerFactory.getLogger(MasterModel.class);
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -112,7 +116,7 @@ public abstract class MasterModel<T extends Serializable, C> {
             transaction.commit();
 
         } catch (PersistenceException pe) {
-            System.err.println(pe.getMessage());
+            logger.error(pe.getMessage(),pe);
             if (transaction != null && transaction.isActive())
                 transaction.rollback();
 
@@ -149,7 +153,7 @@ public abstract class MasterModel<T extends Serializable, C> {
             transaction.commit();
 
         } catch (PersistenceException pe) {
-            System.err.println(pe.getMessage());
+            logger.error(pe.getMessage(),pe);
             if (transaction != null && transaction.isActive())
                 transaction.rollback();
 

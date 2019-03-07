@@ -7,6 +7,8 @@ import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -48,6 +50,8 @@ public class MovieListImpl implements MovieList {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserImpl> users;
+
+    final Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
