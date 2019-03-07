@@ -84,6 +84,7 @@ public class MovieImpl implements Movie {
     )
     private Set<MovieListImpl> movieLists;
 
+    @Transient
     final Logger logger = LoggerFactory.getLogger(MovieImpl.class);
 
 

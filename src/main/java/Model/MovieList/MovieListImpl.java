@@ -51,6 +51,7 @@ public class MovieListImpl implements MovieList {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserImpl> users;
 
+    @Transient
     final Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
