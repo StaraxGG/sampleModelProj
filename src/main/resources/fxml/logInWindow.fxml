@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #09093B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.LoginManagedController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #09093B;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.LoginController.LoginManagedController">
    <children>
       <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="157.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
          <image>

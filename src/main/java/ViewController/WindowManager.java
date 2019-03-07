@@ -115,6 +115,8 @@ public class WindowManager {
             case LOGIN:
                 switchScreen(instanceManager.getLoginView());
                 break;
+            case REGISTER:
+                switchScreen(instanceManager.getRegisterView());
         }
     }
 

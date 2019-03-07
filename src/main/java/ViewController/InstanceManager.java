@@ -1,6 +1,8 @@
 package ViewController;
 
 import ViewController.Controller.*;
+import ViewController.Controller.LoginController.LoginManagedController;
+import ViewController.Controller.LoginController.RegisterManagedController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -42,6 +44,9 @@ public class InstanceManager {
     private StatsManagedController statsManagedController;
     private Parent statsView;
 
+    private RegisterManagedController registerManagedController;
+    private Parent registerView;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
 
@@ -54,6 +59,7 @@ public class InstanceManager {
         FXMLLoader loaderLists = new FXMLLoader(getClass().getResource("/fxml/listsWindow.fxml"));
         FXMLLoader loaderLogIn = new FXMLLoader(getClass().getResource("/fxml/logInWindow.fxml"));
         FXMLLoader loaderStats = new FXMLLoader(getClass().getResource("/fxml/statsWindow.fxml"));
+        FXMLLoader loaderRegister = new FXMLLoader(getClass().getResource("/fxml/registerWindow.fxml"));
         //todo load other views
 
         try{
@@ -76,6 +82,9 @@ public class InstanceManager {
             //stats setup
             this.statsView = loaderStats.load();
             this.statsManagedController = loaderStats.getController();
+
+            this.registerView = loaderRegister.load();
+            this.registerManagedController = loaderRegister.getController();
 
             //todo add other setups if needed
         } catch (IOException exception){
@@ -133,5 +142,13 @@ public class InstanceManager {
 
     public Parent getStatsView() {
         return statsView;
+    }
+
+    public Parent getRegisterView() {
+        return registerView;
+    }
+
+    public RegisterManagedController getRegisterManagedController() {
+        return registerManagedController;
     }
 }

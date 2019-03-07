@@ -5,5 +5,6 @@ public enum Screens {
     STATS,
     LISTS,
     SETTINGS,
-    LOGIN
+    LOGIN,
+    REGISTER
 }
