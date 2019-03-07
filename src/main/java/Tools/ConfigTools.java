@@ -1,5 +1,8 @@
 package Tools;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +23,8 @@ public class ConfigTools {
     private static Properties p;
     private static String configFilePath = "src/main/resources/configuration.properties";
 
+    final Logger logger = LoggerFactory.getLogger(ConfigTools.class);
+
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
     static {
@@ -31,7 +36,8 @@ public class ConfigTools {
             p.load(f);
 
         } catch (Exception e) {
-            System.err.println(e.getLocalizedMessage());
+            final Logger logger = LoggerFactory.getLogger(ConfigTools.class);
+            logger.error(e.getLocalizedMessage());
         }
 
     }
@@ -115,7 +121,8 @@ public class ConfigTools {
         try {
             p.store(new FileWriter(configFilePath), "Configuration File, Saved at: " + new Date().toString());
         } catch (IOException ioe) {
-            System.err.println(ioe.getMessage());
+            final Logger logger = LoggerFactory.getLogger(ConfigTools.class);
+            logger.error(ioe.getMessage(),ioe);
         }
 
     }

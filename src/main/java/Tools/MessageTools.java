@@ -1,5 +1,8 @@
 package Tools;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.util.Objects;
 import java.util.Properties;
@@ -28,7 +31,8 @@ public class MessageTools {
             p.load(f);
 
         } catch (Exception e) {
-            System.err.println(e.getLocalizedMessage());
+            final Logger logger = LoggerFactory.getLogger(MessageTools.class);
+            logger.error(e.getLocalizedMessage(),e);
         }
 
     }

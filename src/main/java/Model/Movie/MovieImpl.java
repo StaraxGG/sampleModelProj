@@ -3,6 +3,8 @@ package Model.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import Model.User.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.*;
@@ -81,6 +83,8 @@ public class MovieImpl implements Movie {
             inverseJoinColumns = @JoinColumn(name = "movielist_id")
     )
     private Set<MovieListImpl> movieLists;
+
+    final Logger logger = LoggerFactory.getLogger(MovieImpl.class);
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
