@@ -10,3 +10,4 @@ target/
 .idea/workspace.xml
 src/main/java/LocalDirectory/*.java
 !src/main/java/LocalDirectory/README.md
+log.txt
