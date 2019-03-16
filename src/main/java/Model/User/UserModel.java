@@ -2,6 +2,7 @@ package Model.User;
 
 import Model.MasterModel;
 import Model.User.Exception.UserNotFoundException;
+import Model.User.Exception.UserWrongPasswordException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,12 +58,14 @@ public class UserModel extends MasterModel<String, UserImpl> {
 
     /**
      * checks this users credentials and logs him in, into the application if valid
+     *
      * @param user @NotNull
      * @return
-     * @throws UserNotFoundException when the given user could not be found by his username
+     * @throws UserNotFoundException    when the given user could not be found by his username
      * @throws IllegalArgumentException when the given user object was null
+     * @throws UserWrongPasswordException when the password of this user was wrong
      */
-    public User login(User user) throws UserNotFoundException {
+    public User login(User user) throws UserNotFoundException, UserWrongPasswordException {
 
         if (user == null)
             throw new IllegalArgumentException("The given User object was null.");
@@ -78,13 +81,13 @@ public class UserModel extends MasterModel<String, UserImpl> {
             setCurrentUser(user);
             return getCurrentUser();
         } else
-            return null;
+            throw new UserWrongPasswordException(String.format("The password for the user (%s) was wrong.", user.getUsername()));
     }
 
     /**
      * logs the current user out
      */
-    public void logout(){
+    public void logout() {
         currentUser = null;
     }
 
@@ -117,6 +120,8 @@ public class UserModel extends MasterModel<String, UserImpl> {
         try {
             this.login(user);
         } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        } catch (UserWrongPasswordException e) {
             e.printStackTrace();
         }
 

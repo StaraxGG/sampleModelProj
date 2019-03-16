@@ -32,6 +32,8 @@ public class UserImplTest {
             }
         } catch (UserNotFoundException e) {
             e.printStackTrace();
+        } catch (Model.User.Exception.UserWrongPasswordException e) {
+            e.printStackTrace();
         }
 
     }

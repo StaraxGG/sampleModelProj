@@ -34,6 +34,8 @@ public class UserModelTest {
                 fail();
         } catch (Model.User.Exception.UserNotFoundException e) {
             e.printStackTrace();
+        } catch (Model.User.Exception.UserWrongPasswordException e) {
+            e.printStackTrace();
         }
 
         // add the user
@@ -46,12 +48,16 @@ public class UserModelTest {
                 fail();
         } catch (Model.User.Exception.UserNotFoundException e) {
             e.printStackTrace();
+        } catch (Model.User.Exception.UserWrongPasswordException e) {
+            e.printStackTrace();
         }
 
         // now try to login
         try {
             assertEquals(user, userModel.login(user));
         } catch (Model.User.Exception.UserNotFoundException e) {
+            e.printStackTrace();
+        } catch (Model.User.Exception.UserWrongPasswordException e) {
             e.printStackTrace();
         }
 
@@ -84,6 +90,8 @@ public class UserModelTest {
         try {
             userModel.login(user);
         } catch (Model.User.Exception.UserNotFoundException e) {
+            e.printStackTrace();
+        } catch (Model.User.Exception.UserWrongPasswordException e) {
             e.printStackTrace();
         }
         assertEquals(user, userModel.getCurrentUser());
