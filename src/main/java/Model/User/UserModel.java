@@ -1,12 +1,8 @@
 package Model.User;
 
 import Model.MasterModel;
-import Model.Movie.Movie;
-import Model.MovieList.MovieList;
-import Model.MovieList.MovieListImpl;
+import Model.User.Exception.UserNotFoundException;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,13 +63,13 @@ public class UserModel extends MasterModel<String, UserImpl> {
      * @param user User
      * @return User
      */
-    public User login(User user) {
+    public User login(User user) throws UserNotFoundException {
 
         User tmpUser = super.findById(user.getUsername());
 
         // check if he is already in the database
         if (tmpUser == null)
-            return null;
+            throw new UserNotFoundException(String.format("The user with the name %s was not found in the database", user.getUsername()));
 
         // check if he has the right credentials
         if (tmpUser.getPasswordHash().equals(user.getPasswordHash())) {
@@ -116,7 +112,11 @@ public class UserModel extends MasterModel<String, UserImpl> {
 
         // otherwise create a new user
         this.persist((UserImpl) user);
-        this.login(user);
+        try {
+            this.login(user);
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return true;
     }

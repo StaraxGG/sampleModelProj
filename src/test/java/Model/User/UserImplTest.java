@@ -26,8 +26,12 @@ public class UserImplTest {
         user = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
         userModel = UserModel.getInstance();
 
-        if ((userModel.login(user)) == null) {
-            userModel.register(user);
+        try {
+            if ((userModel.login(user)) == null) {
+                userModel.register(user);
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
