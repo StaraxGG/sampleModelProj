@@ -24,6 +24,7 @@ public class UserModel extends MasterModel<String, UserImpl> {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     private static UserModel userModel;
 
+
     private UserModel() {
         super();
     }
@@ -61,8 +62,8 @@ public class UserModel extends MasterModel<String, UserImpl> {
      *
      * @param user @NotNull
      * @return
-     * @throws UserNotFoundException    when the given user could not be found by his username
-     * @throws IllegalArgumentException when the given user object was null
+     * @throws UserNotFoundException      when the given user could not be found by his username
+     * @throws IllegalArgumentException   when the given user object was null
      * @throws UserWrongPasswordException when the password of this user was wrong
      */
     public User login(User user) throws UserNotFoundException, UserWrongPasswordException {
@@ -119,10 +120,8 @@ public class UserModel extends MasterModel<String, UserImpl> {
         this.persist((UserImpl) user);
         try {
             this.login(user);
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        } catch (UserWrongPasswordException e) {
-            e.printStackTrace();
+        } catch (UserNotFoundException | UserWrongPasswordException e) {
+            // add logging here
         }
 
         return true;
