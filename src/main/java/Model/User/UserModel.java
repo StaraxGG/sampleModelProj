@@ -56,14 +56,16 @@ public class UserModel extends MasterModel<String, UserImpl> {
     }
 
     /**
-     * checks this users credentials and logs him into the database if valid
-     * then this user will be set as currentUser automatically
-     * otherwise returns null
-     *
-     * @param user User
-     * @return User
+     * checks this users credentials and logs him in, into the application if valid
+     * @param user @NotNull
+     * @return
+     * @throws UserNotFoundException when the given user could not be found by his username
+     * @throws IllegalArgumentException when the given user object was null
      */
     public User login(User user) throws UserNotFoundException {
+
+        if (user == null)
+            throw new IllegalArgumentException("The given User object was null.");
 
         User tmpUser = super.findById(user.getUsername());
 
