@@ -1,4 +1,4 @@
-2019.03.17 14:29:15 MEZ [ERROR] Model.MasterModel - Error while committing the transaction
+2019.03.17 16:29:58 MEZ [ERROR] Model.MasterModel - Error while committing the transaction
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:75)
 	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:71)
@@ -63,7 +63,7 @@ Caused by: java.sql.SQLException: Incorrect string value: '\xE8\x91\x89\xE5\x95\
 	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1046)
 	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:205)
 	... 39 more
-2019.03.17 14:29:17 MEZ [ERROR] Model.MasterModel - Error while committing the transaction
+2019.03.17 16:30:00 MEZ [ERROR] Model.MasterModel - Error while committing the transaction
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:75)
 	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:71)
@@ -128,7 +128,7 @@ Caused by: java.sql.SQLException: Incorrect string value: '\xE5\x8A\x87\xE5\xA0\
 	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1046)
 	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:205)
 	... 39 more
-2019.03.17 14:29:19 MEZ [ERROR] Model.MasterModel - Error while committing the transaction
+2019.03.17 16:30:02 MEZ [ERROR] Model.MasterModel - Error while committing the transaction
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:75)
 	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:71)
