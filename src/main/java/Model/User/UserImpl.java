@@ -38,7 +38,7 @@ public class UserImpl implements User {
     @Column(name = "password_hash")
     private Integer passwordHash;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<MovieListImpl> movieLists;
 
     @Transient
