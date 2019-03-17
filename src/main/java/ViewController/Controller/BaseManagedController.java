@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 /**
  * An implementation of BaseManagedController
- * in sample-model-project
+ * in sample-model-project cool
  *
  * @author Nicolas
  * @version 1.0

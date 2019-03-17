@@ -70,7 +70,7 @@ public class MovieConstruct extends BorderPane {
         imgPoster.setFitWidth(185);
         imgPoster.setPreserveRatio(true);
         imgPoster.setImage(new Image(movie.getPosterUrl(MoviePosterSize.W342),
-                185,278,true,true));
+                185,278,true,true,true));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */

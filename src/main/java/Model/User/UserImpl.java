@@ -147,7 +147,7 @@ public class UserImpl implements User {
     }
 
     private void setMovieLists(List<MovieListImpl> movieLists) {
-        this.movieLists = movieLists;
+        this.movieLists = movieLists;ma
     }
 
 }
