@@ -1,14 +1,14 @@
 package Model.User.Exception;
 
 /**
- * An implementation of UserNotFoundException
+ * An implementation of UserWrongPasswordException
  * in samplemodelproject
  *
  * @author ytatar
  * @version 1.0
- * @since 2019-Feb-22
+ * @since 2019-Mar-17
  */
-public class UserNotFoundException extends Exception {
+public class UserWrongPasswordException extends Exception {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -17,13 +17,15 @@ public class UserNotFoundException extends Exception {
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
-    public UserNotFoundException(String msg){
+
+    /**
+     * this exception is thrown when the given password was wrong
+     * @param msg
+     */
+    public UserWrongPasswordException(String msg){
         super(msg);
     }
 
-    public UserNotFoundException(){
-        super();
-    }
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

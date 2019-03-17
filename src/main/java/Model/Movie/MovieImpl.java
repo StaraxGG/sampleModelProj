@@ -2,11 +2,13 @@ package Model.Movie;
 
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Model.User.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of MovieImpl
@@ -26,13 +28,13 @@ public class MovieImpl implements Movie {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     @Id
     @Column(name = "movie_ID", nullable = false)
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long movieID;
 
     @Column(name = "tmdb_ID", nullable = false)
     private Integer tmdbID;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 1000)
     private String title;
 
     @Column(name = "popularity")
@@ -51,7 +53,7 @@ public class MovieImpl implements Movie {
     @ElementCollection
     private List<String> genres;
 
-    @Column(name = "overview")
+    @Column(name = "overview", columnDefinition = "TEXT")
     private String overview;
 
     @Column(name = "original_language")
@@ -71,8 +73,19 @@ public class MovieImpl implements Movie {
     @Column(name = "vote_average")
     private Float voteAverage;
 
-    @Column(name = "movie_status")
+    @Column(name = "movie_status", length = 1000)
     private String status;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "movie_movielist",
+            joinColumns = @JoinColumn(name = "movie_ID"),
+            inverseJoinColumns = @JoinColumn(name = "movielist_id")
+    )
+    private Set<MovieListImpl> movieLists;
+
+    @Transient
+    final Logger logger = LoggerFactory.getLogger(MovieImpl.class);
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -98,12 +111,14 @@ public class MovieImpl implements Movie {
         this.runtime = runtime;
         this.voteAverage = voteAverage;
         this.status = status;
+        this.movieLists = new HashSet<>();
     }
 
     public MovieImpl() {
         this.genres = new LinkedList<>();
         this.productionCountries = new LinkedList<>();
         this.productionCompanies = new LinkedList<>();
+        this.movieLists = new HashSet<>();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
@@ -120,7 +135,7 @@ public class MovieImpl implements Movie {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.tmdbID,this.title);
+        return Objects.hash(this.tmdbID, this.title);
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
@@ -222,7 +237,7 @@ public class MovieImpl implements Movie {
         final String baseUrl = "http://image.tmdb.org/t/p";
 
         // build a string from values and use it
-        return String.format("%s/%s%s",baseUrl, posterSize.toString(), this.posterURL);
+        return String.format("%s/%s%s", baseUrl, posterSize.toString(), this.posterURL);
     }
 
     /**
@@ -453,6 +468,19 @@ public class MovieImpl implements Movie {
     public void setStatus(String status) {
 
         this.status = status;
+    }
+
+    @Override
+    public Set<MovieList> getMovieLists(User user) {
+        if (user == null)
+            return new HashSet<>();
+        return this.movieLists.stream().filter(movieList -> movieList.hasUser(user)).collect(Collectors.toSet());
+    }
+
+    @Override
+    public boolean addMovieList(MovieList movieList) {
+        if (movieList == null) return false;
+        return this.movieLists.add((MovieListImpl) movieList);
     }
 }
 

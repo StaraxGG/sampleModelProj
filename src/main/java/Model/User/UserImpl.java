@@ -3,8 +3,10 @@ package Model.User;
 import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
-
-
+import Tools.MessageTools;
+import com.sun.istack.internal.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -39,11 +41,25 @@ public class UserImpl implements User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<MovieListImpl> movieLists;
 
+    @Transient
+    final Logger logger = LoggerFactory.getLogger(UserImpl.class);
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public UserImpl(String userName, String password) {
+    /**
+     * creates a new user object that is not yet persisted in the database
+     * @param userName not null user name
+     * @param password password not null and not empty!
+     * @throws IllegalArgumentException
+     */
+    public UserImpl(String userName, String password) throws IllegalArgumentException {
+        if (userName == null || userName.isEmpty())
+            throw new IllegalArgumentException("");
+
+        if (password == null || password.isEmpty())
+            throw new IllegalArgumentException(String.format("The given password (%s) was invalid.",password));
         this.setUserName(userName);
         this.setPasswordHash(password);
         this.movieLists = new LinkedList<>();
@@ -68,13 +84,15 @@ public class UserImpl implements User {
     }
 
     @Override
-    public boolean deleteMovieList( MovieList movieList) {
-        this.movieLists.removeIf((userMovieList) -> userMovieList.equals(movieList));
-        return true;
+    public boolean deleteMovieList(@NotNull MovieList movieList) {
+        return this.movieLists.removeIf((userMovieList) -> userMovieList.equals(movieList));
     }
 
     @Override
     public List<? extends MovieList> findMovielistForMovie(Movie movie){
+        // check for null value
+        if (movie == null)
+            return null;
         List<MovieListImpl> resultLists = new LinkedList<>();
 
         for (MovieList movieList : this.getMovieLists()){
@@ -89,6 +107,8 @@ public class UserImpl implements User {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof UserImpl))
+            return false;
         UserImpl otherUser = (UserImpl) obj;
 
         // check if name and password hash are the same

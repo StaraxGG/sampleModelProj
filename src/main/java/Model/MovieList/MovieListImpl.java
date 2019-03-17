@@ -2,14 +2,19 @@ package Model.MovieList;
 
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
+import Model.Movie.MovieModel;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * An implementation of MovieListImpl
@@ -28,8 +33,7 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
 
-
-    @OneToMany(targetEntity = MovieImpl.class)
+    @ManyToMany(targetEntity = MovieImpl.class, fetch = FetchType.EAGER)
     private Set<MovieImpl> movies;
 
     @Id
@@ -45,19 +49,16 @@ public class MovieListImpl implements MovieList {
     //list of userIDs
 
     @ManyToMany(fetch = FetchType.EAGER)
-
     private Set<UserImpl> users;
+
+    @Transient
+    final Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
-    /* ---------------------------------------- Constructors -------------------------------------------------------- */
-    protected MovieListImpl() {
-        this.users = new HashSet<>();
-        this.movies = new HashSet<>();
-    }
-
     /**
      * this method creates a new movielist with a given user as creator user
+     *
      * @param movieListName
      * @param creatorUserName
      * @throws UserNotFoundException when the user could not be found
@@ -66,12 +67,12 @@ public class MovieListImpl implements MovieList {
         this(movieListName, creatorUserName, null);
     }
 
-
     /**
      * this method creates a new movielist with a given user as creator user
+     *
      * @param movieListName
      * @param creatorUserName
-     * @param movie movie to add to the watchlist directly
+     * @param movie           movie to add to the watchlist directly
      * @throws UserNotFoundException when the user could not be found
      */
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
@@ -87,7 +88,7 @@ public class MovieListImpl implements MovieList {
             throw new UserNotFoundException();
 
         this.creatorUserName = user.getUsername();
-        this.addNewUser(user.getUsername());
+        this.addUserByName(user.getUsername());
 
         // add the movie
         if (movie != null)
@@ -95,7 +96,74 @@ public class MovieListImpl implements MovieList {
     }
 
 
+    /* ---------------------------------------- Constructors -------------------------------------------------------- */
+    protected MovieListImpl() {
+        this.users = new HashSet<>();
+        this.movies = new HashSet<>();
+    }
+
+    /**
+     * adds a new user to the users list of this movielist
+     *
+     * @param username username of the user that should already exist in the database
+     * @return true if the user was added, false if he was already on the list
+     * @throws UserNotFoundException when the user could not be found
+     * @deprecated use {@link #addUser(User)} instead
+     */
+    public boolean addUserByName(String username) throws UserNotFoundException {
+
+        User tmpUser = UserModel.getInstance().findById(username);
+
+        // check if this user exists
+        if (tmpUser == null)
+            throw new UserNotFoundException("The given User was not found");
+
+        // check if this user is NOT in the list
+        if (this.users.contains(tmpUser)) {
+
+            // user was already in the list
+            return false;
+        }
+
+        // add the user
+        this.users.add((UserImpl) tmpUser);
+        return true;
+
+
+    }
+
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.creatorUserName, this.users, this.movies, this.movieListName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        // check if they are both MovieLists
+        if (!(obj instanceof MovieList))
+            return false;
+
+        // cast to movielist
+        MovieListImpl otherMovieList = (MovieListImpl) obj;
+
+        // should have the same creator
+        if (!this.getCreatorUserName().equals(((MovieListImpl) obj).getCreatorUserName()))
+            return false;
+
+        // should have the same users
+        if (!this.getUsers().equals(otherMovieList.getUsers()))
+            return false;
+
+        // should have the same movies
+        if (!this.getMovies().equals(otherMovieList.getMovies()))
+            return false;
+
+        return true;
+
+    }
 
     /**
      * Adds the received movie to the movies if
@@ -106,12 +174,30 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(Movie movie) {
-        if (movie instanceof MovieImpl && !this.movies.contains(movie)) {
-            this.movies.add((MovieImpl) movie);
-            return true;
+
+        MovieModel movieModel = MovieModel.getInstance();
+        MovieImpl tmpMovie;
+
+        if (!(movie instanceof MovieImpl) || this.movies.contains(movie)) {
+            return false;
         }
 
-        return false;
+        // search the database for this movie
+        tmpMovie = movieModel.findByTmdbId(movie.getTmdbId());
+
+        // if this movie is already in the database, then add THAT to this MovieList
+        if (tmpMovie != null) {
+            this.movies.add(tmpMovie);
+
+            // also: make the bidirectional connection
+            tmpMovie.addMovieList(this);
+        } else {
+            // otherwise add THIS movie to this list and persist it in the database
+            this.movies.add((MovieImpl) movie);
+            movieModel.persist((MovieImpl) movie);
+        }
+
+        return true;
     }
 
     @Override
@@ -141,46 +227,29 @@ public class MovieListImpl implements MovieList {
     }
 
     @Override
-    public boolean contains(Movie movie) {
-        // instaceof checks for null as well
-        // i mean if this is not a movie, why check at all?
-        if (!(movie instanceof MovieImpl))
+    public boolean addUser(User user) throws UserNotFoundException {
+        // null check
+        if (user == null)
             return false;
-        return this.movies.contains(movie);
+
+        // verify if this user exists
+        User userTmp = UserModel.getInstance().findById(user.getUsername());
+        if (userTmp == null)
+            throw new UserNotFoundException();
+
+        // give this user the movie list
+        user.addMovieList(this);
+
+        // add this user to the movieList
+        return this.users.add((UserImpl) user);
     }
 
     @Override
-    public boolean equals(Object obj) {
-
-        // check if they are both MovieLists
-        if (!(obj instanceof MovieList))
+    public boolean hasUser(User user) {
+        if (!(user instanceof UserImpl))
             return false;
-
-        // cast to movielist
-        MovieListImpl otherMovieList = (MovieListImpl) obj;
-
-        // should have the same creator
-        if (!this.getCreatorUserName().equals(((MovieListImpl) obj).getCreatorUserName()))
-            return false;
-
-        // should have the same users
-        if (!this.getUsers().equals(otherMovieList.getUsers()))
-            return false;
-
-        // should have the same movies
-        if (!this.getMovies().equals(otherMovieList.getMovies()))
-            return false;
-
-        return true;
-
+        return this.users.contains(user);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.creatorUserName, this.users, this.movies, this.movieListName);
-    }
-
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**
      * returns the id of this movielist
@@ -202,6 +271,10 @@ public class MovieListImpl implements MovieList {
         return this.movieListName;
     }
 
+
+
+    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
+
     /**
      * Sets/changes the name of this movielist
      *
@@ -219,6 +292,10 @@ public class MovieListImpl implements MovieList {
     @Override
     public Set<MovieImpl> getMovies() {
         return this.movies;
+    }
+
+    protected void setMovies(Set<MovieImpl> movies) {
+        this.movies = movies;
     }
 
     /**
@@ -241,32 +318,13 @@ public class MovieListImpl implements MovieList {
         return this.users;
     }
 
-    /**
-     * adds a new user to the users list of this movielist
-     * @param username username of the user that should already exist in the database
-     * @return true if the user was added, false if he was already on the list
-     * @throws UserNotFoundException when the user could not be found
-     */
-    public boolean addNewUser(String username) throws UserNotFoundException {
-
-        User tmpUser = UserModel.getInstance().findById(username);
-
-        // check if this user exists
-        if (tmpUser == null)
-            throw new UserNotFoundException();
-
-        // check if this user is NOT in the list
-        if (this.users.contains(tmpUser)) {
-
-            // user was already in the list
+    @Override
+    public boolean contains(Movie movie) {
+        // instaceof checks for null as well
+        // i mean if this is not a movie, why check at all?
+        if (!(movie instanceof MovieImpl))
             return false;
-        }
-
-        // add the user
-        this.users.add((UserImpl)tmpUser);
-        return true;
-
-
+        return this.movies.contains(movie);
     }
 
     /**
@@ -279,6 +337,7 @@ public class MovieListImpl implements MovieList {
             this.movieListID = movieListID;
         }
     }
+
 
 }
 

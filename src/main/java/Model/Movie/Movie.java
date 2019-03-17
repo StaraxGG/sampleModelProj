@@ -1,9 +1,10 @@
 package Model.Movie;
 
 import Model.MovieList.MovieList;
-import Model.MovieList.MovieListImpl;
+import Model.User.User;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * An implementation of Movie
@@ -124,9 +125,6 @@ public interface Movie {
      */
     String getOverview();
 
-
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
-
     /**
      * Sets a short overview text of the current movie objekt
      *
@@ -218,6 +216,23 @@ public interface Movie {
      * @param status status of the movie
      */
     void setStatus(String status);
+
+    /**
+     * returns a Set of MovieList object this movie is in.
+     * For security reasons this Set is filtered for all MovieLists that this user is participating in.
+     *
+     * @return Set
+     */
+    Set<MovieList> getMovieLists(User user);
+
+
+    /**
+     * adds the given movieList to this movies movieList Set
+     *
+     * @param movieList
+     * @return true if any operation was done
+     */
+    boolean addMovieList(MovieList movieList);
 
 }
 

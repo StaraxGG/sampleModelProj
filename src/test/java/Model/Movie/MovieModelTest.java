@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class MovieModelTest {
 
@@ -90,6 +91,11 @@ public class MovieModelTest {
         List<Movie> testMovieListOne = movieModel.getTopRatedMovies(0);
         List<Movie> testMovieListTwo = movieModel.getTopRatedMovies(0);
         assertTrue(testMovieListOne.equals(testMovieListTwo));
+    }
+
+    @Test
+    public void testFindByTmdbId(){
+        fail();
     }
 
     @After
