@@ -7,6 +7,7 @@ import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import Model.MovieList.MovieListModel;
 import Model.User.Exception.UserNotFoundException;
+import Model.User.Exception.UserWrongPasswordException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
@@ -71,31 +72,37 @@ public class ListManagedController implements Initializable {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
 
 
         UserModel userModel = UserModel.getInstance();
 
         //userModel.register(new UserImpl("test3@test.de", "test3"));
-        User user = userModel.login(new UserImpl("test3@test.de", "test3"));
+
+
         //User user = userModel.getCurrentUser();
         MovieModel instanceMovieModel = MovieModel.getInstance();
 
         try{
+            User user = userModel.login(new UserImpl("test3@test.de", "test3"));
             MovieListImpl movieList = new MovieListImpl("caviar", user.getUsername());
             movieList.addMovies(instanceMovieModel.getPopularMovies(0));
             user.addMovieList(movieList);
             MovieListImpl movieList2 = new MovieListImpl("watchlist", user.getUsername());
             movieList2.addMovies(instanceMovieModel.getPopularMovies(2));
             user.addMovieList(movieList2);
+            List<MovieListImpl> movieLists = user.getMovieLists();
+            setUpListView2(movieLists);
 
         }catch (UserNotFoundException e){
             System.out.println("Böse");
+        }catch (UserWrongPasswordException e){
+            System.out.println(e);
         }
 
 
-        List<MovieListImpl> movieLists = user.getMovieLists();
-        setUpListView2(movieLists);
+
+
 
         //btnDelete.setOnAction(event -> delteMovieList());
         setupDeleteButton();
