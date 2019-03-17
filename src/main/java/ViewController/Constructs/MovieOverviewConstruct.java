@@ -1,8 +1,18 @@
 package ViewController.Constructs;
 
 import Model.Movie.Movie;
+import Model.Movie.MovieModel;
 import Model.Movie.MoviePosterSize;
+import Model.MovieList.MovieList;
+import Model.MovieList.MovieListImpl;
+import Model.User.Exception.UserNotFoundException;
+import Model.User.Exception.UserWrongPasswordException;
+import Model.User.User;
+import Model.User.UserImpl;
+import Model.User.UserModel;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SnapshotParameters;
@@ -16,6 +26,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of MovieOverviewConstruct
@@ -64,7 +76,7 @@ public class MovieOverviewConstruct extends StackPane {
     private ImageView imgPoster;
 
     @FXML
-    private JFXButton btnWatchlist;
+    private JFXButton btnDeleteFromList;
 
     @FXML
     private JFXButton btnList;
@@ -97,42 +109,66 @@ public class MovieOverviewConstruct extends StackPane {
             throw new RuntimeException(exception);
         }
 
-        Image image = new Image(movie.getPosterUrl(MoviePosterSize.W342),342,513,true,true,false);
-        imgPoster.setImage(image);
-
-        Rectangle clip = new Rectangle();
-        clip.setWidth(342);
-        clip.setHeight(513);
-        clip.setArcWidth(20);
-        clip.setArcHeight(20);
-
-        imgPoster.setClip(clip);
-
-        SnapshotParameters parameters = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT);
-        WritableImage image1 = imgPoster.snapshot(parameters,null);
-
-        imgPoster.setClip(null);
-
-        imgPoster.setEffect(new DropShadow(20, Color.BLACK));
-
-        imgPoster.setImage(image1);
-
         setUpLables(movie);
+        setUpPoster(movie);
+        setUpBackground(movie);
 
-        System.out.println(movie.getPosterUrl(MoviePosterSize.W342));
-        BackgroundImage myBI= new BackgroundImage(new Image("/graphics/backdrop.jpg",
-                1920,1080,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        //then you set to your node
-        stackPaneMovieOverview.setBackground(new Background(myBI));
+
+        UserModel userModel = UserModel.getInstance();
+
+        MovieModel instanceMovieModel = MovieModel.getInstance();
+
+        /*
+        try{
+            User user = userModel.login(new UserImpl("test3@test.de", "test3"));
+            MovieListImpl movieList = new MovieListImpl("caviar", user.getUsername());
+            movieList.addMovies(instanceMovieModel.getPopularMovies(0));
+            user.addMovieList(movieList);
+            MovieListImpl movieList2 = new MovieListImpl("watchlist", user.getUsername());
+            movieList2.addMovies(instanceMovieModel.getPopularMovies(2));
+            user.addMovieList(movieList2);
+
+            setUpAddToListButton(user);
+
+        }catch (UserNotFoundException e){
+            System.out.println("Böse");
+        }catch (UserWrongPasswordException e){
+            System.out.println(e);
+        }
+
+*/
 
 
 
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
+    private void setUpAddToListButton(User user){
+        List<MovieListImpl> movieLists = user.getMovieLists();
+        List<MovieListImpl> collect = movieLists.stream().filter(c -> !c.contains(movie)).collect(Collectors.toList());
+
+        JFXListView<Label> list = new JFXListView<>();
+        collect.stream().forEach( c -> list.getItems().add(new Label(c.getName())));
+        JFXPopup popup = new JFXPopup(list);
+
+        btnList.setOnAction(e -> popup.show(btnList, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
+
+    }
+
+    private void setUpBackground(Movie movie){
+        BackgroundImage myBI= new BackgroundImage(new Image("/graphics/backdrop.jpg",
+                1920,1080,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        stackPaneMovieOverview.setBackground(new Background(myBI));
+    }
+
+    private void setUpPoster(Movie movie){
+        Image image = new Image(movie.getPosterUrl(MoviePosterSize.W342),342,513,
+                true,true,true);
+        imgPoster.setImage(image);
+    }
 
     private void setUpLables(Movie movie){
         lblConclusion.setText(movie.getOverview());
