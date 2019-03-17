@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.TilePane?>
 
 
-<?import com.jfoenix.controls.JFXMasonryPane?>
-<StackPane blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.HomeManagedController">
-   <children>
-      <JFXTabPane blendMode="MULTIPLY" cache="true" cacheHint="SPEED" prefHeight="400" prefWidth="800">
-          <tabs>
-              <Tab closable="false" text="Popular Movies">
-                  <content>
-                      <ScrollPane fx:id="spPopular" fitToHeight="true" fitToWidth="true">
-                          <JFXMasonryPane fx:id="masonryPopular" HSpacing="0" VSpacing="0" styleClass="center"/>
-                      </ScrollPane>
-                  </content>
-              </Tab>
-              <Tab closable="false" text="New Movies">
-                  <content>
-                      <ScrollPane fx:id="spLatest">
-                          <TilePane fx:id="tilePaneLatest" styleClass="center" />
-                      </ScrollPane>
-                  </content>
-              </Tab>
-          </tabs>
-      </JFXTabPane>
-   </children>
-</StackPane>
+<JFXTabPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.HomeManagedController">
+    <tabs>
+        <Tab closable="false" text="Popular Movies">
+         <content>
+            <ScrollPane fx:id="spPopular" fitToWidth="true" hbarPolicy="NEVER">
+             <JFXMasonryPane fx:id="masonryPopular" HSpacing="0" VSpacing="0">
+                   </JFXMasonryPane>
+             </ScrollPane>
+         </content>
+        </Tab>
+        <Tab closable="false" text="Top Movies">
+            <content>
+                <ScrollPane fx:id="spTop" fitToWidth="true" hbarPolicy="NEVER">
+                    <JFXMasonryPane fx:id="masonryTop" HSpacing="0" VSpacing="0">
+                          </JFXMasonryPane>
+                </ScrollPane>
+            </content>
+        </Tab>
+    </tabs>
+</JFXTabPane>
