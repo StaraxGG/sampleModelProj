@@ -73,10 +73,9 @@ public abstract class MasterModel<T extends Serializable, C> {
     /* ---------------------------------------- CRUD - Methods ------------------------------------------------------ */
 
     /**
-     * persists the given entity in the database
-     *
+     * persists the given entity in to the database and returns it afterwards for later use
      * @param entity
-     * @return boolean true if successful
+     * @return
      */
     public C persist(C entity) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -96,7 +95,7 @@ public abstract class MasterModel<T extends Serializable, C> {
             transaction.commit();
 
             // find it again
-            result = em.find(entityClass, entity);
+            result = entity;
 
         } catch (PersistenceException pe) {
             logger.error(pe.getMessage(), pe);
@@ -116,7 +115,7 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @param entity
      * @return true if successful
      */
-    public void remove(C entity) {
+    public boolean remove(C entity) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -138,11 +137,21 @@ public abstract class MasterModel<T extends Serializable, C> {
             if (transaction != null && transaction.isActive())
                 transaction.rollback();
 
+            return false;
+
         } finally {
             em.close();
         }
+
+        return true;
     }
 
+    /**
+     * updates the given entitiy in the database. if the entity does not exist, it will be created. please do not
+     * use this method over {@link #persist(Object)}
+     * @param entity
+     * @return C the updated object
+     */
     public C update(C entity) {
         return doInTransaction((em) -> em.merge(entity));
     }
