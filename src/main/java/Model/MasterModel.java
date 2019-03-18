@@ -92,6 +92,10 @@ public abstract class MasterModel<T extends Serializable, C> {
         return doInTransaction((em) -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
     }
 
+    public boolean update(C entity) {
+        return doInTransaction((em) -> em.merge(entity));
+    }
+
     /**
      * finds the given entity in the database with a given id
      *
