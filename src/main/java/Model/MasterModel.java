@@ -73,13 +73,40 @@ public abstract class MasterModel<T extends Serializable, C> {
     /* ---------------------------------------- CRUD - Methods ------------------------------------------------------ */
 
     /**
-     * persists the given entity in the database
-     *
+     * persists the given entity in to the database and returns it afterwards for later use
      * @param entity
-     * @return boolean true if successful
+     * @return
      */
-    public boolean persist(C entity) {
-        return doInTransaction((em) -> em.persist(entity));
+    public C persist(C entity) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        EntityTransaction transaction = em.getTransaction();
+
+        C result = null;
+
+        try {
+
+            // start the transaction
+            transaction.begin();
+
+            em.persist(entity);
+
+            // commit the thing
+            transaction.commit();
+
+            // find it again
+            result = entity;
+
+        } catch (PersistenceException pe) {
+            logger.error(pe.getMessage(), pe);
+            if (transaction != null && transaction.isActive())
+                transaction.rollback();
+
+        } finally {
+            em.close();
+        }
+
+        return result;
     }
 
     /**
@@ -89,10 +116,43 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @return true if successful
      */
     public boolean remove(C entity) {
-        return doInTransaction((em) -> em.remove(em.contains(entity) ? entity : em.merge(entity)));
+
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+
+            // start the transaction
+            transaction.begin();
+
+            em.remove(em.contains(entity) ? entity : em.merge(entity));
+
+            // commit the thing
+            transaction.commit();
+
+
+        } catch (PersistenceException pe) {
+            logger.error(pe.getMessage(), pe);
+            if (transaction != null && transaction.isActive())
+                transaction.rollback();
+
+            return false;
+
+        } finally {
+            em.close();
+        }
+
+        return true;
     }
 
-    public boolean update(C entity) {
+    /**
+     * updates the given entitiy in the database. if the entity does not exist, it will be created. please do not
+     * use this method over {@link #persist(Object)}
+     * @param entity
+     * @return C the updated object
+     */
+    public C update(C entity) {
         return doInTransaction((em) -> em.merge(entity));
     }
 
@@ -120,7 +180,7 @@ public abstract class MasterModel<T extends Serializable, C> {
             transaction.commit();
 
         } catch (PersistenceException pe) {
-            logger.error(pe.getMessage(),pe);
+            logger.error(pe.getMessage(), pe);
             if (transaction != null && transaction.isActive())
                 transaction.rollback();
 
@@ -139,11 +199,13 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @param masterTransaction {@link MasterTransaction} implementation
      * @return boolean returns true if transaction was successful
      */
-    private boolean doInTransaction(MasterTransaction masterTransaction) {
+    private C doInTransaction(MasterTransaction<C> masterTransaction) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         EntityTransaction transaction = em.getTransaction();
+
+        C result = null;
 
         try {
 
@@ -151,23 +213,21 @@ public abstract class MasterModel<T extends Serializable, C> {
             transaction.begin();
 
             // do the thing
-            masterTransaction.doInTransaction(em);
+            result = masterTransaction.doInTransaction(em);
 
             // commit the thing
             transaction.commit();
 
         } catch (PersistenceException pe) {
-            logger.error(pe.getMessage(),pe);
+            logger.error(pe.getMessage(), pe);
             if (transaction != null && transaction.isActive())
                 transaction.rollback();
-
-            return false;
 
         } finally {
             em.close();
         }
 
-        return true;
+        return result;
 
     }
 
