@@ -11,9 +11,9 @@ import javax.persistence.EntityManager;
  * @since 2019-Feb-21
  */
 @FunctionalInterface
-public interface MasterTransaction {
+public interface MasterTransaction<C> {
 
-    void doInTransaction(EntityManager em);
+    C doInTransaction(EntityManager em);
 
 }
 
