@@ -128,6 +128,13 @@ public class WindowManager {
     }
 
     /**
+     * Refreshes content of the ListView
+     */
+    public void refreshListView(){
+        instanceManager.getListManagedController().refreshContent();
+    }
+
+    /**
      * Puts the movie overview on the Stack.
      * The views below are still in the scene graph for later use.
      * @param movie contains the information which is used to fill the movieOverview

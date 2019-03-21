@@ -86,9 +86,7 @@ public class ListManagedController implements Initializable {
                 user = (UserImpl) userModel.login(user);
             }
 
-            List<MovieListImpl> movieListList = user.getMovieLists();
-
-            setUpListView2(movieListList);
+            setUpListView2(user);
 
         } catch (UserNotFoundException e) {
             e.printStackTrace();
@@ -120,9 +118,10 @@ public class ListManagedController implements Initializable {
      * Registers clicks on list view but not on label and
      * may doesn't work anymore when movieLists get deleted.
      * //TODO how to implement with deletion of movieLists
-     * @param movieLists
+     * @param user
      */
-    private void setUpListView2(List<MovieListImpl> movieLists){
+    private void setUpListView2(UserImpl user){
+        List<MovieListImpl> movieLists = user.getMovieLists();
         jfxList.getItems().clear();
         jfxMasonry.getChildren().clear();
 
@@ -140,6 +139,12 @@ public class ListManagedController implements Initializable {
         });
     }
 
+    public void refreshContent(){
+        User currentUser = UserModel.getInstance().getCurrentUser();
+        UserModel.getInstance().update((UserImpl)currentUser);
+        setUpListView2((UserImpl)currentUser);
+    }
+
     /**
      * Deletes currently shown movieList
      * from the Users Lists and stops displaying it.
@@ -150,7 +155,7 @@ public class ListManagedController implements Initializable {
             User currentUser = UserModel.getInstance().getCurrentUser();
             currentUser.getMovieLists().remove(index);
             UserModel.getInstance().update((UserImpl)currentUser);
-            setUpListView2(currentUser.getMovieLists());
+            setUpListView2((UserImpl)currentUser);
         }
     }
 

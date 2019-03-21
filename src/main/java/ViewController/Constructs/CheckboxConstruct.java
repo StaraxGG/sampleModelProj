@@ -8,6 +8,7 @@ import Model.MovieList.MovieListModel;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
+import ViewController.Start;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -83,6 +84,7 @@ public class CheckboxConstruct extends JFXCheckBox{
                         }
                         movieListModel.update(movieList);
                         UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
+                        Start.getManager().refreshListView();
                     }
                 }
                 //movie gets deleted from list
@@ -97,6 +99,7 @@ public class CheckboxConstruct extends JFXCheckBox{
                         }
                         movieListModel.update(movieList);
                         UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
+                        Start.getManager().refreshListView();
                     }
                 }
             }};
