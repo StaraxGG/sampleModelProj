@@ -74,34 +74,27 @@ public class ListManagedController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
+        try {
 
-        UserModel userModel = UserModel.getInstance();
+            UserImpl user = new UserImpl("ytatar11@googlemail.com", "MyPass2019");
+            UserModel userModel = UserModel.getInstance();
 
-        //userModel.register(new UserImpl("test3@test.de", "test3"));
+            //register the user
+            if (!userModel.register(user)){
+                // the user is already in the database so retrieve him
+                user = userModel.findById(user.getUsername());
+                user = (UserImpl) userModel.login(user);
+            }
 
+            List<MovieListImpl> movieListList = user.getMovieLists();
 
-        //User user = userModel.getCurrentUser();
-        MovieModel instanceMovieModel = MovieModel.getInstance();
+            setUpListView2(movieListList);
 
-        /*
-        try{
-            User user = userModel.login(new UserImpl("test3@test.de", "test3"));
-            MovieListImpl movieList = new MovieListImpl("caviar", user.getUsername());
-            movieList.addMovies(instanceMovieModel.getPopularMovies(0));
-            user.addMovieList(movieList);
-            MovieListImpl movieList2 = new MovieListImpl("watchlist", user.getUsername());
-            movieList2.addMovies(instanceMovieModel.getPopularMovies(2));
-            user.addMovieList(movieList2);
-            List<MovieListImpl> movieLists = user.getMovieLists();
-            setUpListView2(movieLists);
-
-        }catch (UserNotFoundException e){
-            System.out.println("Böse");
-        }catch (UserWrongPasswordException e){
-            System.out.println(e);
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        } catch (UserWrongPasswordException e){
+            e.printStackTrace();
         }
-
-*/
 
 
 
@@ -156,7 +149,7 @@ public class ListManagedController implements Initializable {
         if(index != -1){
             User currentUser = UserModel.getInstance().getCurrentUser();
             currentUser.getMovieLists().remove(index);
-
+            UserModel.getInstance().update((UserImpl)currentUser);
             setUpListView2(currentUser.getMovieLists());
         }
     }
