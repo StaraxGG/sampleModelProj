@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.BaseManagedController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.BaseManagedController">
    <top>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="600.0" styleClass="navBar" stylesheets="@../css/base.css" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnLists" text="Lists" />
-            <JFXButton fx:id="btnHome" text="Home" />
-            <JFXButton fx:id="btnStats" text="Stats" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="btnLists" text="Lists" />
+                  <JFXButton fx:id="btnHome" text="Home" />
+                  <JFXButton fx:id="btnStats" text="Stats" />
+               </children>
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+            </HBox>
+            <JFXTextField fx:id="searchField" HBox.hgrow="NEVER" />
          </children>
       </HBox>
    </top>

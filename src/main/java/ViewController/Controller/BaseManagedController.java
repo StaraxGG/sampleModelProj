@@ -3,8 +3,11 @@ package ViewController.Controller;
 import ViewController.Screens;
 import ViewController.Start;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
@@ -39,6 +42,15 @@ public class BaseManagedController implements Initializable {
     @FXML
     private StackPane masterStackpane;
 
+    @FXML
+    private JFXTextField searchField;
+
+    @FXML
+    private HBox menuBox;
+
+    @FXML
+    private HBox motherBox;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
 
@@ -57,6 +69,8 @@ public class BaseManagedController implements Initializable {
         btnStats.setOnAction(event -> Start.getManager().switchScreenTo(Screens.STATS));
 
         masterStackpane.setPickOnBounds(false);
+        //HBox.setHgrow(menuBox, Priority.ALWAYS);
+        //HBox.setHgrow(searchField, Priority.NEVER);
     }
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
