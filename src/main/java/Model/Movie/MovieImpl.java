@@ -34,7 +34,7 @@ public class MovieImpl implements Movie {
     @Column(name = "tmdb_ID", nullable = false)
     private Integer tmdbID;
 
-    @Column(name = "title", length = 1000)
+    @Column(name = "title", length = 1000, columnDefinition = "nvarchar(512)")
     private String title;
 
     @Column(name = "popularity")
@@ -126,10 +126,16 @@ public class MovieImpl implements Movie {
     @Override
     public boolean equals(Object obj) {
 
+        // instanceof removes null edge case as well
+        if (!(obj instanceof MovieImpl))
+            return false;
+
         // create MovieImpl object with cast
         MovieImpl movie = (MovieImpl) obj;
 
         // compare their tmdb id's and return true if they are the same
+        if (movie.getTmdbId() == null)
+            return this.getTmdbId() == null;
         return this.getTmdbId().equals(movie.getTmdbId());
     }
 

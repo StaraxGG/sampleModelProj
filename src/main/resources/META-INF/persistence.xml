@@ -13,7 +13,7 @@
 
             <!-- DATABASE CONNECTION -->
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://weizenbaum.cakclqfcxzdt.eu-central-1.rds.amazonaws.com:3306/weizenbaum"/>
+                      value="jdbc:mysql://weizenbaum.cakclqfcxzdt.eu-central-1.rds.amazonaws.com:3306/weizenbaum?characterSetServer=utf8mb4"/>
 
 
             <!-- DATABASE SETTINGS -->
@@ -40,13 +40,13 @@
 
 
             <!-- OTHER -->
-            <property name="hibernate.connection.CharSet" value="utf8"/>
+            <property name="hibernate.connection.CharSet" value="utf8mb4"/>
 
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
 
             <property name="hibernate.connection.useUnicode" value="true"/>
 
-            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
