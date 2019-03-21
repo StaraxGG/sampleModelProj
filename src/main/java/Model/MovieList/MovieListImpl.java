@@ -33,7 +33,7 @@ public class MovieListImpl implements MovieList {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
 
 
-    @ManyToMany(targetEntity = MovieImpl.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = MovieImpl.class, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<MovieImpl> movies;
 
     @Id
@@ -191,9 +191,11 @@ public class MovieListImpl implements MovieList {
 
             // also: make the bidirectional connection
             tmpMovie.addMovieList(this);
+            movieModel.update(tmpMovie);
         } else {
             // otherwise add THIS movie to this list and persist it in the database
             this.movies.add((MovieImpl) movie);
+            movie.addMovieList(this);
             movieModel.persist((MovieImpl) movie);
         }
 
