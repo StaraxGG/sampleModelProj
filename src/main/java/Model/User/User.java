@@ -54,7 +54,7 @@ public interface User {
      * @param movie Movie that will be searched
      * @return List of movies that include this movie - or null if the given movie was null
      */
-    List<? extends MovieList> findMovielistForMovie(Movie movie);
+    List<MovieListImpl> findMovielistForMovie(Movie movie);
 
 
 

@@ -13,6 +13,7 @@ import Model.User.UserModel;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SnapshotParameters;
@@ -21,6 +22,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -114,47 +116,53 @@ public class MovieOverviewConstruct extends StackPane {
         setUpBackground(movie);
 
 
-        UserModel userModel = UserModel.getInstance();
 
         MovieModel instanceMovieModel = MovieModel.getInstance();
 
-        /*
+
         try{
-            User user = userModel.login(new UserImpl("test3@test.de", "test3"));
+            UserImpl user = new UserImpl("ytatar9@googlemail.com", "MyPass2019");
+            UserModel userModel = UserModel.getInstance();
+
+            //register the user
+            if (!userModel.register(user)){
+                // the user is already in the database so retrieve him
+                user = userModel.findById(user.getUsername());
+            }
+
             MovieListImpl movieList = new MovieListImpl("caviar", user.getUsername());
-            movieList.addMovies(instanceMovieModel.getPopularMovies(0));
+            movieList.addMovies(instanceMovieModel.getPopularMovies(2));
             user.addMovieList(movieList);
             MovieListImpl movieList2 = new MovieListImpl("watchlist", user.getUsername());
-            movieList2.addMovies(instanceMovieModel.getPopularMovies(2));
+            movieList2.addMovies(instanceMovieModel.getPopularMovies(3));
             user.addMovieList(movieList2);
 
             setUpAddToListButton(user);
 
-        }catch (UserNotFoundException e){
+        }catch (UserNotFoundException e) {
             System.out.println("Böse");
-        }catch (UserWrongPasswordException e){
-            System.out.println(e);
         }
-
-*/
-
-
-
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     private void setUpAddToListButton(User user){
+
+
         List<MovieListImpl> movieLists = user.getMovieLists();
-        List<MovieListImpl> collect = movieLists.stream().filter(c -> !c.contains(movie)).collect(Collectors.toList());
 
-        JFXListView<Label> list = new JFXListView<>();
-        collect.stream().forEach( c -> list.getItems().add(new Label(c.getName())));
+
+        JFXListView<CheckboxConstruct> list = new JFXListView<>();
+        movieLists.stream().forEach( c -> {
+            CheckboxConstruct checkboxConstruct = new CheckboxConstruct(c,movie);
+            list.getItems().add(checkboxConstruct);
+        });
+
         JFXPopup popup = new JFXPopup(list);
-
         btnList.setOnAction(e -> popup.show(btnList, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
-
     }
+
+
 
     private void setUpBackground(Movie movie){
         BackgroundImage myBI= new BackgroundImage(new Image("/graphics/backdrop.jpg",
