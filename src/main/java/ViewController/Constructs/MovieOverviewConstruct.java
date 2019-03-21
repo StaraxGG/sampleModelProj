@@ -122,35 +122,22 @@ public class MovieOverviewConstruct extends StackPane {
 
 
         try{
-            UserImpl user = new UserImpl("ytatar9@googlemail.com", "MyPass2019");
+            UserImpl user = new UserImpl("ytatar11@googlemail.com", "MyPass2019");
             UserModel userModel = UserModel.getInstance();
 
             //register the user
             if (!userModel.register(user)){
                 // the user is already in the database so retrieve him
                 user = userModel.findById(user.getUsername());
+                user = (UserImpl) userModel.login(user);
             }
-
-            MovieModel movieModel = MovieModel.getInstance();
-            MovieListModel movieListModel = MovieListModel.getInstance();
-
-            MovieListImpl movieList = new MovieListImpl("toni", user.getUsername());
-            movieListModel.persist(movieList);
-
-            movieList.addMovies(movieModel.getPopularMovies(1));
-            movieListModel.update(movieList);
-            user.addMovieList(movieList);
-
-            // we update the user and his movielists
-            userModel.update(user);
-
-            List<MovieListImpl> movieListList = user.getMovieLists();
-
 
             setUpAddToListButton(user);
 
         }catch (UserNotFoundException e) {
             System.out.println("Böse");
+        }catch(UserWrongPasswordException e){
+            System.out.println("böse2");
         }
     }
 
@@ -160,6 +147,7 @@ public class MovieOverviewConstruct extends StackPane {
 
 
         List<MovieListImpl> movieLists = user.getMovieLists();
+        System.out.println(movieLists.size());
 
 
         JFXListView<CheckboxConstruct> list = new JFXListView<>();

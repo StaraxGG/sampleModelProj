@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @version 1.0
  * @since 2019-Mär-21
  */
-public class CheckboxConstruct extends JFXCheckBox implements Initializable {
+public class CheckboxConstruct extends JFXCheckBox{
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -46,12 +46,14 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
         super();
         this.movieList = movieList;
         this.movie = movie;
+
+        this.setText(movieList.getName());
+        setup();
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void setup() {
         this.setText(movieList.getName());
 
         if(movieList.contains(movie)){
@@ -61,7 +63,7 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
             this.setSelected(false);
         }
 
-        ChangeListener colorCheckChange = new ChangeListener<Boolean>() {
+        ChangeListener listCheckChange = new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {
@@ -76,6 +78,9 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
                         if(!add){
                             System.out.println("Movie couldnt be added to list");
                         }
+                        else{
+                            System.out.println(movie.getTitle()+"added to "+movieList.getName());
+                        }
                         movieListModel.update(movieList);
                         UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
                     }
@@ -87,11 +92,16 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
                         if(!remove){
                             System.out.println("movie isnt in list");
                         }
+                        else{
+                            System.out.println(movie.getTitle()+"deleted from "+movieList.getName());
+                        }
                         movieListModel.update(movieList);
                         UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
                     }
                 }
             }};
+
+        this.selectedProperty().addListener(listCheckChange);
 
     }
 
