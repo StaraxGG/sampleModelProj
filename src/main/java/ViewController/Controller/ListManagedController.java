@@ -83,6 +83,7 @@ public class ListManagedController implements Initializable {
         //User user = userModel.getCurrentUser();
         MovieModel instanceMovieModel = MovieModel.getInstance();
 
+        /*
         try{
             User user = userModel.login(new UserImpl("test3@test.de", "test3"));
             MovieListImpl movieList = new MovieListImpl("caviar", user.getUsername());
@@ -100,7 +101,7 @@ public class ListManagedController implements Initializable {
             System.out.println(e);
         }
 
-
+*/
 
 
 

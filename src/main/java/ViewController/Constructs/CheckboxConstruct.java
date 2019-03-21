@@ -6,6 +6,7 @@ import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import Model.MovieList.MovieListModel;
 import Model.User.User;
+import Model.User.UserImpl;
 import Model.User.UserModel;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.beans.value.ChangeListener;
@@ -45,8 +46,6 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
         super();
         this.movieList = movieList;
         this.movie = movie;
-
-
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
@@ -77,8 +76,8 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
                         if(!add){
                             System.out.println("Movie couldnt be added to list");
                         }
-                        //UserModel.update(currentUser) TODO check when implemented
-                        //movieListModel.update(this.movieList)
+                        movieListModel.update(movieList);
+                        UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
                     }
                 }
                 //movie gets deleted from list
@@ -88,8 +87,8 @@ public class CheckboxConstruct extends JFXCheckBox implements Initializable {
                         if(!remove){
                             System.out.println("movie isnt in list");
                         }
-                        //UserModel.update(currentUser)
-                        //movieListModel.update(this.movieList)
+                        movieListModel.update(movieList);
+                        UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
                     }
                 }
             }};

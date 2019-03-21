@@ -5,6 +5,7 @@ import Model.Movie.MovieModel;
 import Model.Movie.MoviePosterSize;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Model.MovieList.MovieListModel;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.Exception.UserWrongPasswordException;
 import Model.User.User;
@@ -130,12 +131,21 @@ public class MovieOverviewConstruct extends StackPane {
                 user = userModel.findById(user.getUsername());
             }
 
-            MovieListImpl movieList = new MovieListImpl("caviar", user.getUsername());
-            movieList.addMovies(instanceMovieModel.getPopularMovies(2));
+            MovieModel movieModel = MovieModel.getInstance();
+            MovieListModel movieListModel = MovieListModel.getInstance();
+
+            MovieListImpl movieList = new MovieListImpl("toni", user.getUsername());
+            movieListModel.persist(movieList);
+
+            movieList.addMovies(movieModel.getPopularMovies(1));
+            movieListModel.update(movieList);
             user.addMovieList(movieList);
-            MovieListImpl movieList2 = new MovieListImpl("watchlist", user.getUsername());
-            movieList2.addMovies(instanceMovieModel.getPopularMovies(3));
-            user.addMovieList(movieList2);
+
+            // we update the user and his movielists
+            userModel.update(user);
+
+            List<MovieListImpl> movieListList = user.getMovieLists();
+
 
             setUpAddToListButton(user);
 
@@ -157,6 +167,7 @@ public class MovieOverviewConstruct extends StackPane {
             CheckboxConstruct checkboxConstruct = new CheckboxConstruct(c,movie);
             list.getItems().add(checkboxConstruct);
         });
+
 
         JFXPopup popup = new JFXPopup(list);
         btnList.setOnAction(e -> popup.show(btnList, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
