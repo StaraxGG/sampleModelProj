@@ -1,5 +1,7 @@
 package ViewController.Controller.LoginController;
 
+import Model.User.Exception.UserNotFoundException;
+import Model.User.Exception.UserWrongPasswordException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
@@ -101,15 +103,20 @@ public class LoginController extends Controller implements Initializable {
         User user = new UserImpl(usertext, pwtext);
 
         try{
-            if(this.UMINstance.login(user) != null){
-                Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
-            }else{
-                this.playLoginFailAnimation();
-                this.errorLabel.setText("Couldn't find a user with matching credentials");
-            }
-        }catch(Exception e ){
-            //log
+            user = this.UMINstance.login(user);
+        }catch (UserNotFoundException __){
+            this.errorLabel.setText("Couldn't find a user with that name. Register?");
+            this.playLoginFailAnimation();
+            return;
+        }catch (UserWrongPasswordException __){
+            this.errorLabel.setText("Passwords do not match!");
+            this.playLoginFailAnimation();
+            return;
+        }catch(IllegalArgumentException __){
+            ;
         }
+
+        Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
     };
 
     private EventHandler<? super MouseEvent> signUpButtonClicked = mouseEvent -> {

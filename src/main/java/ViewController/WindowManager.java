@@ -66,7 +66,7 @@ public class WindowManager {
         currentStage = stage;
 
         //switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
-        switchScreenTo(WINDOW_IDENTIFIER.LISTS);
+        switchScreenTo(WINDOW_IDENTIFIER.LOGIN);
     }
 
     /**

@@ -11,6 +11,7 @@ import ViewController.WindowManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 public class RegisterController extends Controller implements Initializable {
 
@@ -79,6 +82,7 @@ public class RegisterController extends Controller implements Initializable {
         }
 
         User user = new UserImpl(this.emailField.getText(), this.passwordField.getText());
+
         if(!this.UMINstance.register(user)){
             this.errorLabel.setText("Invalid mail or user already exists");
         }else{
