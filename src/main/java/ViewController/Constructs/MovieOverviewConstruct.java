@@ -116,25 +116,9 @@ public class MovieOverviewConstruct extends StackPane {
         setUpPoster(movie);
         setUpBackground(movie);
 
-
-        try{
-            UserImpl user = new UserImpl("ytatar11@googlemail.com", "MyPass2019");
-            UserModel userModel = UserModel.getInstance();
-
-            //register the user
-            if (!userModel.register(user)){
-                // the user is already in the database so retrieve him
-                user = userModel.findById(user.getUsername());
-                user = (UserImpl) userModel.login(user);
-            }
-
-            setUpAddToListButton(user);
-
-        }catch (UserNotFoundException e) {
-            System.out.println("Böse");
-        }catch(UserWrongPasswordException e){
-            System.out.println("böse2");
-        }
+        //TODO uncomment when loginwindow exists and user is logged in by the time this method is called
+        //User userUserModel.getInstance().getCurrentUser();
+        //setUpAddToListButton(User user)
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */

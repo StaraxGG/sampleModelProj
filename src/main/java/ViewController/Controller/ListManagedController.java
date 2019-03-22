@@ -1,32 +1,17 @@
 package ViewController.Controller;
 
-import Model.Movie.Movie;
-import Model.Movie.MovieImpl;
-import Model.Movie.MovieModel;
-import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
-import Model.MovieList.MovieListModel;
-import Model.User.Exception.UserNotFoundException;
-import Model.User.Exception.UserWrongPasswordException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import ViewController.Constructs.MovieConstruct;
 import ViewController.WindowManager;
 import com.jfoenix.controls.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -77,54 +62,21 @@ public class ListManagedController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        try {
+        //TODO uncomment when loginwindow exists and user is logged in by the time this method is called
+        //User user = UserModel.getInstance().getCurrentUser();
+        //setUpListView(user);
 
-            UserImpl user = new UserImpl("ytatar11@googlemail.com", "MyPass2019");
-            UserModel userModel = UserModel.getInstance();
-
-            //register the user
-            if (!userModel.register(user)){
-                // the user is already in the database so retrieve him
-                user = userModel.findById(user.getUsername());
-                user = (UserImpl) userModel.login(user);
-            }
-
-            setUpListView2(user);
-
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        } catch (UserWrongPasswordException e){
-            e.printStackTrace();
-        }
-
-
-
-        //btnDelete.setOnAction(event -> delteMovieList());
         setupDeleteButton();
         setUpRefreshButton();
 
-
-    }
-
-    /**
-     * Only registres clicks on label not on listView
-     * @param movieLists
-     */
-    private void setUpListView(List<MovieListImpl> movieLists){
-        movieLists.stream().forEach(e -> {
-            Label label = new Label(e.getName());
-            label.setOnMouseClicked(event -> e.getMovies().stream().forEach(e1 -> jfxMasonry.getChildren().add(new MovieConstruct(e1))));
-            jfxList.getItems().add(label);
-        });
     }
 
     /**
      * Registers clicks on list view but not on label and
      * may doesn't work anymore when movieLists get deleted.
-     * //TODO how to implement with deletion of movieLists
      * @param user
      */
-    private void setUpListView2(UserImpl user){
+    private void setUpListView(UserImpl user){
         List<MovieListImpl> movieLists = user.getMovieLists();
         jfxList.getItems().clear();
         jfxMasonry.getChildren().clear();
@@ -147,8 +99,10 @@ public class ListManagedController implements Initializable {
 
     public void refreshContent(){
         User currentUser = UserModel.getInstance().getCurrentUser();
-        UserModel.getInstance().update((UserImpl)currentUser);
-        setUpListView2((UserImpl)currentUser);
+        if(currentUser instanceof UserImpl) {
+            UserModel.getInstance().update((UserImpl) currentUser);
+            setUpListView((UserImpl)currentUser);
+        }
     }
 
     /**
@@ -160,8 +114,11 @@ public class ListManagedController implements Initializable {
         if(index != -1){
             User currentUser = UserModel.getInstance().getCurrentUser();
             currentUser.getMovieLists().remove(index);
-            UserModel.getInstance().update((UserImpl)currentUser);
-            setUpListView2((UserImpl)currentUser);
+            if(currentUser instanceof UserImpl){
+                UserModel.getInstance().update((UserImpl)currentUser);
+                setUpListView((UserImpl)currentUser);
+            }
+
         }
     }
 

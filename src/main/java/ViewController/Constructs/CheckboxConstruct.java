@@ -36,8 +36,6 @@ public class CheckboxConstruct extends JFXCheckBox {
     private MovieListImpl movieList;
     private Movie movie;
 
-    private UserImpl currentUser;
-
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -59,18 +57,14 @@ public class CheckboxConstruct extends JFXCheckBox {
     public void setup() {
         this.setText(movieList.getName());
 
-        if (movieList.contains(movie)) {
-            this.setSelected(true);
-        } else {
-            this.setSelected(false);
-        }
+        refreshCheckBox();
 
         ChangeListener listCheckChange = new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {
 
-                currentUser = (UserImpl) UserModel.getInstance().getCurrentUser();
+                //User currentUser = (UserImpl) UserModel.getInstance().getCurrentUser();
                 MovieListModel movieListModel = MovieListModel.getInstance();
 
                 //movie gets added to list
@@ -83,7 +77,7 @@ public class CheckboxConstruct extends JFXCheckBox {
                             System.out.println(movie.getTitle() + "added to " + movieList.getName());
                         }
                         movieList = movieListModel.update(movieList);
-                        currentUser = UserModel.getInstance().update((UserImpl) UserModel.getInstance().getCurrentUser());
+                        //UserModel.getInstance().update((UserImpl) currentUser);
                         refreshCheckBox();
                         Start.getManager().refreshListView();
                     }
@@ -98,7 +92,7 @@ public class CheckboxConstruct extends JFXCheckBox {
                             System.out.println(movie.getTitle() + "deleted from " + movieList.getName());
                         }
                         movieList = movieListModel.update(movieList);
-                        currentUser = UserModel.getInstance().update((UserImpl) UserModel.getInstance().getCurrentUser());
+                        //UserModel.getInstance().update((UserImpl) currentUser);
                         refreshCheckBox();
                         Start.getManager().refreshListView();
                     }
@@ -109,9 +103,6 @@ public class CheckboxConstruct extends JFXCheckBox {
         this.selectedProperty().addListener(listCheckChange);
     }
 
-    /**
-     * TODO test this shit
-     */
     private void refreshCheckBox() {
         if (movieList.contains(movie)) {
             this.setSelected(true);

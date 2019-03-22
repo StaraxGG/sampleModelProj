@@ -54,7 +54,6 @@ public class InstanceManager {
         FXMLLoader loaderLists = new FXMLLoader(getClass().getResource("/fxml/listsWindow.fxml"));
         FXMLLoader loaderLogIn = new FXMLLoader(getClass().getResource("/fxml/logInWindow.fxml"));
         FXMLLoader loaderStats = new FXMLLoader(getClass().getResource("/fxml/statsWindow.fxml"));
-        //todo load other views
 
         try{
             //base setup
@@ -77,7 +76,6 @@ public class InstanceManager {
             this.statsView = loaderStats.load();
             this.statsManagedController = loaderStats.getController();
 
-            //todo add other setups if needed
         } catch (IOException exception){
             throw new RuntimeException(exception);
         }

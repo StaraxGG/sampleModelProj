@@ -84,7 +84,7 @@ public class HomeManagedController implements Initializable {
      */
     private void setupScrollpanes(){
         //Fixes scrollPane issue, where window is only scrollable if resized
-        //manually before once. //TODO issues still there
+        //manually before once.
         Platform.runLater(spPopular::requestLayout);
 
         //scrolles slow as hell otherwise with JavafX standard.

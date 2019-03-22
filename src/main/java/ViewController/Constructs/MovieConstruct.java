@@ -65,7 +65,6 @@ public class MovieConstruct extends BorderPane {
             }
         });
 
-        //todo change back when getPosterURL returns url and not key
         imgPoster.setFitHeight(278);
         imgPoster.setFitWidth(185);
         imgPoster.setPreserveRatio(true);
