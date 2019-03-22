@@ -68,7 +68,7 @@ public class WindowManager {
         currentStage = stage;
 
         //switchScreenTo(Screens.HOMESCREEN);
-        switchScreenTo(Screens.LISTS);
+        switchScreenTo(Screens.HOMESCREEN);
     }
 
     /**
@@ -125,6 +125,13 @@ public class WindowManager {
     private void switchScreen(Parent parent){
         masterStackPane.getChildren().clear();
         masterStackPane.getChildren().add(parent);
+    }
+
+    /**
+     * Refreshes content of the ListView
+     */
+    public void refreshListView(){
+        instanceManager.getListManagedController().refreshContent();
     }
 
     /**

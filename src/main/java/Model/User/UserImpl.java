@@ -89,7 +89,7 @@ public class UserImpl implements User {
     }
 
     @Override
-    public List<? extends MovieList> findMovielistForMovie(Movie movie){
+    public List<MovieListImpl> findMovielistForMovie(Movie movie){
         // check for null value
         if (movie == null)
             return null;
