@@ -48,7 +48,7 @@ public class UserModel extends MasterModel<String, UserImpl> {
      * @param username
      * @return true if username mail adress
      */
-    private static boolean verifyMailAdress(String username) {
+    public static boolean verifyMailAdress(String username) {
 
         final Pattern VALID_EMAIL_ADDRESS_REGEX =
                 Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);

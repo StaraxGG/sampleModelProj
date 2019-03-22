@@ -6,5 +6,6 @@ public enum WINDOW_IDENTIFIER {
     STATS,
     LISTS,
     SETTINGS,
-    LOGIN
+    LOGIN,
+    REGISTER
 }

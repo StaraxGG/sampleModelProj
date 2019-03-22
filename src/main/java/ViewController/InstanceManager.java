@@ -37,6 +37,7 @@ public class InstanceManager {
         FXMLLoader loaderLists = new FXMLLoader(getClass().getResource("/fxml/listsWindow.fxml"));
         FXMLLoader loaderLogIn = new FXMLLoader(getClass().getResource("/fxml/logInWindow.fxml"));
         FXMLLoader loaderStats = new FXMLLoader(getClass().getResource("/fxml/statsWindow.fxml"));
+        FXMLLoader loaderRegister = new FXMLLoader(getClass().getResource("/fxml/registerWindow.fxml"));
         //todo load other views
 
 
@@ -45,6 +46,7 @@ public class InstanceManager {
         this.WindowIdentifier.put(WINDOW_IDENTIFIER.LISTS, new WindowControllerBridge(loaderLists));
         this.WindowIdentifier.put(WINDOW_IDENTIFIER.LOGIN, new WindowControllerBridge(loaderLogIn));
         this.WindowIdentifier.put(WINDOW_IDENTIFIER.STATS, new WindowControllerBridge(loaderStats));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.REGISTER, new WindowControllerBridge(loaderRegister));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
