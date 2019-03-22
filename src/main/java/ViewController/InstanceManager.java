@@ -27,19 +27,19 @@ public class InstanceManager {
     private static WindowManager windowManager;
 
     //Controller and Views of controlled Screens
-    private BaseManagedController baseManagedController;
+    private BaseController baseController;
     private Parent baseView;
 
-    private HomeManagedController homeManagedController;
+    private HomeController homeController;
     private Parent homeView;
 
-    private ListManagedController listManagedController;
+    private MovieListController movieListController;
     private Parent listView;
 
-    private LoginManagedController loginManagedController;
+    private LoginController loginController;
     private Parent loginView;
 
-    private StatsManagedController statsManagedController;
+    private StatsController statsController;
     private Parent statsView;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -59,23 +59,23 @@ public class InstanceManager {
         try{
             //base setup
             this.baseView = loaderBase.load();
-            this.baseManagedController = loaderBase.getController();
+            this.baseController = loaderBase.getController();
 
             //home setup
             this.homeView = loaderHome.load();
-            this.homeManagedController = loaderHome.getController();
+            this.homeController = loaderHome.getController();
 
             //list setup
             this.listView = loaderLists.load();
-            this.listManagedController = loaderLists.getController();
+            this.movieListController = loaderLists.getController();
 
             //login setup
             this.loginView = loaderLogIn.load();
-            this.loginManagedController = loaderLogIn.getController();
+            this.loginController = loaderLogIn.getController();
 
             //stats setup
             this.statsView = loaderStats.load();
-            this.statsManagedController = loaderStats.getController();
+            this.statsController = loaderStats.getController();
 
             //todo add other setups if needed
         } catch (IOException exception){
@@ -95,40 +95,40 @@ public class InstanceManager {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
-    public BaseManagedController getBaseManagedController() {
-        return baseManagedController;
+    public BaseController getBaseController() {
+        return baseController;
     }
 
     public Parent getBaseView() {
         return baseView;
     }
 
-    public HomeManagedController getHomeManagedController() {
-        return homeManagedController;
+    public HomeController getHomeController() {
+        return homeController;
     }
 
     public Parent getHomeView() {
         return homeView;
     }
 
-    public ListManagedController getListManagedController() {
-        return listManagedController;
+    public MovieListController getMovieListController() {
+        return movieListController;
     }
 
     public Parent getListView() {
         return listView;
     }
 
-    public LoginManagedController getLoginManagedController() {
-        return loginManagedController;
+    public LoginController getLoginController() {
+        return loginController;
     }
 
     public Parent getLoginView() {
         return loginView;
     }
 
-    public StatsManagedController getStatsManagedController() {
-        return statsManagedController;
+    public StatsController getStatsController() {
+        return statsController;
     }
 
     public Parent getStatsView() {

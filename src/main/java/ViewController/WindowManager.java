@@ -1,17 +1,11 @@
 package ViewController;
 
 import Model.Movie.Movie;
-import ViewController.Constructs.MovieConstruct;
 import ViewController.Constructs.MovieOverviewConstruct;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.controls.JFXTabPane;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 /**
  * An implementation of WindowManager
@@ -59,7 +53,7 @@ public class WindowManager {
         instanceManager = InstanceManager.getInstance(this);
 
         //initialise masterStackPane
-        masterStackPane = instanceManager.getBaseManagedController().getMasterStackpane();
+        masterStackPane = instanceManager.getBaseController().getMasterStackpane();
 
         //set StackCount to zero
         stackCount = 0;

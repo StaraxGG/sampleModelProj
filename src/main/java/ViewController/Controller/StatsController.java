@@ -3,14 +3,14 @@ package ViewController.Controller;
 import ViewController.WindowManager;
 
 /**
- * An implementation of StatsManagedController
+ * An implementation of StatsController
  * in sample-model-project
  *
  * @author Nicolas
  * @version 1.0
  * @since 2019-Feb-27
  */
-public class StatsManagedController {
+public class StatsController {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
