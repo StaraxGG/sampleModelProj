@@ -117,10 +117,6 @@ public class MovieOverviewConstruct extends StackPane {
         setUpBackground(movie);
 
 
-
-        MovieModel instanceMovieModel = MovieModel.getInstance();
-
-
         try{
             UserImpl user = new UserImpl("ytatar11@googlemail.com", "MyPass2019");
             UserModel userModel = UserModel.getInstance();

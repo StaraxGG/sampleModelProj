@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * @version 1.0
  * @since 2019-Mär-21
  */
-public class CheckboxConstruct extends JFXCheckBox{
+public class CheckboxConstruct extends JFXCheckBox {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -36,6 +36,8 @@ public class CheckboxConstruct extends JFXCheckBox{
     private MovieListImpl movieList;
     private Movie movie;
 
+    private UserImpl currentUser;
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -43,7 +45,7 @@ public class CheckboxConstruct extends JFXCheckBox{
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
-    public CheckboxConstruct(MovieListImpl movieList,Movie movie) {
+    public CheckboxConstruct(MovieListImpl movieList, Movie movie) {
         super();
         this.movieList = movieList;
         this.movie = movie;
@@ -57,10 +59,9 @@ public class CheckboxConstruct extends JFXCheckBox{
     public void setup() {
         this.setText(movieList.getName());
 
-        if(movieList.contains(movie)){
+        if (movieList.contains(movie)) {
             this.setSelected(true);
-        }
-        else{
+        } else {
             this.setSelected(false);
         }
 
@@ -69,45 +70,56 @@ public class CheckboxConstruct extends JFXCheckBox{
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {
 
-                User currentUser = UserModel.getInstance().getCurrentUser();
+                currentUser = (UserImpl) UserModel.getInstance().getCurrentUser();
                 MovieListModel movieListModel = MovieListModel.getInstance();
 
                 //movie gets added to list
-                if (new_val){
-                    if(movie instanceof MovieImpl){
+                if (new_val) {
+                    if (movie instanceof MovieImpl) {
                         boolean add = movieList.getMovies().add((MovieImpl) movie);
-                        if(!add){
+                        if (!add) {
                             System.out.println("Movie couldnt be added to list");
+                        } else {
+                            System.out.println(movie.getTitle() + "added to " + movieList.getName());
                         }
-                        else{
-                            System.out.println(movie.getTitle()+"added to "+movieList.getName());
-                        }
-                        movieListModel.update(movieList);
-                        UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
+                        movieList = movieListModel.update(movieList);
+                        currentUser = UserModel.getInstance().update((UserImpl) UserModel.getInstance().getCurrentUser());
+                        refreshCheckBox();
                         Start.getManager().refreshListView();
                     }
                 }
                 //movie gets deleted from list
-                else{
-                    if(movie instanceof MovieImpl){
-                        boolean remove = movieList.getMovies().remove((MovieImpl)movie);
-                        if(!remove){
+                else {
+                    if (movie instanceof MovieImpl) {
+                        boolean remove = movieList.getMovies().remove((MovieImpl) movie);
+                        if (!remove) {
                             System.out.println("movie isnt in list");
+                        } else {
+                            System.out.println(movie.getTitle() + "deleted from " + movieList.getName());
                         }
-                        else{
-                            System.out.println(movie.getTitle()+"deleted from "+movieList.getName());
-                        }
-                        movieListModel.update(movieList);
-                        UserModel.getInstance().update((UserImpl)UserModel.getInstance().getCurrentUser());
+                        movieList = movieListModel.update(movieList);
+                        currentUser = UserModel.getInstance().update((UserImpl) UserModel.getInstance().getCurrentUser());
+                        refreshCheckBox();
                         Start.getManager().refreshListView();
                     }
                 }
-            }};
+            }
+        };
 
         this.selectedProperty().addListener(listCheckChange);
-
     }
 
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
+    /**
+     * TODO test this shit
+     */
+    private void refreshCheckBox() {
+        if (movieList.contains(movie)) {
+            this.setSelected(true);
+        } else {
+            this.setSelected(false);
+        }
+    }
 
 }
+
+

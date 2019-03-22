@@ -60,6 +60,9 @@ public class ListManagedController implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
+    @FXML
+    private JFXButton btnRefresh;
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -98,6 +101,7 @@ public class ListManagedController implements Initializable {
 
         //btnDelete.setOnAction(event -> delteMovieList());
         setupDeleteButton();
+        setUpRefreshButton();
 
 
     }
@@ -139,6 +143,8 @@ public class ListManagedController implements Initializable {
         });
     }
 
+
+
     public void refreshContent(){
         User currentUser = UserModel.getInstance().getCurrentUser();
         UserModel.getInstance().update((UserImpl)currentUser);
@@ -178,6 +184,10 @@ public class ListManagedController implements Initializable {
                 popup.hide();
             }
         });
+    }
+
+    private void setUpRefreshButton(){
+        btnRefresh.setOnAction(event -> refreshContent());
     }
 
 
