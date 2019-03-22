@@ -2,6 +2,7 @@ package ViewController;
 
 import Model.Movie.Movie;
 import ViewController.Constructs.MovieOverviewConstruct;
+import ViewController.Controller.RootController;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
@@ -53,7 +54,8 @@ public class WindowManager {
         instanceManager = InstanceManager.getInstance(this);
 
         //initialise masterStackPane
-        masterStackPane = instanceManager.getRootController().getMasterStackpane();
+        masterStackPane = ((RootController) instanceManager.getWindowUnionController(E_Windows.Root)
+                .getController()).getMasterStackpane();
 
         //set StackCount to zero
         stackCount = 0;
@@ -61,8 +63,8 @@ public class WindowManager {
         //set current Stage
         currentStage = stage;
 
-        //switchScreenTo(Screens.HOMESCREEN);
-        switchScreenTo(Screens.LISTS);
+        //switchScreenTo(E_Windows.HOMESCREEN);
+        switchScreenTo(E_Windows.LISTS);
     }
 
     /**
@@ -81,7 +83,7 @@ public class WindowManager {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
-     * Switches Screens to the chosen screen.
+     * Switches E_Windows to the chosen screen.
      * The center stackpane, which holds all the screens, gets cleared
      * and the chosen screen is added on top.
      *
@@ -92,24 +94,9 @@ public class WindowManager {
      * For that see putMovieOverviewOnStack() method.
      * @param screen
      */
-    public void switchScreenTo(Screens screen){
-        switch (screen){
-            case HOMESCREEN:
-                switchScreen(instanceManager.getHomeView());
-                break;
-            case STATS:
-                switchScreen(instanceManager.getStatsView());
-                break;
-            case LISTS:
-                switchScreen(instanceManager.getListView());
-                break;
-            case SETTINGS:
-                //todo switch Screen on Stackpane to Settings
-                break;
-            case LOGIN:
-                switchScreen(instanceManager.getLoginView());
-                break;
-        }
+    public void switchScreenTo(E_Windows screen){
+        WindowControllerBridge wuc = instanceManager.getWindowUnionController(screen);
+        switchScreen(wuc.getWindow());
     }
 
     /**
@@ -166,8 +153,8 @@ public class WindowManager {
      * This view is added to the Scene.
      * @return  baseView of the Application.
      */
-    public Parent getBaseView(){
-        return instanceManager.getBaseView();
+    public Parent getRoot(){
+        return instanceManager.getWindowUnionController(E_Windows.Root).getWindow();
     }
 
     /**

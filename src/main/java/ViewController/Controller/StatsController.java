@@ -10,7 +10,7 @@ import ViewController.WindowManager;
  * @version 1.0
  * @since 2019-Feb-27
  */
-public class StatsController {
+public class StatsController extends Controller{
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

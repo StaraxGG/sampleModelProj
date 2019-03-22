@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
  * @version 1.0
  * @since 2019-Feb-27
  */
-public class MovieListController implements Initializable {
+public class MovieListController extends Controller implements Initializable {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

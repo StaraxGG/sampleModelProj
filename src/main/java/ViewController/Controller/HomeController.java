@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * @version 1.0
  * @since 2019-Feb-27
  */
-public class HomeController implements Initializable {
+public class HomeController extends Controller implements Initializable {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 
@@ -60,22 +60,6 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
-        //Sets some settings for the scrollPanes
-        setupScrollpanes();
-
-        //Retrieves lists with movies from TMDB
-        MovieModel movieModel = MovieModel.getInstance();
-        List<Movie> popularMovies = movieModel.getPopularMovies(0);
-        popularMovies.addAll(movieModel.getPopularMovies(2));
-
-        List<Movie> topRatedMovies = movieModel.getPopularMovies(0);
-        topRatedMovies.addAll(movieModel.getPopularMovies(2));
-
-        //Fills masonryPane with corresponding list
-        setupPopular(popularMovies);
-        setupLatest(topRatedMovies);
 
     }
 
@@ -111,6 +95,30 @@ public class HomeController implements Initializable {
     }
 
 
+    @Override
+    public ViewController.Controller.Controller setUp() {
+        //Sets some settings for the scrollPanes
+        setupScrollpanes();
+
+        //Retrieves lists with movies from TMDB
+        MovieModel movieModel = MovieModel.getInstance();
+        List<Movie> popularMovies = movieModel.getPopularMovies(0);
+        popularMovies.addAll(movieModel.getPopularMovies(2));
+
+        List<Movie> topRatedMovies = movieModel.getPopularMovies(0);
+        topRatedMovies.addAll(movieModel.getPopularMovies(2));
+
+        //Fills masonryPane with corresponding list
+        setupPopular(popularMovies);
+        setupLatest(topRatedMovies);
+
+        return this;
+    }
+
+    @Override
+    public void teardown() {
+        return;
+    }
 
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */

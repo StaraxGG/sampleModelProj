@@ -1,6 +1,7 @@
 package ViewController;
 
-public enum Screens {
+public enum E_Windows {
+    Root,
     HOMESCREEN,
     STATS,
     LISTS,
