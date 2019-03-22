@@ -1,6 +1,6 @@
 package ViewController;
 
-public enum E_Windows {
+public enum WINDOW_IDENTIFIER {
     Root,
     HOMESCREEN,
     STATS,

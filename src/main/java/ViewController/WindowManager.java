@@ -40,6 +40,8 @@ public class WindowManager {
     //currentStage
     private static Stage currentStage;
 
+    private WINDOW_IDENTIFIER current_window_identifier;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
 
@@ -54,7 +56,7 @@ public class WindowManager {
         instanceManager = InstanceManager.getInstance(this);
 
         //initialise masterStackPane
-        masterStackPane = ((RootController) instanceManager.getWindowUnionController(E_Windows.Root)
+        masterStackPane = ((RootController) instanceManager.getWindowControllerBridge(WINDOW_IDENTIFIER.Root)
                 .getController()).getMasterStackpane();
 
         //set StackCount to zero
@@ -63,8 +65,8 @@ public class WindowManager {
         //set current Stage
         currentStage = stage;
 
-        //switchScreenTo(E_Windows.HOMESCREEN);
-        switchScreenTo(E_Windows.LISTS);
+        //switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
+        switchScreenTo(WINDOW_IDENTIFIER.LISTS);
     }
 
     /**
@@ -83,20 +85,25 @@ public class WindowManager {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
-     * Switches E_Windows to the chosen screen.
+     * Switches WINDOW_IDENTIFIER to the chosen window_identifier.
      * The center stackpane, which holds all the screens, gets cleared
-     * and the chosen screen is added on top.
+     * and the chosen window_identifier is added on top.
      *
      * The instances are retrieved from the InstanceManager,
-     * which assures that no window is loaded multiple times.
+     * which assures that no window_identifier is loaded multiple times.
      *
      * This method doesn't allow stacking of screens.
      * For that see putMovieOverviewOnStack() method.
-     * @param screen
+     * @param window_identifier
      */
-    public void switchScreenTo(E_Windows screen){
-        WindowControllerBridge wuc = instanceManager.getWindowUnionController(screen);
-        switchScreen(wuc.getWindow());
+    public void switchScreenTo(WINDOW_IDENTIFIER window_identifier){
+        WindowControllerBridge bridge = instanceManager.getWindowControllerBridge(window_identifier);
+        bridge.getController().setUp();
+        switchScreen(bridge.getWindow());
+        if(this.current_window_identifier != null){
+            instanceManager.getWindowControllerBridge(this.current_window_identifier).getController().teardown();
+        }
+        this.current_window_identifier = window_identifier;
     }
 
     /**
@@ -154,7 +161,7 @@ public class WindowManager {
      * @return  baseView of the Application.
      */
     public Parent getRoot(){
-        return instanceManager.getWindowUnionController(E_Windows.Root).getWindow();
+        return instanceManager.getWindowControllerBridge(WINDOW_IDENTIFIER.Root).getWindow();
     }
 
     /**

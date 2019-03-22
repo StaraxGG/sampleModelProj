@@ -1,6 +1,6 @@
 package ViewController.Controller;
 
-import ViewController.E_Windows;
+import ViewController.WINDOW_IDENTIFIER;
 import ViewController.Start;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -52,9 +52,9 @@ public class RootController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnLists.setOnAction(event -> Start.getManager().switchScreenTo(E_Windows.LISTS));
-        btnHome.setOnAction(event -> Start.getManager().switchScreenTo(E_Windows.HOMESCREEN));
-        btnStats.setOnAction(event -> Start.getManager().switchScreenTo(E_Windows.STATS));
+        btnLists.setOnAction(event -> Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.LISTS));
+        btnHome.setOnAction(event -> Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN));
+        btnStats.setOnAction(event -> Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.STATS));
 
         masterStackpane.setPickOnBounds(false);
     }

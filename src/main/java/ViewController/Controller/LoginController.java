@@ -3,7 +3,7 @@ package ViewController.Controller;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
-import ViewController.E_Windows;
+import ViewController.WINDOW_IDENTIFIER;
 import ViewController.WindowManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -91,7 +91,7 @@ public class LoginController extends Controller implements Initializable {
 
         try{
             if(this.UMINstance.login(user) != null){
-                this.windowManager.switchScreenTo(E_Windows.HOMESCREEN);
+                this.windowManager.switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
             }
         }catch(Exception e ){
             //log

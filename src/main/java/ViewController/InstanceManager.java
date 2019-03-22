@@ -1,8 +1,6 @@
 package ViewController;
 
-import ViewController.Controller.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 import java.util.HashMap;
 
@@ -25,7 +23,7 @@ public class InstanceManager {
     private static InstanceManager instanceManager;
 
     private static WindowManager windowManager;
-    private HashMap<E_Windows, WindowControllerBridge> WindowIdentifier = new HashMap();
+    private HashMap<WINDOW_IDENTIFIER, WindowControllerBridge> WindowIdentifier = new HashMap();
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -42,11 +40,11 @@ public class InstanceManager {
         //todo load other views
 
 
-        this.WindowIdentifier.put(E_Windows.Root, new WindowControllerBridge(root));
-        this.WindowIdentifier.put(E_Windows.HOMESCREEN, new WindowControllerBridge(loaderHome));
-        this.WindowIdentifier.put(E_Windows.LISTS, new WindowControllerBridge(loaderLists));
-        this.WindowIdentifier.put(E_Windows.LOGIN, new WindowControllerBridge(loaderLogIn));
-        this.WindowIdentifier.put(E_Windows.STATS, new WindowControllerBridge(loaderStats));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.Root, new WindowControllerBridge(root));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.HOMESCREEN, new WindowControllerBridge(loaderHome));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.LISTS, new WindowControllerBridge(loaderLists));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.LOGIN, new WindowControllerBridge(loaderLogIn));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.STATS, new WindowControllerBridge(loaderStats));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
@@ -61,7 +59,7 @@ public class InstanceManager {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
-    public WindowControllerBridge getWindowUnionController(E_Windows screen){
+    public WindowControllerBridge getWindowControllerBridge(WINDOW_IDENTIFIER screen){
         return this.WindowIdentifier.get(screen);
     }
 }
