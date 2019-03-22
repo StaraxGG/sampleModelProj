@@ -53,7 +53,7 @@ public class WindowManager {
         instanceManager = InstanceManager.getInstance(this);
 
         //initialise masterStackPane
-        masterStackPane = instanceManager.getBaseController().getMasterStackpane();
+        masterStackPane = instanceManager.getRootController().getMasterStackpane();
 
         //set StackCount to zero
         stackCount = 0;

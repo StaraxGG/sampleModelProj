@@ -11,14 +11,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * An implementation of BaseController
+ * An implementation of RootController
  * in sample-model-project cool
  *
  * @author Nicolas
  * @version 1.0
  * @since 2019-Feb-27
  */
-public class BaseController implements Initializable {
+public class RootController implements Initializable {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

@@ -27,7 +27,7 @@ public class InstanceManager {
     private static WindowManager windowManager;
 
     //Controller and Views of controlled Screens
-    private BaseController baseController;
+    private RootController rootController;
     private Parent baseView;
 
     private HomeController homeController;
@@ -59,7 +59,7 @@ public class InstanceManager {
         try{
             //base setup
             this.baseView = loaderBase.load();
-            this.baseController = loaderBase.getController();
+            this.rootController = loaderBase.getController();
 
             //home setup
             this.homeView = loaderHome.load();
@@ -95,8 +95,8 @@ public class InstanceManager {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
-    public BaseController getBaseController() {
-        return baseController;
+    public RootController getRootController() {
+        return rootController;
     }
 
     public Parent getBaseView() {
