@@ -2,8 +2,8 @@ package ViewController.Controller;
 
 public class Controller implements IController {
     @Override
-    public Controller setUp() {
-        return null;
+    public void setUp() {
+        return;
     }
 
     @Override

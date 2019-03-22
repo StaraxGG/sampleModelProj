@@ -96,7 +96,7 @@ public class HomeController extends Controller implements Initializable {
 
 
     @Override
-    public ViewController.Controller.Controller setUp() {
+    public void setUp() {
         //Sets some settings for the scrollPanes
         setupScrollpanes();
 
@@ -111,8 +111,6 @@ public class HomeController extends Controller implements Initializable {
         //Fills masonryPane with corresponding list
         setupPopular(popularMovies);
         setupLatest(topRatedMovies);
-
-        return this;
     }
 
     @Override
