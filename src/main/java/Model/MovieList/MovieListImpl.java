@@ -52,7 +52,7 @@ public class MovieListImpl implements MovieList {
     private Set<UserImpl> users;
 
     @Transient
-    final Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
+    final static Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 

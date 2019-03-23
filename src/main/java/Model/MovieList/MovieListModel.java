@@ -22,7 +22,7 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     private static MovieListModel movieListModel = null;
 
-    final Logger logger = LoggerFactory.getLogger(MovieListModel.class);
+    final static Logger logger = LoggerFactory.getLogger(MovieListModel.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 

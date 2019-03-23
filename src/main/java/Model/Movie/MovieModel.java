@@ -39,7 +39,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
 
     private static MovieModel movieModel = null;
 
-    final Logger logger = LoggerFactory.getLogger(MovieModel.class);
+    final static Logger logger = LoggerFactory.getLogger(MovieModel.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 

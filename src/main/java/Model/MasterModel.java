@@ -36,7 +36,9 @@ public abstract class MasterModel<T extends Serializable, C> {
             Persistence.createEntityManagerFactory("sample-persistence-unit");
     private static TmdbApi tmdbApi = null;
 
-    final Logger logger = LoggerFactory.getLogger(MasterModel.class);
+
+
+    final static Logger logger = LoggerFactory.getLogger(MasterModel.class);
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
