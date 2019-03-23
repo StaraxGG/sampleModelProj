@@ -8,7 +8,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.RootController">
    <top>
-      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="600.0" styleClass="navBar" stylesheets="@../css/base.css" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="600.0" styleClass="navBar" stylesheets="@../css/base.css" BorderPane.alignment="CENTER" fx:id="topBar">
          <children>
             <JFXButton fx:id="btnLists" text="Lists" />
             <JFXButton fx:id="btnHome" text="Home" />
