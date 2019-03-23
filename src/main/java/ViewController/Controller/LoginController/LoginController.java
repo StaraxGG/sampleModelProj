@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -92,9 +93,11 @@ public class LoginController extends Controller implements Initializable {
 
         if(Objects.equals(usertext, "")){
             this.errorLabel.setText("Please enter a Username");
+            this.playLoginFailAnimation();
             return;
         }else if(!Objects.equals(usertext, "") && Objects.equals(pwtext, "")){
             this.errorLabel.setText("Please enter a password");
+            this.playLoginFailAnimation();
             return;
         }else{
             this.errorLabel.setText("");
@@ -131,6 +134,11 @@ public class LoginController extends Controller implements Initializable {
 
     /* ---------------------------------------- Animation ----------------------------------------------------------- */
     private void playLoginFailAnimation(){
+        this.playAnimation(this.createLoginAnimation());
+
+    }
+
+    private Transition createLoginAnimation(){
 
         TranslateTransition translateRight = new TranslateTransition(Duration.millis(25), this.loginButton);
         translateRight.setFromX(0);
@@ -146,8 +154,7 @@ public class LoginController extends Controller implements Initializable {
 
         SequentialTransition sequentialTransition= new SequentialTransition();
         sequentialTransition.getChildren().addAll(translateRight, translateLeft);
-        this.playAnimation(sequentialTransition);
-
+        return sequentialTransition;
     }
 
 

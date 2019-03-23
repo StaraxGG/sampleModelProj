@@ -68,6 +68,4 @@ public class RootController extends Controller implements Initializable {
     public StackPane getMasterStackpane() {
         return masterStackpane;
     }
-
-
 }
