@@ -1,6 +1,8 @@
 package Model.MovieList;
 
 import Model.MasterModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -19,6 +21,8 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
 
     /* ---------------------------------------- Attributes ---------------------------------------------------------- */
     private static MovieListModel movieListModel = null;
+
+    final Logger logger = LoggerFactory.getLogger(MovieListModel.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -51,7 +55,10 @@ public class MovieListModel extends MasterModel<Long, MovieListImpl> {
      * @return List
      */
     public List<MovieList> findByIds(List<Long> ids) {
+        logger.debug("Attempting to find MovieLists by IDs " + ids.toString());
 
+        logger.debug("Opening entitiyManager");
+        logger.error("EntitiyManager is never closed.");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         return em.createQuery("SELECT m FROM MovieListImpl m WHERE m.movieListID in :ids", MovieList.class)
