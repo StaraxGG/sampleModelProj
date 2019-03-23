@@ -6,6 +6,8 @@ import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import ViewController.Controller.Controller;
+import ViewController.Controller.RootController;
+import ViewController.InstanceManager;
 import ViewController.WINDOW_IDENTIFIER;
 import ViewController.Start;
 import ViewController.WindowManager;
@@ -157,7 +159,21 @@ public class LoginController extends Controller implements Initializable {
         return sequentialTransition;
     }
 
+    @Override
+    protected void setComponentUp(){
+        ((RootController)InstanceManager
+                .getInstance()
+                .getWindowControllerBridge(WINDOW_IDENTIFIER.Root)
+                .getController()).disableTopBar();
+    }
 
+    @Override
+    protected void tearComponentDown(){
+        ((RootController)InstanceManager
+                .getInstance()
+                .getWindowControllerBridge(WINDOW_IDENTIFIER.Root)
+                .getController()).enableTopBar();
+    }
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
 }

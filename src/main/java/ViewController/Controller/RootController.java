@@ -5,6 +5,7 @@ import ViewController.Start;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -67,5 +68,19 @@ public class RootController extends Controller implements Initializable {
 
     public StackPane getMasterStackpane() {
         return masterStackpane;
+    }
+
+    public void disableTopBar(){
+        this.topBar.setOpacity(0);
+        for(Node node : this.topBar.getChildren()){
+            node.setDisable(true);
+        }
+    }
+
+    public void enableTopBar(){
+        this.topBar.setOpacity(1);
+        for(Node node : this.topBar.getChildren()){
+            node.setDisable(false);
+        }
     }
 }
