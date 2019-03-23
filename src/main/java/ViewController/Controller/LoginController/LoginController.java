@@ -146,7 +146,7 @@ public class LoginController extends Controller implements Initializable {
 
         SequentialTransition sequentialTransition= new SequentialTransition();
         sequentialTransition.getChildren().addAll(translateRight, translateLeft);
-        sequentialTransition.play();
+        this.playAnimation(sequentialTransition);
 
     }
 

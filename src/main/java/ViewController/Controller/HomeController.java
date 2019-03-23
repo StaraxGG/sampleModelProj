@@ -96,7 +96,7 @@ public class HomeController extends Controller implements Initializable {
 
 
     @Override
-    public void setUp() {
+    protected void setComponentUp() {
         //Sets some settings for the scrollPanes
         setupScrollpanes();
 
@@ -112,12 +112,6 @@ public class HomeController extends Controller implements Initializable {
         setupPopular(popularMovies);
         setupLatest(topRatedMovies);
     }
-
-    @Override
-    public void teardown() {
-        return;
-    }
-
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
