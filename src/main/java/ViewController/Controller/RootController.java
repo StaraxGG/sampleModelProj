@@ -5,6 +5,7 @@ import ViewController.Start;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
@@ -38,6 +39,9 @@ public class RootController extends Controller implements Initializable {
 
     @FXML
     private StackPane masterStackpane;
+
+    @FXML
+    private HBox topBar;
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
