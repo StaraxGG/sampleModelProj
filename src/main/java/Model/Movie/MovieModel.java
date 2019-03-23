@@ -17,6 +17,8 @@ import javax.persistence.TypedQuery;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of MovieModel
@@ -37,12 +39,16 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
 
     private static MovieModel movieModel = null;
 
+    final Logger logger = LoggerFactory.getLogger(MovieModel.class);
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
     private MovieModel() {
         super();
+        logger.debug("Requesting Movies from Tmdb API");
         tmdbMovies = this.getTmdbApi().getMovies();
+        logger.debug("Requesting Search from Tmdb API");
         tmdbSearch = this.getTmdbApi().getSearch();
     }
 
@@ -155,6 +161,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return Movie
      */
     public Movie getTmdbMovie(Integer id) {
+        logger.debug("Query for Movie with id " + id.toString());
         MovieDb movie = tmdbMovies.getMovie(id, tmdbLang);
         return parseTmdbMovie(movie);
     }
@@ -173,6 +180,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return List
      */
     public List<Movie> getTmdbMovies(String query, Integer page) {
+        logger.debug("Query for Movies with query: " + query + " at page " + page.toString() );
         MovieResultsPage movieResultsPage =
                 tmdbSearch.searchMovie(
                         query,
@@ -196,6 +204,8 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      */
     public List<Movie> getSimilarMovies(Movie movie, Integer page) {
 
+        logger.debug("Query for similar movie for movie: " + movie.toString() + " at page " + page.toString());
+
         List<MovieDb> results =
                 tmdbMovies.getSimilarMovies(movie.getTmdbId(), ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
@@ -209,6 +219,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return List
      */
     public List<Movie> getPopularMovies(Integer page) {
+        logger.debug("Query for popular movies at page " + page.toString());
 
         List<MovieDb> results =
                 tmdbMovies.getPopularMovies(ConfigTools.getVal("lang"), page).getResults();
@@ -225,6 +236,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return List
      */
     public List<Movie> getNowPlayingMovies(String region, Integer page) {
+        logger.debug("Query for now playing movies at region: " + region.toString() + " at page " + page.toString());
 
         List<MovieDb> results =
                 tmdbMovies.getNowPlayingMovies(ConfigTools.getVal("lang"), page, region).getResults();
@@ -240,7 +252,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return List
      */
     public List<Movie> getUpcoming(String region, Integer page) {
-
+        logger.debug("Query for upcoming movies at region " + region.toString() + " at page " + page.toString());
         List<MovieDb> results =
                 tmdbMovies.getUpcoming(ConfigTools.getVal("lang"), page, region).getResults();
         return parseTmdbMovieList(results);
@@ -254,7 +266,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return List
      */
     public List<Movie> getTopRatedMovies(Integer page) {
-
+        logger.debug("Query for top rated movies at page " + page.toString());
         List<MovieDb> results =
                 tmdbMovies.getTopRatedMovies(ConfigTools.getVal("lang"), page).getResults();
         return parseTmdbMovieList(results);
@@ -267,7 +279,7 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
      * @return MovieImpl if it was found, null if more than one was found (which should not happen) or none was found
      */
     public MovieImpl findByTmdbId(Integer id) {
-
+        logger.debug("Query for movie from tmdb with id " + id.toString());
         EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
         TypedQuery<MovieImpl> query =
                 entityManager
@@ -278,9 +290,10 @@ public class MovieModel extends MasterModel<Long, MovieImpl> {
             return query.getSingleResult();
 
         } catch (NoResultException | NonUniqueResultException nre) {
-            System.err.println(nre);
+            logger.error(nre.getClass().getSimpleName() + " for movieid " + id.toString());
             return null;
         } finally {
+            logger.info("Entity Manager closed in MovieModel.java");
             entityManager.close();
         }
 
