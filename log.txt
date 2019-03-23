@@ -1,0 +1,9 @@
+2019.03.23 13:10:08 CET [DEBUG] Model.Movie.MovieModel - Requesting Movies from Tmdb API
+2019.03.23 13:10:09 CET [DEBUG] Model.Movie.MovieModel - Requesting Search from Tmdb API
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - findById was called with argument test3@test.de
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - Creting EntityManager
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - Querying transaction from EntityManager
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - Starting Transaction
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - Querying EntityManager for entityClass UserImpl with id test3@test.de
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - Commiting Transaction org.hibernate.engine.transaction.internal.TransactionImpl@74f3ee46
+2019.03.23 13:10:09 CET [DEBUG] Model.MasterModel - Closing EntityManager

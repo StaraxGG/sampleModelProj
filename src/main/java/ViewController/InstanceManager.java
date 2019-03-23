@@ -23,7 +23,7 @@ public class InstanceManager {
     private static InstanceManager instanceManager;
 
     private static WindowManager windowManager;
-    private HashMap<WINDOW_IDENTIFIER, WindowControllerBridge> WindowIdentifier = new HashMap();
+    private HashMap<WINDOW_IDENTIFIER, WindowControllerBridge> WindowIdentifierMap = new HashMap();
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -41,12 +41,12 @@ public class InstanceManager {
         //todo load other views
 
 
-        this.WindowIdentifier.put(WINDOW_IDENTIFIER.Root, new WindowControllerBridge(root));
-        this.WindowIdentifier.put(WINDOW_IDENTIFIER.HOMESCREEN, new WindowControllerBridge(loaderHome));
-        this.WindowIdentifier.put(WINDOW_IDENTIFIER.LISTS, new WindowControllerBridge(loaderLists));
-        this.WindowIdentifier.put(WINDOW_IDENTIFIER.LOGIN, new WindowControllerBridge(loaderLogIn));
-        this.WindowIdentifier.put(WINDOW_IDENTIFIER.STATS, new WindowControllerBridge(loaderStats));
-        this.WindowIdentifier.put(WINDOW_IDENTIFIER.REGISTER, new WindowControllerBridge(loaderRegister));
+        this.WindowIdentifierMap.put(WINDOW_IDENTIFIER.Root, new WindowControllerBridge(root));
+        this.WindowIdentifierMap.put(WINDOW_IDENTIFIER.HOMESCREEN, new WindowControllerBridge(loaderHome));
+        this.WindowIdentifierMap.put(WINDOW_IDENTIFIER.LISTS, new WindowControllerBridge(loaderLists));
+        this.WindowIdentifierMap.put(WINDOW_IDENTIFIER.LOGIN, new WindowControllerBridge(loaderLogIn));
+        this.WindowIdentifierMap.put(WINDOW_IDENTIFIER.STATS, new WindowControllerBridge(loaderStats));
+        this.WindowIdentifierMap.put(WINDOW_IDENTIFIER.REGISTER, new WindowControllerBridge(loaderRegister));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
@@ -62,6 +62,6 @@ public class InstanceManager {
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     public WindowControllerBridge getWindowControllerBridge(WINDOW_IDENTIFIER screen){
-        return this.WindowIdentifier.get(screen);
+        return this.WindowIdentifierMap.get(screen);
     }
 }
