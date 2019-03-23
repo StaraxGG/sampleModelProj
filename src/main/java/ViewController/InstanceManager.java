@@ -59,6 +59,13 @@ public class InstanceManager {
         return instanceManager;
     }
 
+    public static InstanceManager getInstance(){
+        if(instanceManager == null){
+            instanceManager = new InstanceManager();
+        }
+        return instanceManager;
+    }
+
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     public WindowControllerBridge getWindowControllerBridge(WINDOW_IDENTIFIER screen){
