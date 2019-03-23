@@ -1,9 +1,11 @@
 package ViewController;
 
-public enum Screens {
+public enum WINDOW_IDENTIFIER {
+    Root,
     HOMESCREEN,
     STATS,
     LISTS,
     SETTINGS,
-    LOGIN
+    LOGIN,
+    REGISTER
 }

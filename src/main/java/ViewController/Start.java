@@ -47,7 +47,7 @@ public class Start extends Application {
     public void start(Stage primaryStage) throws Exception {
         WindowManager windowManager = WindowManager.getInstance(primaryStage);
         windowManagerSave = windowManager;
-        primaryStage.setScene(new Scene(windowManager.getBaseView()));
+        primaryStage.setScene(new Scene(windowManager.getRoot()));
         primaryStage.show();
     }
 

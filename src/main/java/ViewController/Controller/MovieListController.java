@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * An implementation of ListManagedController
+ * An implementation of MovieListController
  * in sample-model-project
  *
  * @author Nicolas
  * @version 1.0
  * @since 2019-Feb-27
  */
-public class ListManagedController implements Initializable {
+public class MovieListController extends Controller implements Initializable {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

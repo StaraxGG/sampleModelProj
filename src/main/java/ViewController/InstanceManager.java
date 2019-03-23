@@ -1,10 +1,8 @@
 package ViewController;
 
-import ViewController.Controller.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
-import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * An implementation of InstanceManager
@@ -25,22 +23,7 @@ public class InstanceManager {
     private static InstanceManager instanceManager;
 
     private static WindowManager windowManager;
-
-    //Controller and Views of controlled Screens
-    private BaseManagedController baseManagedController;
-    private Parent baseView;
-
-    private HomeManagedController homeManagedController;
-    private Parent homeView;
-
-    private ListManagedController listManagedController;
-    private Parent listView;
-
-    private LoginManagedController loginManagedController;
-    private Parent loginView;
-
-    private StatsManagedController statsManagedController;
-    private Parent statsView;
+    private HashMap<WINDOW_IDENTIFIER, WindowControllerBridge> WindowIdentifier = new HashMap();
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -49,36 +32,21 @@ public class InstanceManager {
     /* ---------------------------------------- Constructors -------------------------------------------------------- */
 
     private InstanceManager(){
-        FXMLLoader loaderBase = new FXMLLoader(getClass().getResource("/fxml/baseWindow.fxml"));
+        FXMLLoader root = new FXMLLoader(getClass().getResource("/fxml/rootWindow.fxml"));
         FXMLLoader loaderHome = new FXMLLoader(getClass().getResource("/fxml/homeWindow.fxml"));
         FXMLLoader loaderLists = new FXMLLoader(getClass().getResource("/fxml/listsWindow.fxml"));
         FXMLLoader loaderLogIn = new FXMLLoader(getClass().getResource("/fxml/logInWindow.fxml"));
         FXMLLoader loaderStats = new FXMLLoader(getClass().getResource("/fxml/statsWindow.fxml"));
+        FXMLLoader loaderRegister = new FXMLLoader(getClass().getResource("/fxml/registerWindow.fxml"));
+        //todo load other views
 
-        try{
-            //base setup
-            this.baseView = loaderBase.load();
-            this.baseManagedController = loaderBase.getController();
 
-            //home setup
-            this.homeView = loaderHome.load();
-            this.homeManagedController = loaderHome.getController();
-
-            //list setup
-            this.listView = loaderLists.load();
-            this.listManagedController = loaderLists.getController();
-
-            //login setup
-            this.loginView = loaderLogIn.load();
-            this.loginManagedController = loaderLogIn.getController();
-
-            //stats setup
-            this.statsView = loaderStats.load();
-            this.statsManagedController = loaderStats.getController();
-
-        } catch (IOException exception){
-            throw new RuntimeException(exception);
-        }
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.Root, new WindowControllerBridge(root));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.HOMESCREEN, new WindowControllerBridge(loaderHome));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.LISTS, new WindowControllerBridge(loaderLists));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.LOGIN, new WindowControllerBridge(loaderLogIn));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.STATS, new WindowControllerBridge(loaderStats));
+        this.WindowIdentifier.put(WINDOW_IDENTIFIER.REGISTER, new WindowControllerBridge(loaderRegister));
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
@@ -93,43 +61,7 @@ public class InstanceManager {
 
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
-    public BaseManagedController getBaseManagedController() {
-        return baseManagedController;
-    }
-
-    public Parent getBaseView() {
-        return baseView;
-    }
-
-    public HomeManagedController getHomeManagedController() {
-        return homeManagedController;
-    }
-
-    public Parent getHomeView() {
-        return homeView;
-    }
-
-    public ListManagedController getListManagedController() {
-        return listManagedController;
-    }
-
-    public Parent getListView() {
-        return listView;
-    }
-
-    public LoginManagedController getLoginManagedController() {
-        return loginManagedController;
-    }
-
-    public Parent getLoginView() {
-        return loginView;
-    }
-
-    public StatsManagedController getStatsManagedController() {
-        return statsManagedController;
-    }
-
-    public Parent getStatsView() {
-        return statsView;
+    public WindowControllerBridge getWindowControllerBridge(WINDOW_IDENTIFIER screen){
+        return this.WindowIdentifier.get(screen);
     }
 }

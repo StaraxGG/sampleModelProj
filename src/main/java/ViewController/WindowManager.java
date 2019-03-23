@@ -1,17 +1,13 @@
 package ViewController;
 
 import Model.Movie.Movie;
-import ViewController.Constructs.MovieConstruct;
 import ViewController.Constructs.MovieOverviewConstruct;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.controls.JFXTabPane;
+import ViewController.Controller.MovieListController;
+import ViewController.Controller.RootController;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 /**
  * An implementation of WindowManager
@@ -45,6 +41,8 @@ public class WindowManager {
     //currentStage
     private static Stage currentStage;
 
+    private WINDOW_IDENTIFIER current_window_identifier;
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
 
@@ -59,7 +57,8 @@ public class WindowManager {
         instanceManager = InstanceManager.getInstance(this);
 
         //initialise masterStackPane
-        masterStackPane = instanceManager.getBaseManagedController().getMasterStackpane();
+        masterStackPane = ((RootController) instanceManager.getWindowControllerBridge(WINDOW_IDENTIFIER.Root)
+                .getController()).getMasterStackpane();
 
         //set StackCount to zero
         stackCount = 0;
@@ -67,8 +66,8 @@ public class WindowManager {
         //set current Stage
         currentStage = stage;
 
-        //switchScreenTo(Screens.HOMESCREEN);
-        switchScreenTo(Screens.HOMESCREEN);
+        //switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
+        switchScreenTo(WINDOW_IDENTIFIER.LOGIN);
     }
 
     /**
@@ -87,35 +86,25 @@ public class WindowManager {
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
     /**
-     * Switches Screens to the chosen screen.
+     * Switches WINDOW_IDENTIFIER to the chosen window_identifier.
      * The center stackpane, which holds all the screens, gets cleared
-     * and the chosen screen is added on top.
+     * and the chosen window_identifier is added on top.
      *
      * The instances are retrieved from the InstanceManager,
-     * which assures that no window is loaded multiple times.
+     * which assures that no window_identifier is loaded multiple times.
      *
      * This method doesn't allow stacking of screens.
      * For that see putMovieOverviewOnStack() method.
-     * @param screen
+     * @param window_identifier
      */
-    public void switchScreenTo(Screens screen){
-        switch (screen){
-            case HOMESCREEN:
-                switchScreen(instanceManager.getHomeView());
-                break;
-            case STATS:
-                switchScreen(instanceManager.getStatsView());
-                break;
-            case LISTS:
-                switchScreen(instanceManager.getListView());
-                break;
-            case SETTINGS:
-                //todo switch Screen on Stackpane to Settings
-                break;
-            case LOGIN:
-                switchScreen(instanceManager.getLoginView());
-                break;
+    public void switchScreenTo(WINDOW_IDENTIFIER window_identifier){
+        WindowControllerBridge bridge = instanceManager.getWindowControllerBridge(window_identifier);
+        bridge.getController().setUp();
+        switchScreen(bridge.getWindow());
+        if(this.current_window_identifier != null){
+            instanceManager.getWindowControllerBridge(this.current_window_identifier).getController().teardown();
         }
+        this.current_window_identifier = window_identifier;
     }
 
     /**
@@ -131,7 +120,9 @@ public class WindowManager {
      * Refreshes content of the ListView
      */
     public void refreshListView(){
-        instanceManager.getListManagedController().refreshContent();
+        ((MovieListController) instanceManager.
+                getWindowControllerBridge(WINDOW_IDENTIFIER.LISTS)
+                .getController()).refreshContent();
     }
 
     /**
@@ -179,8 +170,8 @@ public class WindowManager {
      * This view is added to the Scene.
      * @return  baseView of the Application.
      */
-    public Parent getBaseView(){
-        return instanceManager.getBaseView();
+    public Parent getRoot(){
+        return instanceManager.getWindowControllerBridge(WINDOW_IDENTIFIER.Root).getWindow();
     }
 
     /**

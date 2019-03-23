@@ -52,7 +52,7 @@ public class MovieListImpl implements MovieList {
     private Set<UserImpl> users;
 
     @Transient
-    final Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
+    final static Logger logger = LoggerFactory.getLogger(MovieListImpl.class);
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -65,6 +65,7 @@ public class MovieListImpl implements MovieList {
      */
     public MovieListImpl(String movieListName, String creatorUserName) throws UserNotFoundException {
         this(movieListName, creatorUserName, null);
+        logger.debug("New MovieListImpl Object with name " + movieListName + " by user " + creatorUserName);
     }
 
     /**
@@ -78,6 +79,8 @@ public class MovieListImpl implements MovieList {
     public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
         // run default constructor for init shit
         this();
+        logger.debug("New MovieListImpl Object with name " + movieListName + " by user " + creatorUserName
+                + " with movie " + movie.getId());
 
         // init attributes
         this.movieListName = movieListName;
@@ -111,7 +114,7 @@ public class MovieListImpl implements MovieList {
      * @deprecated use {@link #addUser(User)} instead
      */
     public boolean addUserByName(String username) throws UserNotFoundException {
-
+        logger.debug("(Deprecated) add movielist " + this.getId() + " to user " + username);
         User tmpUser = UserModel.getInstance().findById(username);
 
         // check if this user exists
@@ -174,28 +177,44 @@ public class MovieListImpl implements MovieList {
      */
     @Override
     public boolean addMovie(Movie movie) {
-
+        logger.debug("Adding Movie " + movie.toString() + "to MovieList " + this.getId());
         MovieModel movieModel = MovieModel.getInstance();
         MovieImpl tmpMovie;
 
         if (!(movie instanceof MovieImpl) || this.movies.contains(movie)) {
+            logger.debug("Movie " + movie.getId() + " either not instance of MovieImpl or List already " +
+                    "contains movie " + movie.getId());
             return false;
         }
 
         // search the database for this movie
+        logger.debug("Attempting to find movie " + movie.getId() + "in Tmdb Database (TmdBMovieId: " +
+                movie.getTmdbId() + ")");
         tmpMovie = movieModel.findByTmdbId(movie.getTmdbId());
 
         // if this movie is already in the database, then add THAT to this MovieList
         if (tmpMovie != null) {
+            logger.debug("tmpMovie" + movie.getId() + " is already in database, " +
+                    "will be added to THIS movie" +
+                    "list " + this.getId());
             this.movies.add(tmpMovie);
 
             // also: make the bidirectional connection
+            logger.debug("Making bidirectional connections");
+            logger.debug("Adding tmpMovie" + tmpMovie.getId() + "to this movie list " + this.getId());
             tmpMovie.addMovieList(this);
+            logger.debug("Updating MovieModel with movie " + tmpMovie.getId());
             movieModel.update(tmpMovie);
         } else {
             // otherwise add THIS movie to this list and persist it in the database
+            logger.debug("Movie " + movie.getId() + " is NOT already in database, so it will be" +
+                    "added to this " + this.getId() + " list and persisted in database");
+            logger.debug("Adding movie " + movie.getId() +
+                    " to movies of this " + this.getId() + " list");
             this.movies.add((MovieImpl) movie);
+            logger.debug("Add this " + this.getId() + "to movie " + movie.getId());
             movie.addMovieList(this);
+            logger.debug("Persisting movie " + movie.getId() + " to the database");
             movieModel.persist((MovieImpl) movie);
         }
 
@@ -204,6 +223,7 @@ public class MovieListImpl implements MovieList {
 
     @Override
     public boolean addMovies(List<Movie> movies) {
+        logger.debug("Adding movies from list " + movies.toString() + " to this " + this.getId() + "list");
         if (movies == null)
             return false;
 
@@ -230,24 +250,31 @@ public class MovieListImpl implements MovieList {
 
     @Override
     public boolean addUser(User user) throws UserNotFoundException {
+        logger.debug("Adding user " + user.getUsername() + " to this list " + this.getId());
         // null check
-        if (user == null)
+        if (user == null) {
+            logger.warn("Give user " + user.getUsername() + " was null");
             return false;
-
+        }
         // verify if this user exists
+        logger.debug("Verifying that user " + user.getUsername() + " exists.");
         User userTmp = UserModel.getInstance().findById(user.getUsername());
-        if (userTmp == null)
+        if (userTmp == null) {
+            logger.error("User " + user.getUsername() + " was not found in UserModel");
             throw new UserNotFoundException();
-
+        }
         // give this user the movie list
+        logger.debug("Add this list " + this.getId() + " to user " + user.getUsername());
         user.addMovieList(this);
 
         // add this user to the movieList
+        logger.debug("Adding user " + user.getUsername() + " to this list " + this.getId());
         return this.users.add((UserImpl) user);
     }
 
     @Override
     public boolean hasUser(User user) {
+        logger.debug("Checking if user " + user.getUsername() + " is in this list.");
         if (!(user instanceof UserImpl))
             return false;
         return this.users.contains(user);
@@ -322,6 +349,7 @@ public class MovieListImpl implements MovieList {
 
     @Override
     public boolean contains(Movie movie) {
+        logger.debug("Check if movie " + movie.getId() + " is contained in this list " + this.getId());
         // instaceof checks for null as well
         // i mean if this is not a movie, why check at all?
         if (!(movie instanceof MovieImpl))

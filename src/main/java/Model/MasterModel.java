@@ -36,7 +36,9 @@ public abstract class MasterModel<T extends Serializable, C> {
             Persistence.createEntityManagerFactory("sample-persistence-unit");
     private static TmdbApi tmdbApi = null;
 
-    final Logger logger = LoggerFactory.getLogger(MasterModel.class);
+
+
+    final static Logger logger = LoggerFactory.getLogger(MasterModel.class);
 
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
@@ -78,8 +80,11 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @return
      */
     public C persist(C entity) {
+        logger.debug("Function persist was called with argument " + entity.toString());
+        logger.debug("EntityManager created");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
+        logger.debug("Querying transaction from EntitiyManager");
         EntityTransaction transaction = em.getTransaction();
 
         C result = null;
@@ -87,11 +92,14 @@ public abstract class MasterModel<T extends Serializable, C> {
         try {
 
             // start the transaction
+            logger.debug("Starting transaction");
             transaction.begin();
 
+            logger.debug("Trying to persist entity " + entity.toString());
             em.persist(entity);
 
             // commit the thing
+            logger.debug("Trying to commit transaction " + transaction.toString());
             transaction.commit();
 
             // find it again
@@ -99,10 +107,16 @@ public abstract class MasterModel<T extends Serializable, C> {
 
         } catch (PersistenceException pe) {
             logger.error(pe.getMessage(), pe);
-            if (transaction != null && transaction.isActive())
+            if (transaction != null && transaction.isActive()) {
+                logger.warn("Transaction will be back");
                 transaction.rollback();
+            }else{
+                logger.error("Transaction could not be rollbacked!!! Transaction: "
+                        + transaction.toString());
+            }
 
         } finally {
+            logger.debug("Closing EntitiyManager");
             em.close();
         }
 
@@ -116,30 +130,42 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @return true if successful
      */
     public boolean remove(C entity) {
+        logger.debug("Function remove was called with argument " + entity.toString());
 
+        logger.debug("Creating EntityManager");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
+        logger.debug("Querying transaction from EntityManager");
         EntityTransaction transaction = em.getTransaction();
 
         try {
 
             // start the transaction
+            logger.debug("Starting Transaction");
             transaction.begin();
 
+            logger.debug("Trying to remove entity " + entity.toString());
             em.remove(em.contains(entity) ? entity : em.merge(entity));
 
             // commit the thing
+            logger.debug("Trying to commit transaction " + transaction.toString());
             transaction.commit();
 
 
         } catch (PersistenceException pe) {
             logger.error(pe.getMessage(), pe);
-            if (transaction != null && transaction.isActive())
+            if (transaction != null && transaction.isActive()) {
+                logger.warn("Transaction will be rolled back");
                 transaction.rollback();
+            }else{
+                logger.error("Transaction could not be rollbacked!!! " +
+                        "Transaction: " + transaction.toString());
+            }
 
             return false;
 
         } finally {
+            logger.debug("Closing EntityManager");
             em.close();
         }
 
@@ -153,6 +179,7 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @return C the updated object
      */
     public C update(C entity) {
+        logger.debug("Update was called with argument " + entity.toString());
         return doInTransaction((em) -> em.merge(entity));
     }
 
@@ -163,8 +190,11 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @return C
      */
     public C findById(T id) {
+        logger.debug("findById was called with argument " + id.toString());
+        logger.debug("Creting EntityManager");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
+        logger.debug("Querying transaction from EntityManager");
         EntityTransaction transaction = em.getTransaction();
 
         C result = null;
@@ -172,19 +202,29 @@ public abstract class MasterModel<T extends Serializable, C> {
         try {
 
             // start the transaction
+            logger.debug("Starting Transaction");
             transaction.begin();
 
+            logger.debug("Querying EntityManager for entityClass " + this.entityClass.getSimpleName()
+                    + " with id " + id.toString());
             result = em.find(this.entityClass, id);
 
             // commit the thing
+            logger.debug("Commiting Transaction " + transaction.toString());
             transaction.commit();
 
         } catch (PersistenceException pe) {
             logger.error(pe.getMessage(), pe);
-            if (transaction != null && transaction.isActive())
+            if (transaction != null && transaction.isActive()) {
+                logger.debug("Transaction will be rolled back");
                 transaction.rollback();
+            }else{
+                logger.error("Transaction could not be rolled back!!! " +
+                        "Transaction: " + transaction.toString());
+            }
 
         } finally {
+            logger.debug("Closing EntityManager");
             em.close();
         }
 
@@ -200,9 +240,12 @@ public abstract class MasterModel<T extends Serializable, C> {
      * @return boolean returns true if transaction was successful
      */
     private C doInTransaction(MasterTransaction<C> masterTransaction) {
+        logger.debug("Function doInTransaction was called");
 
+        logger.debug("Starting Transaction");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
+        logger.debug("Querying transaction from EntityManager");
         EntityTransaction transaction = em.getTransaction();
 
         C result = null;
@@ -210,20 +253,29 @@ public abstract class MasterModel<T extends Serializable, C> {
         try {
 
             // start the transaction
+            logger.debug("Starting Transaction");
             transaction.begin();
 
             // do the thing
+            logger.debug("Trying to do masterTransaction.doInTransaction");
             result = masterTransaction.doInTransaction(em);
 
             // commit the thing
+            logger.debug("Commiting Transaction " + transaction.toString());
             transaction.commit();
 
         } catch (PersistenceException pe) {
             logger.error(pe.getMessage(), pe);
-            if (transaction != null && transaction.isActive())
+            if (transaction != null && transaction.isActive()) {
+                logger.debug("Transaction will be rolled back");
                 transaction.rollback();
+            }else{
+            logger.error("Transaction could not be rolled back!!! " +
+                    "Transaction: " + transaction.toString());
+            }
 
         } finally {
+            logger.debug("Closing EntityManager");
             em.close();
         }
 
