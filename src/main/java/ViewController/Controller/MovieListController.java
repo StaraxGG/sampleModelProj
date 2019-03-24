@@ -1,7 +1,9 @@
 package ViewController.Controller;
 
+import Model.Movie.MovieImpl;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Model.MovieList.MovieListModel;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
@@ -14,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.List;
@@ -55,6 +59,8 @@ public class MovieListController extends Controller implements Initializable {
     @FXML
     private JFXButton addListButton;
 
+    final static Logger logger = LoggerFactory.getLogger(MovieListController.class);
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -68,12 +74,14 @@ public class MovieListController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        logger.debug("Initialised MovieListController Component");
         this.addListButton.setOnMouseClicked(this.addListButtonClicked);
 
     }
 
     @Override
     protected void setComponentUp(){
+        logger.debug("Setting up MovieListController Component");
         User user = UserModel.getInstance().getCurrentUser();
         setUpListView((UserImpl) user);
 
@@ -83,17 +91,32 @@ public class MovieListController extends Controller implements Initializable {
 
 
     private EventHandler<? super MouseEvent> addListButtonClicked = me -> {
+        logger.debug("User clicked addListButton");
         User currentUser = UserModel.getInstance().getCurrentUser();
+
+        MovieListImpl newlist = null;
         try {
-            currentUser.getMovieLists()
-                    .add(new MovieListImpl("test", currentUser.getUsername()));
+            logger.debug("Creating new list for user " + currentUser.getUsername());
+            newlist = new MovieListImpl("test", currentUser.getUsername());
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e.getClass().getSimpleName());
+        }
+
+        currentUser.getMovieLists().add(newlist);
+        try {
+            logger.debug("Adding user to list " + newlist.getName());
+            newlist.addUser(currentUser);
+        } catch (UserNotFoundException e) {
+            logger.error(e.getMessage(), e.getClass().getSimpleName());
         }
 
         if(currentUser instanceof UserImpl){
-            UserModel.getInstance().update((UserImpl)currentUser);
             setUpListView((UserImpl)currentUser);
+
+            logger.debug("Persisting User");
+            UserModel.getInstance().persist((UserImpl) currentUser);
+            logger.debug("Persisting Movie List");
+            MovieListModel.getInstance().persist(newlist);
         }
     };
     /**
