@@ -1,5 +1,6 @@
 package Model.MovieList;
 
+import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
@@ -38,17 +39,23 @@ public class MovieListImplTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         testMovie = new MovieImpl();
         testMovieTwo = new MovieImpl();
         UserImpl testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
-        //UserImpl testUserTwo = new UserImpl(SEC_TEST_USER_NAME, SEC_TEST_USER_PASSWORD);
+        UserImpl testUserTwo = new UserImpl(SEC_TEST_USER_NAME, SEC_TEST_USER_PASSWORD);
         UserModel.getInstance().register(testUser);
+        UserModel.getInstance().register(testUserTwo);
 
-        movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
-        this.movieListImpl.setMovieListID(MOVIE_LIST_ID);
+        try {
+            movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
+            this.movieListImpl.setMovieListID(MOVIE_LIST_ID);
 
-        this.movieListImpl.addUserByName(TEST_USER_NAME);
+            this.movieListImpl.addUserByName(TEST_USER_NAME);
+        }
+        catch(UserNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -138,7 +145,7 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddUserEXCEPTION() throws UserNotFoundException {
+    public void testAddUserEXCEPTION() {
         UserImpl user = new UserImpl(TEST_USER_NAME, "123456");
         this.movieListImpl.getUsers().add(user);
         assertTrue(this.movieListImpl.getUsers().contains(user));
@@ -159,8 +166,14 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testContains() {
-        fail();
+    public void testContainsTrue() {
+        this.movieListImpl.addMovie(testMovie);
+        assertTrue(movieListImpl.contains(testMovie));
+    }
+
+    @Test
+    public void testContainsFalse() {
+        assertFalse(movieListImpl.contains(testMovie));
     }
 
     @Test

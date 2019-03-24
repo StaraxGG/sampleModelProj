@@ -1,8 +1,6 @@
 package Model.Movie;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.LinkedList;
 
@@ -33,8 +31,9 @@ public class MovieImplTest {
     private static final String testLanguage = "de";
     private static final String testStatus = "released";
 
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.movie.setTmdbId(tmdbID);
         this.movie.setTitle(testTitle);
         this.movie.setPopularity(5.5f);
@@ -61,10 +60,6 @@ public class MovieImplTest {
         productionCountries.add(proCoun);
         this.movie.setProductionCountries(productionCountries);
 
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
