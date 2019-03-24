@@ -1,7 +1,5 @@
 package ViewController.Controller;
 
-import Model.Movie.MovieImpl;
-import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import Model.MovieList.MovieListModel;
 import Model.User.Exception.UserNotFoundException;
@@ -125,7 +123,11 @@ public class MovieListController extends Controller implements Initializable {
      * @param user
      */
     private void setUpListView(UserImpl user){
+        logger.debug("setUpListView was called for user with name " + user.getUsername());
         List<MovieListImpl> movieLists = user.getMovieLists();
+
+        logger.debug("User with name " + user.getUsername()
+                + " has " + movieLists.size() +" Lists");
         jfxList.getItems().clear();
         jfxMasonry.getChildren().clear();
 
@@ -146,6 +148,7 @@ public class MovieListController extends Controller implements Initializable {
 
 
     public void refreshContent(){
+        logger.debug("refresh Content was called");
         User currentUser = UserModel.getInstance().getCurrentUser();
         if(currentUser instanceof UserImpl) {
             UserModel.getInstance().update((UserImpl) currentUser);
@@ -157,7 +160,9 @@ public class MovieListController extends Controller implements Initializable {
      * Deletes currently shown movieList
      * from the Users Lists and stops displaying it.
      */
-    private void delteMovieList(){
+    //TODO Maybe forgot to update the List? Only the user is updated
+    private void deleteMovieList(){
+        logger.debug("deleteMovieList was called");
         int index = jfxList.getSelectionModel().getSelectedIndex();
         if(index != -1){
             User currentUser = UserModel.getInstance().getCurrentUser();
@@ -182,7 +187,7 @@ public class MovieListController extends Controller implements Initializable {
             int selectedIndex = list.getSelectionModel().getSelectedIndex();
 
             if(selectedIndex == 0){
-                delteMovieList();
+                deleteMovieList();
                 popup.hide();
             }
             else {
