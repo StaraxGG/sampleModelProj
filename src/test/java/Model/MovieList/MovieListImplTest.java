@@ -164,17 +164,6 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddUserByName() throws UserNotFoundException {
-        this.movieListImpl.addUserByName(SEC_TEST_USER_NAME);
-        assertTrue(this.movieListImpl.getUsers().contains(UserModel.getInstance().findById(SEC_TEST_USER_NAME)));
-    }
-
-    @Test (expected = UserNotFoundException.class)
-    public void testAddUserByNameEXCEPTION() throws UserNotFoundException{
-        this.movieListImpl.addUserByName("not a username");
-    }
-
-    @Test
     public void testAddUser() throws UserNotFoundException {
         UserImpl user = UserModel.getInstance().findById(SEC_TEST_USER_NAME);
         this.movieListImpl.addUser(user);

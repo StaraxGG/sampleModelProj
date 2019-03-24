@@ -112,36 +112,6 @@ public class MovieListImpl implements MovieList {
 
 
     /**
-     * adds a new user to the users list of this movielist
-     *
-     * @param username username of the user that should already exist in the database
-     * @return true if the user was added, false if he was already on the list
-     * @throws UserNotFoundException when the user could not be found
-     * @deprecated use {@link #addUser(User)} instead
-     */
-    public boolean addUserByName(String username) throws UserNotFoundException {
-
-        User tmpUser = UserModel.getInstance().findById(username);
-
-        // check if this user exists
-        if (tmpUser == null)
-            throw new UserNotFoundException("The given User was not found");
-
-        // check if this user is NOT in the list
-        if (this.users.contains(tmpUser)) {
-
-            // user was already in the list
-            return false;
-        }
-
-        // add the user
-        this.users.add((UserImpl) tmpUser);
-        return true;
-
-
-    }
-
-    /**
      * Returns a hash value of the sequence of input values of the current object.
      *
      * @return int hash code
