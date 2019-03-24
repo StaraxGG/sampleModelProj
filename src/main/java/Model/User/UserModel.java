@@ -141,7 +141,7 @@ public class UserModel extends MasterModel<String, UserImpl> {
      *
      * @param user
      */
-    private static void setCurrentUser(User user) {
+    private void setCurrentUser(User user) {
         currentUser = user;
     }
 
