@@ -138,7 +138,7 @@ public class MovieListImpl implements MovieList {
     }
 
     /**
-     * Returns a hash value of the sequence of input values from the current object.
+     * Returns a hash value of the sequence of input values of the current object.
      *
      * @return int hash code
      */

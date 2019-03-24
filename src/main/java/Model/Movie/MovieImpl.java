@@ -123,6 +123,13 @@ public class MovieImpl implements Movie {
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
 
+    /**
+     * Compares the current MovieImpl object to another object.
+     * Returns true if they are equal, false if they are unequal.
+     *
+     * @param obj object
+     * @return boolean success
+     */
     @Override
     public boolean equals(Object obj) {
 
@@ -139,6 +146,11 @@ public class MovieImpl implements Movie {
         return this.getTmdbId().equals(movie.getTmdbId());
     }
 
+    /**
+     * Returns a hash value of the sequence of input values of the current object.
+     *
+     * @return int hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.tmdbID, this.title);
@@ -476,6 +488,12 @@ public class MovieImpl implements Movie {
         this.status = status;
     }
 
+    /**
+     * Returns a set of movielists that contain the current movie and the given user
+     *
+     * @param user
+     * @return set of movie lists
+     */
     @Override
     public Set<MovieList> getMovieLists(User user) {
         if (user == null)
@@ -483,6 +501,12 @@ public class MovieImpl implements Movie {
         return this.movieLists.stream().filter(movieList -> movieList.hasUser(user)).collect(Collectors.toSet());
     }
 
+    /**
+     * Adds the given MovieList to this movies movieList
+     *
+     * @param MovieList
+     * @return boolean success
+     */
     @Override
     public boolean addMovieList(MovieList movieList) {
         if (movieList == null) return false;
