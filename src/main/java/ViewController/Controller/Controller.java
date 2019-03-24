@@ -2,8 +2,53 @@ package ViewController.Controller;
 
 import javafx.animation.Transition;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Controller implements IController {
+
+    private final int MAX_THREADS = 4;
+
+    private Executor executor = Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
+        Thread t = new Thread(runnable);
+        t.setDaemon(true);
+        return t ;
+    });
+
+    private void exec(Runnable runnable){
+        executor.execute(runnable);
+    }
+
+    public <T> Task await(Supplier<T> supplier){
+        return new Task() {
+            @Override
+            protected Object call() throws Exception {
+                return supplier.get();
+            }
+        };
+    }
+
+    public Task async(Runnable runnable){
+        return new Task() {
+            @Override
+            protected Object call() throws Exception {
+                runnable.run();
+                return null;
+            }
+        };
+    }
+
+    /**
+     * Use this ONLY for SHORT UPDATES to the UI
+     * @param runnable
+     */
+    public void updateComponent(Runnable runnable){
+        Platform.runLater(runnable);
+    }
 
     /**
      * setUp function, which wraps a components setComponentUp function in a Platform.runLater call,
@@ -14,7 +59,7 @@ public class Controller implements IController {
      */
     @Override
     public final void setUp() {
-        Platform.runLater(this::setComponentUp);
+        exec(async(this::setComponentUp));
     }
 
     /**
@@ -26,7 +71,7 @@ public class Controller implements IController {
      */
     @Override
     public final void teardown() {
-        Platform.runLater(this::tearComponentDown);
+        exec(async(this::tearComponentDown));
     }
 
     /**
