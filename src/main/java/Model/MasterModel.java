@@ -151,7 +151,7 @@ public abstract class MasterModel<T extends Serializable, C extends MasterData> 
 
     /**
      * updates the given entitiy in the database. if the entity does not exist, it will be created. please do not
-     * use this method over {@link #persist(Object)}
+     * use this method over {@link #persist(MasterData)}
      * @param entity
      * @return C the updated object
      */
