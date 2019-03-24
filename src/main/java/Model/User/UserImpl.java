@@ -1,5 +1,6 @@
 package Model.User;
 
+import Model.MasterData;
 import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
@@ -27,7 +28,7 @@ import static java.util.Objects.hash;
  */
 @Entity
 @Table(name = "user")
-public class UserImpl implements User {
+public class UserImpl extends MasterData implements User {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

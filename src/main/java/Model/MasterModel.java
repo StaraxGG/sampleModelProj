@@ -17,7 +17,7 @@ import java.lang.reflect.ParameterizedType;
  * @version 1.0
  * @since 2019-Feb-10
  */
-public abstract class MasterModel<T extends Serializable, C> {
+public abstract class MasterModel<T extends Serializable, C extends MasterData> {
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
 

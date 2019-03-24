@@ -1,5 +1,6 @@
 package Model.Movie;
 
+import Model.MasterData;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
 import Model.User.User;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "movie")
-public class MovieImpl implements Movie {
+public class MovieImpl extends MasterData implements Movie {
 
 
     /* ---------------------------------------- Main ---------------------------------------------------------------- */
