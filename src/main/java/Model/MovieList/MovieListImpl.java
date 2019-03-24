@@ -7,6 +7,7 @@ import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
+import com.sun.istack.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,11 +77,11 @@ public class MovieListImpl implements MovieList {
      * @param movie           movie to add to the watchlist directly
      * @throws UserNotFoundException when the user could not be found
      */
-    public MovieListImpl(String movieListName, String creatorUserName, MovieImpl movie) throws UserNotFoundException {
+    public MovieListImpl(String movieListName, String creatorUserName, @Nullable MovieImpl movie) throws UserNotFoundException {
         // run default constructor for init shit
         this();
         logger.debug("New MovieListImpl Object with name " + movieListName + " by user " + creatorUserName
-                + " with movie " + movie.getId());
+                + " with movie " + (movie!=null ? movie.getId() : ""));
 
         // init attributes
         this.movieListName = movieListName;

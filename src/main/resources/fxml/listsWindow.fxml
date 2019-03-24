@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<?import javafx.scene.control.ScrollPane?>
-<?import com.jfoenix.controls.JFXButton?>
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ViewController.Controller.MovieListController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.Controller.MovieListController">
    <top>
       <HBox>
          <children>
-             <JFXButton fx:id="btnDelete" text="deleteCurrentMovie"/>
-             <JFXButton fx:id="btnRefresh" text="refresh"/>
+             <JFXButton fx:id="btnDelete" text="deleteCurrentMovie" />
+             <JFXButton fx:id="btnRefresh" text="refresh" />
+            <JFXButton fx:id="addListButton" alignment="CENTER_RIGHT" ripplerFill="BLACK" text="add" HBox.hgrow="NEVER" />
          </children>
       </HBox>
    </top>
    <left>
-      <JFXListView fx:id="jfxList" depth="2" verticalGap="5.0"/>
+      <JFXListView fx:id="jfxList" depth="2" verticalGap="5.0" />
    </left>
    <center>
       <ScrollPane fitToWidth="true">

@@ -1,15 +1,19 @@
 package ViewController.Controller;
 
+import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Model.User.Exception.UserNotFoundException;
 import Model.User.User;
 import Model.User.UserImpl;
 import Model.User.UserModel;
 import ViewController.Constructs.MovieConstruct;
 import ViewController.WindowManager;
 import com.jfoenix.controls.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.List;
@@ -48,6 +52,9 @@ public class MovieListController extends Controller implements Initializable {
     @FXML
     private JFXButton btnRefresh;
 
+    @FXML
+    private JFXButton addListButton;
+
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
@@ -61,16 +68,34 @@ public class MovieListController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
-        //TODO uncomment when loginwindow exists and user is logged in by the time this method is called
-        //User user = UserModel.getInstance().getCurrentUser();
-        //setUpListView(user);
-
-        setupDeleteButton();
-        setUpRefreshButton();
+        this.addListButton.setOnMouseClicked(this.addListButtonClicked);
 
     }
 
+    @Override
+    protected void setComponentUp(){
+        User user = UserModel.getInstance().getCurrentUser();
+        setUpListView((UserImpl) user);
+
+        setupDeleteButton();
+        setUpRefreshButton();
+    }
+
+
+    private EventHandler<? super MouseEvent> addListButtonClicked = me -> {
+        User currentUser = UserModel.getInstance().getCurrentUser();
+        try {
+            currentUser.getMovieLists()
+                    .add(new MovieListImpl("test", currentUser.getUsername()));
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if(currentUser instanceof UserImpl){
+            UserModel.getInstance().update((UserImpl)currentUser);
+            setUpListView((UserImpl)currentUser);
+        }
+    };
     /**
      * Registers clicks on list view but not on label and
      * may doesn't work anymore when movieLists get deleted.
