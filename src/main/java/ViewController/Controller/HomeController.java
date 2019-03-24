@@ -3,6 +3,7 @@ package ViewController.Controller;
 import Model.Movie.Movie;
 import Model.Movie.MovieModel;
 import ViewController.Constructs.MovieConstruct;
+import ViewController.Controller.LoginController.RegisterController;
 import ViewController.WindowManager;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXMasonryPane;
@@ -15,6 +16,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.List;
@@ -48,6 +51,8 @@ public class HomeController extends Controller implements Initializable {
     @FXML
     private ScrollPane spTop;
 
+    final static Logger logger = LoggerFactory.getLogger(RegisterController.class);
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
 
@@ -60,13 +65,14 @@ public class HomeController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        logger.debug("Initialising Component HomeController");
     }
 
     /**
      * Smooths scrolling and fixes some refreshing issue.
      */
     private void setupScrollpanes(){
+        logger.debug("Setting up smooth scrolling for Scrollpane");
         //Fixes scrollPane issue, where window is only scrollable if resized
         //manually before once. //TODO issues still there
         Platform.runLater(spPopular::requestLayout);
@@ -82,6 +88,7 @@ public class HomeController extends Controller implements Initializable {
      * @param listToDisplay
      */
     private void setupPopular(List<Movie> listToDisplay ){
+        logger.debug("setting up popular movies");
         listToDisplay.stream().forEach(e -> masonryPopular.getChildren().add(new MovieConstruct(e)));
     }
 
@@ -91,12 +98,14 @@ public class HomeController extends Controller implements Initializable {
      * @param listToDisplay
      */
     private void setupLatest(List<Movie> listToDisplay ){
+        logger.debug("Setting up latest movies");
         listToDisplay.stream().forEach(e -> masonryTop.getChildren().add(new MovieConstruct(e)));
     }
 
 
     @Override
     protected void setComponentUp() {
+        logger.debug("Setting Component up");
         //Sets some settings for the scrollPanes
         setupScrollpanes();
 
