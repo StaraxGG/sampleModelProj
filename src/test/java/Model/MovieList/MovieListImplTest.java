@@ -1,5 +1,6 @@
 package Model.MovieList;
 
+import Model.MasterModel;
 import Model.Movie.Movie;
 import Model.Movie.MovieImpl;
 import Model.User.Exception.UserNotFoundException;
@@ -114,11 +115,16 @@ public class MovieListImplTest {
     }
 
     @Test
+    public void testDeleteMovieFalseInstance() {
+        testMovie = null;
+        assertFalse(movieListImpl.deleteMovie(testMovie));
+    }
+
+    @Test
     public void testDeleteMovieTrue() {
         this.movieListImpl.addMovie(testMovie);
         assertTrue(movieListImpl.deleteMovie(testMovie));
     }
-
 
     @Test
     public void testGetId() {
@@ -172,18 +178,39 @@ public class MovieListImplTest {
         assertTrue(this.movieListImpl.getUsers().contains(user));
     }
 
+    @Test(expected = UserNotFoundException.class)
+    public void testAddUserEXCEPTION() throws UserNotFoundException {
+        UserModel.getInstance().remove(testUserTwo);
+        movieListImpl.addUser(testUserTwo);
+    }
+
     @Test
-    public void testAddUserEXCEPTION() {
-        UserImpl user = new UserImpl(TEST_USER_NAME, "123456");
-        this.movieListImpl.getUsers().add(user);
-        assertTrue(this.movieListImpl.getUsers().contains(user));
+    public void testHasUserTrue() {
+        assertTrue(movieListImpl.hasUser(testUser));
+    }
+
+    @Test
+    public void testHasUserFalse() {
+        assertFalse(movieListImpl.hasUser(testUserTwo));
+    }
+
+    @Test
+    public void testHashcodeTrue() {
+        int testHashCode = movieListImpl.hashCode();
+        assertTrue(movieListImpl.hashCode()==testHashCode);
+    }
+
+    @Test
+    public void testHashcodeFalse() {
+        int testHashCode = movieListImpl.hashCode();
+        movieListImpl.setName("different name");
+        assertFalse(movieListImpl.hashCode()==testHashCode);
     }
 
     @Test
     public void testSetMovieListID() {
         //ID is already set in setUp()
         assertTrue(this.movieListImpl.getId() == MOVIE_LIST_ID);
-
     }
 
     @Test
@@ -248,10 +275,6 @@ public class MovieListImplTest {
         assertFalse(movieListImpl.equals(otherMovieList));
     }
 
-    @Test
-    public void testHashcode() {
-        fail();
-    }
 
     @After
     public void tearDown() {
