@@ -3,6 +3,8 @@ package Model.User;
 import Model.Movie.Movie;
 import Model.MovieList.MovieList;
 import Model.MovieList.MovieListImpl;
+import Model.MovieList.MovieListModel;
+import Model.User.Exception.UserNotFoundException;
 import Tools.MessageTools;
 import com.sun.istack.internal.NotNull;
 import org.slf4j.Logger;
@@ -80,6 +82,15 @@ public class UserImpl implements User {
         }
 
         this.movieLists.add((MovieListImpl) movieList);
+
+        //tell the movielist that he/she has a new user
+        try {
+            movieList.addUser(this);
+            MovieListModel.getInstance().update((MovieListImpl) movieList);
+
+        } catch (UserNotFoundException e) {
+            logger.error(e.getMessage());
+        }
         return true;
     }
 

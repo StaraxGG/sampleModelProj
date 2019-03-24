@@ -84,19 +84,23 @@ public class MovieListImpl implements MovieList {
         // init attributes
         this.movieListName = movieListName;
 
-        // work with the user
-        User user = UserModel.getInstance().findById(creatorUserName);
+        // check this user and work with this one afterwards
+        UserImpl user = UserModel.getInstance().findById(creatorUserName);
         if (user == null)
             throw new UserNotFoundException();
 
         this.creatorUserName = user.getUsername();
-        //TODO remove if working CHW
-        //this.addUserByName(user.getUsername());
+
+        // add the user to the users list
         this.addUser(user);
 
         // add the movie
         if (movie != null)
-            this.movies.add(movie);
+            this.addMovie(movie);
+
+        // add this movielist to this users lists
+        user.addMovieList(this);
+        UserModel.getInstance().update(user);
     }
 
     protected MovieListImpl() {
