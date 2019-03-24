@@ -97,6 +97,9 @@ public abstract class MasterModel<T extends Serializable, C extends MasterData> 
             // find it again
             result = entity;
 
+            // set the persistence status
+            result.setPersisted(true);
+
         } catch (PersistenceException pe) {
             logger.error(pe.getMessage(), pe);
             if (transaction != null && transaction.isActive())
