@@ -1,5 +1,8 @@
 package Model.User;
 
+import Model.MovieList.MovieListImpl;
+import Model.MovieList.MovieListModel;
+import Model.User.Exception.UserNotFoundException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -140,6 +143,36 @@ public class UserModelTest {
 
         // check if it is really him
         assertEquals(user, tmpUser);
+    }
+
+    @Test
+    public void update() {
+
+        // we persist our user
+        user = userModel.persist((UserImpl) user);
+
+        // we get the value
+        int initialSize = user.getMovieLists().size();
+
+        // we change something about him
+        // like adding an empty movieList
+        try {
+            MovieListImpl emptyList = new MovieListImpl("test_movie_list", user.getUsername());
+            user.addMovieList(emptyList);
+
+            // now we update the user and check the return object
+            user = userModel.update((UserImpl) user);
+
+            // remove the added list --this should not have any effect
+            MovieListModel.getInstance().remove(emptyList);
+
+            // check the object
+            assertTrue(user.getMovieLists().size() > initialSize && user.getMovieLists().contains(emptyList));
+
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @After
