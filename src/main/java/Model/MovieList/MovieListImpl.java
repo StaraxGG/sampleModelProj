@@ -56,6 +56,8 @@ public class MovieListImpl implements MovieList {
 
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
+    /* ---------------------------------------- Constructors -------------------------------------------------------- */
+
     /**
      * this method creates a new movielist with a given user as creator user
      *
@@ -69,7 +71,7 @@ public class MovieListImpl implements MovieList {
     }
 
     /**
-     * this method creates a new movielist with a given user as creator user
+     * this method creates a new movielist with a given user as creator user and the first movie
      *
      * @param movieListName
      * @param creatorUserName
@@ -91,19 +93,22 @@ public class MovieListImpl implements MovieList {
             throw new UserNotFoundException();
 
         this.creatorUserName = user.getUsername();
-        this.addUserByName(user.getUsername());
+        //TODO remove if working CHW
+        //this.addUserByName(user.getUsername());
+        this.addUser(user);
 
         // add the movie
         if (movie != null)
             this.movies.add(movie);
     }
 
-
-    /* ---------------------------------------- Constructors -------------------------------------------------------- */
     protected MovieListImpl() {
         this.users = new HashSet<>();
         this.movies = new HashSet<>();
     }
+
+    /* ---------------------------------------- Methods ------------------------------------------------------------- */
+
 
     /**
      * adds a new user to the users list of this movielist
@@ -135,13 +140,24 @@ public class MovieListImpl implements MovieList {
 
     }
 
-    /* ---------------------------------------- Methods ------------------------------------------------------------- */
-
+    /**
+     * Returns a hash value of the sequence of input values of the current object.
+     *
+     * @return int hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.creatorUserName, this.users, this.movies, this.movieListName);
     }
 
+
+    /**
+     * Compares the current MovieListImpl object to another object.
+     * Returns true if they are equal, false if they are unequal.
+     *
+     * @param obj object
+     * @return boolean success
+     */
     @Override
     public boolean equals(Object obj) {
 
@@ -154,6 +170,10 @@ public class MovieListImpl implements MovieList {
 
         // should have the same creator
         if (!this.getCreatorUserName().equals(((MovieListImpl) obj).getCreatorUserName()))
+            return false;
+
+        // should have the same name
+        if (!this.getName().equals(((MovieListImpl)obj).getName()))
             return false;
 
         // should have the same users
@@ -280,6 +300,9 @@ public class MovieListImpl implements MovieList {
         return this.users.contains(user);
     }
 
+
+    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
+
     /**
      * returns the id of this movielist
      *
@@ -300,9 +323,6 @@ public class MovieListImpl implements MovieList {
         return this.movieListName;
     }
 
-
-
-    /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**
      * Sets/changes the name of this movielist

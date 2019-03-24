@@ -1,12 +1,12 @@
 package Model.Movie;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.LinkedList;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * An implementation of Model.Movie.MovieImplTest
@@ -19,7 +19,8 @@ import static org.junit.Assert.assertTrue;
 
 public class MovieImplTest {
 
-    private MovieImpl movie = new MovieImpl();
+    private MovieImpl movie;
+    private MovieImpl testMovieTwo;
     private static final String genreOne = "Horror";
     private static final String genreTwo = "Comedy";
     private static final String prodCom = "Test productions";
@@ -33,8 +34,10 @@ public class MovieImplTest {
     private static final String testLanguage = "de";
     private static final String testStatus = "released";
 
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        movie = new MovieImpl();
         this.movie.setTmdbId(tmdbID);
         this.movie.setTitle(testTitle);
         this.movie.setPopularity(5.5f);
@@ -47,6 +50,10 @@ public class MovieImplTest {
         this.movie.setVoteAverage(3.5f);
         this.movie.setStatus(testStatus);
         this.movie.setId(123456L);
+
+        testMovieTwo = new MovieImpl();
+        this.testMovieTwo.setTmdbId(tmdbID);
+        this.testMovieTwo.setTitle(testTitle);
 
         LinkedList<String> genres = new LinkedList<>();
         genres.add(genreOne);
@@ -61,10 +68,6 @@ public class MovieImplTest {
         productionCountries.add(proCoun);
         this.movie.setProductionCountries(productionCountries);
 
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
@@ -261,16 +264,40 @@ public class MovieImplTest {
     }
 
     @Test
-    public void testEquals() {
-        MovieImpl testMovieOne = movie;
-        MovieImpl testMovieTwo = movie;
-        assertTrue(testMovieOne.equals(testMovieTwo) && testMovieTwo.equals(testMovieOne));
+    public void testEqualsTrue() {
+        assertTrue(movie.equals(testMovieTwo) && testMovieTwo.equals(movie));
     }
 
     @Test
-    public void testHashcode() {
+    public void testEqualsFalse() {
+        testMovieTwo.setTmdbId(2222);
+        assertFalse(movie.equals(testMovieTwo) && testMovieTwo.equals(movie));
+    }
+
+    @Test
+    public void testHashcodeTrue() {
         MovieImpl testMovieOne = movie;
-        MovieImpl testMovieTwo = movie;
         assertTrue(testMovieOne.hashCode() == testMovieTwo.hashCode());
+    }
+
+    @Test
+    public void testHashcodeFalse() {
+        testMovieTwo.setTitle("different title");
+        assertFalse(movie.hashCode() == testMovieTwo.hashCode());
+    }
+
+    @Test
+    public void testGetMovieLists() {
+       fail();
+    }
+
+    @Test
+    public void testAddMovieListTrue() {
+        fail();
+    }
+
+    @Test
+    public void testAddMovieListFalse() {
+        fail();
     }
 }
