@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,15 +32,18 @@ public class MovieListImplTest {
     private static final String SEC_TEST_USER_NAME = "testuser@test.de";
     private static final String SEC_TEST_USER_PASSWORD = "123456";
     private static final String TEST_MOVIE_LIST_NAME = "Testname";
+    private static final String SEC_TEST_MOVIE_LIST_NAME = "Different Testname";
     private static final Long MOVIE_LIST_ID = 123456L;
 
     private MovieImpl testMovie;
     private MovieImpl testMovieTwo;
     private MovieListImpl movieListImpl;
-    private Object otherMovieList;
+    private MovieListImpl otherMovieList;
     private MovieListImpl otherCreatorList;
     private UserImpl testUser;
     private UserImpl testUserTwo;
+    private List<Movie> movies;
+    private Object otherInst;
 
 
     @Before
@@ -48,6 +52,9 @@ public class MovieListImplTest {
         testMovieTwo = new MovieImpl();
         testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
         testUserTwo = new UserImpl(SEC_TEST_USER_NAME, SEC_TEST_USER_PASSWORD);
+        movies = new LinkedList<>();
+        movies.add(testMovieTwo);
+        otherInst = new Object();
         UserModel.getInstance().register(testUser);
         UserModel.getInstance().register(testUserTwo);
 
@@ -65,9 +72,21 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddMovie() {
+    public void testAddMovieTrue() {
         this.movieListImpl.addMovie(testMovie);
         assertTrue(this.movieListImpl.getMovies().contains(testMovie));
+    }
+
+    @Test
+    public void testAddMovieFalseNull() {
+        testMovie = null;
+        assertFalse(movieListImpl.addMovie(testMovie));
+    }
+
+    @Test
+    public void testAddMovieFalse_AlreadyContains() {
+        movieListImpl.addMovie(testMovie);
+        assertFalse(movieListImpl.addMovie(testMovie));
     }
 
     @Test
@@ -77,13 +96,16 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testAddMovies() {
-        fail();
+    public void testAddMoviesTrue() {
+        movieListImpl.addMovies(movies);
+        assertTrue(movieListImpl.contains(testMovieTwo));
     }
 
     @Test
-    public void testAddMovies_AlreadyContainsMovie() {
-        fail();
+    public void testAddMoviesFalse() {
+        movies = null;
+        assertFalse(movieListImpl.addMovies(movies));
+
     }
 
     @Test
@@ -190,13 +212,12 @@ public class MovieListImplTest {
 
     @Test
     public void testEqualsFalse() {
-        ((MovieListImpl) otherMovieList).addMovie(testMovie);
+        otherMovieList.addMovie(testMovie);
         assertFalse(this.movieListImpl.equals(otherMovieList));
     }
 
     @Test
     public void testEqualsFalseInstance() {
-        Object otherInst = new Object();
         assertFalse(this.movieListImpl.equals(otherInst));
     }
 
@@ -208,7 +229,7 @@ public class MovieListImplTest {
     @Test
     public void testEqualsFalseUsers() {
         try{
-        ((MovieListImpl)otherMovieList).addUser(testUserTwo);}
+        otherMovieList.addUser(testUserTwo);}
         catch(UserNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -217,12 +238,14 @@ public class MovieListImplTest {
 
     @Test
     public void testEqualsFalseMovies() {
-        fail();
+        otherMovieList.addMovie(testMovieTwo);
+        assertFalse(movieListImpl.equals(otherMovieList));
     }
 
     @Test
     public void testEqualsFalseName() {
-        fail();
+        otherMovieList.setName(SEC_TEST_MOVIE_LIST_NAME);
+        assertFalse(movieListImpl.equals(otherMovieList));
     }
 
     @Test
@@ -232,7 +255,10 @@ public class MovieListImplTest {
 
     @After
     public void tearDown() {
-        //UserModel.getInstance().remove(testUser);
+        UserModel um = UserModel.getInstance();
+        um.remove(testUser);
+        um.remove(testUserTwo);
+
     }
 
 }
