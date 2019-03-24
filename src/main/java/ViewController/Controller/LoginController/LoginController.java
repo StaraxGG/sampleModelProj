@@ -7,6 +7,7 @@ import Model.User.UserImpl;
 import Model.User.UserModel;
 import ViewController.Controller.Controller;
 import ViewController.Controller.RootController;
+import ViewController.Controller.ThrowingFunction;
 import ViewController.InstanceManager;
 import ViewController.WINDOW_IDENTIFIER;
 import ViewController.Start;
@@ -106,22 +107,19 @@ public class LoginController extends Controller implements Initializable {
             this.errorLabel.setText("");
         }
 
-        User user = new UserImpl(usertext, pwtext);
-
-        try{
-            user = this.UMINstance.login(user);
-        }catch (UserNotFoundException __){
+        try {
+            User user = await(new UserImpl(usertext, pwtext), UMINstance::login);
+        }catch (RuntimeException | UserNotFoundException e){
             this.errorLabel.setText("Couldn't find a user with that name. Register?");
             this.playLoginFailAnimation();
             return;
-        }catch (UserWrongPasswordException __){
+        }catch (UserWrongPasswordException __) {
             this.errorLabel.setText("Passwords do not match!");
             this.playLoginFailAnimation();
             return;
-        }catch(IllegalArgumentException __){
-            ;
-        }
-
+            }catch(IllegalArgumentException __){
+              ;
+            }
         Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
     };
 

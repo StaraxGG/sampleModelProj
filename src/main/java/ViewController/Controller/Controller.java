@@ -3,6 +3,7 @@ package ViewController.Controller;
 import javafx.animation.Transition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -23,13 +24,36 @@ public class Controller implements IController {
         executor.execute(runnable);
     }
 
-    public <T> Task await(Supplier<T> supplier){
-        return new Task() {
+    public <T, R> R await(T t, Function<T,R> func, int i){
+        Task task =  new Task() {
             @Override
             protected Object call() throws Exception {
-                return supplier.get();
+                return func.apply(t);
             }
         };
+
+        exec(task);
+        return (R) task.getValue();
+    }
+
+    public <T, R, E extends Throwable> R await(T t, ThrowingFunction<T,R,E> func){
+        Task task = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                try{
+                    return func.apply(t);
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+                //return ThrowingFunction.unchecked(func);
+            }
+        };
+        exec(task);
+        task.setOnFailed(w -> {
+            throw new RuntimeException(task.getException());
+        });
+        return (R) task.getValue();
     }
 
     public Task async(Runnable runnable){
