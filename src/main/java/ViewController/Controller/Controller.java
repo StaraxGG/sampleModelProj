@@ -24,7 +24,7 @@ public class Controller implements IController {
         executor.execute(runnable);
     }
 
-    public <T, R> R await(T t, Function<T,R> func, int i){
+    public <T, R> R await(T t, Function<T,R> func){
         Task task =  new Task() {
             @Override
             protected Object call() throws Exception {
