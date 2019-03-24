@@ -90,7 +90,7 @@ public class MovieListImpl implements MovieList {
             throw new UserNotFoundException();
 
         this.creatorUserName = user.getUsername();
-        //TODO depracated, replaced CHW
+        //TODO remove if working CHW
         //this.addUserByName(user.getUsername());
         this.addUser(user);
 

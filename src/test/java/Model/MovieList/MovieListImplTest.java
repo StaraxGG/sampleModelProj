@@ -65,7 +65,10 @@ public class MovieListImplTest {
             otherCreatorList = new MovieListImpl(TEST_MOVIE_LIST_NAME, SEC_TEST_USER_NAME);
             this.movieListImpl.setMovieListID(MOVIE_LIST_ID);
 
-            this.movieListImpl.addUserByName(TEST_USER_NAME);
+            //TODO remove if working CHW
+            //this.movieListImpl.addUserByName(TEST_USER_NAME);
+            this.movieListImpl.addUser(testUser);
+
         }
         catch(UserNotFoundException e){
             System.out.println(e.getMessage());
