@@ -1,5 +1,6 @@
 package ViewController.Controller.LoginController;
 
+import Model.Movie.MovieModel;
 import Model.User.Exception.UserNotFoundException;
 import Model.User.Exception.UserWrongPasswordException;
 import Model.User.User;
@@ -24,6 +25,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.Objects;
@@ -71,6 +74,8 @@ public class LoginController extends Controller implements Initializable {
 
     private UserModel UMINstance;
 
+    final static Logger logger = LoggerFactory.getLogger(LoginController.class);
+
     /* ---------------------------------------- Constants ----------------------------------------------------------- */
 
 
@@ -83,6 +88,7 @@ public class LoginController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        logger.debug("Initializing LoginController");
 
         this.UMINstance = UserModel.getInstance();
         this.loginButton.setOnMouseClicked(this.loginButtonClicked);
@@ -91,14 +97,17 @@ public class LoginController extends Controller implements Initializable {
     }
 
     private EventHandler<? super MouseEvent> loginButtonClicked = mouseEvent -> {
+        logger.debug("Login Button clicked!");
         String usertext = this.usernameField.getText();
         String pwtext = this.passwordField.getText();
 
         if(Objects.equals(usertext, "")){
+            logger.debug("Login button was clicked without a username entered");
             this.errorLabel.setText("Please enter a Username");
             this.playLoginFailAnimation();
             return;
         }else if(!Objects.equals(usertext, "") && Objects.equals(pwtext, "")){
+            logger.debug("Login button was clicked without a password entered");
             this.errorLabel.setText("Please enter a password");
             this.playLoginFailAnimation();
             return;
@@ -111,25 +120,30 @@ public class LoginController extends Controller implements Initializable {
         try{
             user = this.UMINstance.login(user);
         }catch (UserNotFoundException __){
+            logger.debug("Login button clicked but no user found with name " + usertext);
             this.errorLabel.setText("Couldn't find a user with that name. Register?");
             this.playLoginFailAnimation();
             return;
         }catch (UserWrongPasswordException __){
-            this.errorLabel.setText("Passwords do not match!");
+            logger.debug("Login Attempt, but wrong password entered");
+            this.errorLabel.setText("Password doesnt not match!");
             this.playLoginFailAnimation();
             return;
-        }catch(IllegalArgumentException __){
-            ;
+        }catch(IllegalArgumentException e){
+            logger.error("Illegal Argument Exception in LoginController", e);
         }
 
+        logger.debug("Login attempt successfull, switching to Homescreen");
         Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.HOMESCREEN);
     };
 
     private EventHandler<? super MouseEvent> signUpButtonClicked = mouseEvent -> {
+        logger.debug("Register Button clicked");
         Start.getManager().switchScreenTo(WINDOW_IDENTIFIER.REGISTER);
     };
 
     private EventHandler<? super MouseEvent> rememberMeCheckboxClicked = mouseEvent -> {
+        logger.debug("Remember me checkbox checked");
         this.rememberMeCheckBox.setSelected(!this.rememberMeCheckBox.isSelected());
     };
 
@@ -137,6 +151,7 @@ public class LoginController extends Controller implements Initializable {
 
     /* ---------------------------------------- Animation ----------------------------------------------------------- */
     private void playLoginFailAnimation(){
+        logger.debug("Playing login fail animation");
         this.playAnimation(this.createLoginAnimation());
 
     }
@@ -162,6 +177,7 @@ public class LoginController extends Controller implements Initializable {
 
     @Override
     protected void setComponentUp(){
+        logger.debug("Setting up Component Login Controller");
         ((RootController)InstanceManager
                 .getInstance()
                 .getWindowControllerBridge(WINDOW_IDENTIFIER.Root)
@@ -170,6 +186,7 @@ public class LoginController extends Controller implements Initializable {
 
     @Override
     protected void tearComponentDown(){
+        logger.debug("Tearing down Component Login Controller");
         ((RootController)InstanceManager
                 .getInstance()
                 .getWindowControllerBridge(WINDOW_IDENTIFIER.Root)
