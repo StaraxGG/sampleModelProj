@@ -36,19 +36,25 @@ public class MovieListImplTest {
     private MovieImpl testMovie;
     private MovieImpl testMovieTwo;
     private MovieListImpl movieListImpl;
+    private Object otherMovieList;
+    private MovieListImpl otherCreatorList;
+    private UserImpl testUser;
+    private UserImpl testUserTwo;
 
 
     @Before
     public void setUp() {
         testMovie = new MovieImpl();
         testMovieTwo = new MovieImpl();
-        UserImpl testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
-        UserImpl testUserTwo = new UserImpl(SEC_TEST_USER_NAME, SEC_TEST_USER_PASSWORD);
+        testUser = new UserImpl(TEST_USER_NAME, TEST_USER_PASSWORD);
+        testUserTwo = new UserImpl(SEC_TEST_USER_NAME, SEC_TEST_USER_PASSWORD);
         UserModel.getInstance().register(testUser);
         UserModel.getInstance().register(testUserTwo);
 
         try {
             movieListImpl = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
+            otherMovieList = new MovieListImpl(TEST_MOVIE_LIST_NAME, TEST_USER_NAME);
+            otherCreatorList = new MovieListImpl(TEST_MOVIE_LIST_NAME, SEC_TEST_USER_NAME);
             this.movieListImpl.setMovieListID(MOVIE_LIST_ID);
 
             this.movieListImpl.addUserByName(TEST_USER_NAME);
@@ -177,7 +183,45 @@ public class MovieListImplTest {
     }
 
     @Test
-    public void testEquals() {
+    public void testEqualsTrue() {
+        otherMovieList = this.movieListImpl;
+        assertTrue(this.movieListImpl.equals(otherMovieList));
+    }
+
+    @Test
+    public void testEqualsFalse() {
+        ((MovieListImpl) otherMovieList).addMovie(testMovie);
+        assertFalse(this.movieListImpl.equals(otherMovieList));
+    }
+
+    @Test
+    public void testEqualsFalseInstance() {
+        Object otherInst = new Object();
+        assertFalse(this.movieListImpl.equals(otherInst));
+    }
+
+    @Test
+    public void testEqualsFalseCreator() {
+        assertFalse(this.movieListImpl.equals(otherCreatorList));
+    }
+
+    @Test
+    public void testEqualsFalseUsers() {
+        try{
+        ((MovieListImpl)otherMovieList).addUser(testUserTwo);}
+        catch(UserNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        assertFalse(this.movieListImpl.equals(otherMovieList));
+    }
+
+    @Test
+    public void testEqualsFalseMovies() {
+        fail();
+    }
+
+    @Test
+    public void testEqualsFalseName() {
         fail();
     }
 

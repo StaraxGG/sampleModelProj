@@ -153,6 +153,10 @@ public class MovieListImpl implements MovieList {
         if (!this.getCreatorUserName().equals(((MovieListImpl) obj).getCreatorUserName()))
             return false;
 
+        // should have the same name
+        if (!this.getName().equals(((MovieListImpl)obj).getName()))
+            return false;
+
         // should have the same users
         if (!this.getUsers().equals(otherMovieList.getUsers()))
             return false;
