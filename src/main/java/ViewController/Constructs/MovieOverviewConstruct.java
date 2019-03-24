@@ -116,9 +116,8 @@ public class MovieOverviewConstruct extends StackPane {
         setUpPoster(movie);
         setUpBackground(movie);
 
-        //TODO uncomment when loginwindow exists and user is logged in by the time this method is called
-        //User userUserModel.getInstance().getCurrentUser();
-        //setUpAddToListButton(User user)
+        User user = UserModel.getInstance().getCurrentUser();
+        setUpAddToListButton(user);
     }
 
     /* ---------------------------------------- Methods ------------------------------------------------------------- */
