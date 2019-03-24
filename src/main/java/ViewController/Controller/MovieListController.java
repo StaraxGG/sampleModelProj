@@ -102,7 +102,11 @@ public class MovieListController extends Controller implements Initializable {
             logger.error(e.getMessage(), e.getClass().getSimpleName());
         }
 
+        logger.debug("Persisting Movie List");
+        MovieListModel.getInstance().persist(newlist);
+
         currentUser.getMovieLists().add(newlist);
+        currentUser = UserModel.getInstance().update((UserImpl)currentUser);
         try {
             logger.debug("Adding user to list " + newlist.getName());
             newlist.addUser(currentUser);
@@ -110,14 +114,10 @@ public class MovieListController extends Controller implements Initializable {
             logger.error(e.getMessage(), e.getClass().getSimpleName());
         }
 
-        if(currentUser instanceof UserImpl){
-            setUpListView((UserImpl)currentUser);
+        logger.debug("Persisting User");
+        UserModel.getInstance().update((UserImpl) currentUser);
 
-            logger.debug("Persisting User");
-            UserModel.getInstance().persist((UserImpl) currentUser);
-            logger.debug("Persisting Movie List");
-            MovieListModel.getInstance().persist(newlist);
-        }
+        setUpListView((UserImpl)currentUser);
     };
     /**
      * Registers clicks on list view but not on label and

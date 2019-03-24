@@ -64,7 +64,7 @@ public class CheckboxConstruct extends JFXCheckBox {
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {
 
-                //User currentUser = (UserImpl) UserModel.getInstance().getCurrentUser();
+                User currentUser = (UserImpl) UserModel.getInstance().getCurrentUser();
                 MovieListModel movieListModel = MovieListModel.getInstance();
 
                 //movie gets added to list
@@ -77,7 +77,7 @@ public class CheckboxConstruct extends JFXCheckBox {
                             System.out.println(movie.getTitle() + "added to " + movieList.getName());
                         }
                         movieList = movieListModel.update(movieList);
-                        //UserModel.getInstance().update((UserImpl) currentUser);
+                        UserModel.getInstance().update((UserImpl) currentUser);
                         refreshCheckBox();
                         Start.getManager().refreshListView();
                     }
@@ -92,7 +92,7 @@ public class CheckboxConstruct extends JFXCheckBox {
                             System.out.println(movie.getTitle() + "deleted from " + movieList.getName());
                         }
                         movieList = movieListModel.update(movieList);
-                        //UserModel.getInstance().update((UserImpl) currentUser);
+                        UserModel.getInstance().update((UserImpl) currentUser);
                         refreshCheckBox();
                         Start.getManager().refreshListView();
                     }
