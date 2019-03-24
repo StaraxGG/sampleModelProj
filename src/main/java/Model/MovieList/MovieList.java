@@ -68,6 +68,13 @@ public interface MovieList {
      */
     boolean hasUser(User user);
 
+    /**
+     * checks if this movieList contains the following movie
+     * if the movie is null or not a MovieListImpl object then false will be returned
+     * @return
+     */
+    boolean contains(Movie movie);
+
     /* ---------------------------------------- S/Getters ----------------------------------------------------------- */
 
     /**
@@ -105,11 +112,6 @@ public interface MovieList {
      */
     Set<UserImpl> getUsers();
 
-    /**
-     * checks if this movieList contains the following movie
-     * if the movie is null or not a MovieListImpl object then false will be returned
-     * @return
-     */
-    boolean contains(Movie movie);
+
 
 }
