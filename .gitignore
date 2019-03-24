@@ -11,3 +11,4 @@ target/
 src/main/java/LocalDirectory/*.java
 !src/main/java/LocalDirectory/README.md
 log.txt
+*/log.txt
